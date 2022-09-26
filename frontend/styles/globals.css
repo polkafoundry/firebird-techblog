@@ -2,6 +2,31 @@
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
 
+@font-face {
+  font-family: "TTHoves";
+  src: url(/fonts/TTHoves-Regular.woff) format("woff"),
+    url(/fonts/TTHoves-Regular.woff2) format("woff2"),
+    url(/fonts/TTHoves-Regular.ttf) format("truetype"),
+    url(/fonts/TTHoves-Regular.ttf) format("svg"),
+    url(/fonts/TTHoves-Regular.ttf) format("embedded-opentype");
+}
+@font-face {
+  font-family: "TTHoves Medium";
+  src: url(/fonts/TTHoves-Medium.woff) format("woff"),
+    url(/fonts/TTHoves-Medium.woff2) format("woff2"),
+    url(/fonts/TTHoves-Medium.ttf) format("truetype"),
+    url(/fonts/TTHoves-Medium.ttf) format("svg"),
+    url(/fonts/TTHoves-Medium.ttf) format("embedded-opentype");
+}
+@font-face {
+  font-family: "TTHoves Bold";
+  src: url(/fonts/TTHoves-Bold.woff) format("woff"),
+    url(/fonts/TTHoves-Bold.woff2) format("woff2"),
+    url(/fonts/TTHoves-Bold.ttf) format("truetype"),
+    url(/fonts/TTHoves-Bold.ttf) format("svg"),
+    url(/fonts/TTHoves-Bold.ttf) format("embedded-opentype");
+}
+
 html,
 body {
   padding: 0;
