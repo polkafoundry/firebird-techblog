@@ -2,13 +2,13 @@ import React from "react"
 import Link from "next/link"
 import Image from "next/image"
 
-const HeaderDefaultLayout = () => {
+const HeaderLandingLayout = () => {
   return (
-    <nav className="absolute -translate-x-1/2 left-1/2 h-20 w-full flex items-center justify-between max-w-screen-main px-[120px] text-black">
+    <nav className="absolute -translate-x-1/2 left-1/2 h-20 w-full flex items-center justify-between max-w-screen-main px-[120px] text-white">
       <Link href="/">
         <a>
           <Image
-            src="/images/logo-text-black.svg"
+            src="/images/logo-text.svg"
             width="192px"
             height="42px"
             layout="fixed"
@@ -27,4 +27,4 @@ const HeaderDefaultLayout = () => {
   )
 }
 
-export default HeaderDefaultLayout
+export default HeaderLandingLayout

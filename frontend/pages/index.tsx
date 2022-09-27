@@ -1,8 +1,8 @@
-import type { NextPage } from "next";
-import Head from "next/head";
-import DefaultLayout from "../components/Layouts/DefaultLayout";
-import LandingPage from "../components/Pages/LandingPage";
-import styles from "../styles/Home.module.css";
+import type { NextPage } from "next"
+import Head from "next/head"
+import LandingLayout from "../components/Layouts/LandingLayout"
+import LandingPage from "../components/Pages/LandingPage"
+import styles from "../styles/Home.module.css"
 
 const Home: NextPage = () => {
   return (
@@ -13,11 +13,11 @@ const Home: NextPage = () => {
         <link rel="icon" href="/logo.svg" />
       </Head>
 
-      <DefaultLayout>
+      <LandingLayout>
         <LandingPage />
-      </DefaultLayout>
+      </LandingLayout>
     </div>
-  );
-};
+  )
+}
 
-export default Home;
+export default Home
