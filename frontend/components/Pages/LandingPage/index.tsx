@@ -1,11 +1,12 @@
+import clsx from "clsx"
 import Image from "next/image"
-import Link from "next/link"
-import React, { useEffect, useState } from "react"
+import { useEffect, useState } from "react"
 import { contentTypes, CONTENT_TYPES } from "../../../utils/constants"
+import Button from "../../Base/Button"
+import ButtonLink from "../../Base/ButtonLink"
 import { CardActive, CardHorizontal } from "../../Base/Card"
 import CardVertical from "../../Base/Card/CardVertical"
 import styles from "./landing.module.scss"
-import clsx from "clsx"
 
 type FilterTypes = {
   search: string
@@ -100,14 +101,11 @@ function LandingPage() {
         </div>
 
         <div className="flex justify-center mt-10">
-          <Link href={"/articles"}>
-            <a
-              className={clsx(
-                buttonStyles.button,
-                "px-7 gap-3 bg-black text-white",
-                buttonStyles.hoverAnimated
-              )}
-            >
+          <ButtonLink
+            className="px-7 gap-3 bg-black text-white"
+            href="articles"
+          >
+            <>
               View more articles
               <Image
                 src={"/images/icon-open.svg"}
@@ -115,8 +113,8 @@ function LandingPage() {
                 height={24}
                 alt=""
               />
-            </a>
-          </Link>
+            </>
+          </ButtonLink>
         </div>
       </>
     )
@@ -203,33 +201,21 @@ function LandingPage() {
               </span>
 
               <div className="flex gap-4 mt-3">
-                <Link href="writer">
-                  <a
-                    className={clsx(
-                      buttonStyles.button,
-                      "px-12 bg-black text-white",
-                      buttonStyles.hoverAnimated
-                    )}
-                  >
-                    Discover
-                  </a>
-                </Link>
-                <div
-                  className={clsx(
-                    buttonStyles.button,
-                    "gap-2 px-7 border-[2.5px] border-black",
-                    buttonStyles.hoverAnimated
-                  )}
-                >
-                  <span>Post an article</span>
-                  <Image
-                    src="/images/icon-post.svg"
-                    alt=""
-                    width={24}
-                    height={24}
-                    layout="fixed"
-                  />
-                </div>
+                <ButtonLink href="writer" className="px-12 bg-black text-white">
+                  Discover
+                </ButtonLink>
+                <Button className="gap-2 px-7 border-[2.5px] border-black">
+                  <>
+                    <span>Post an article</span>
+                    <Image
+                      src="/images/icon-post.svg"
+                      alt=""
+                      width={24}
+                      height={24}
+                      layout="fixed"
+                    />
+                  </>
+                </Button>
               </div>
             </div>
 

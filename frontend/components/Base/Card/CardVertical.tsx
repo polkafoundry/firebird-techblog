@@ -19,7 +19,12 @@ const fakeCard = {
   date: "Jan 24",
   timeToRead: "4 min"
 }
-const CardVertical = () => {
+type CardVerticalProps = {
+  hideDetail?: boolean
+}
+const CardVertical = (props: CardVerticalProps) => {
+  const { hideDetail = false } = props
+
   return (
     <div className="bg-white w-full max-w-[360px] rounded-[20px] p-5 flex flex-col">
       <div className="rounded-xl h-[180px] w-full relative">
@@ -43,7 +48,9 @@ const CardVertical = () => {
       <div className={`${styles.multiLine} mt-1 text-xl font-semibold`}>
         {fakeCard?.title}
       </div>
-      <div className={`${styles.multiLine} mt-2`}>{fakeCard?.detail}</div>
+      {!hideDetail && (
+        <div className={`${styles.multiLine} mt-2`}>{fakeCard?.detail}</div>
+      )}
       <div className="mt-5 flex gap-2">
         <Image
           src={fakeCard?.authorAvatar}
