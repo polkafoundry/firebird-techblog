@@ -9,6 +9,7 @@
     "lint": "next lint"
   },
   "dependencies": {
+    "@netlify/plugin-nextjs": "^4.23.3",
     "@apollo/client": "^3.6.9",
     "clsx": "^1.2.1",
     "graphql": "^16.6.0",
