@@ -1,5 +1,5 @@
 /** @type {import('tailwindcss').Config} */
-const colors = require('tailwindcss/colors')
+const colors = require("tailwindcss/colors")
 delete colors.lightBlue
 delete colors.warmGray
 delete colors.trueGray
@@ -10,7 +10,7 @@ module.exports = {
   content: [
     "./utils/**/*.{js,ts,jsx,tsx}",
     "./pages/**/*.{js,ts,jsx,tsx}",
-    "./components/**/*.{js,ts,jsx,tsx}",
+    "./components/**/*.{js,ts,jsx,tsx}"
   ],
   theme: {
     screens: {
@@ -33,10 +33,10 @@ module.exports = {
       ...colors
     },
     fontFamily: {
-      'birdMedium': ['TTHoves Medium'],
-      'birdBold': ['TTHoves Bold'],
+      birdMedium: ["TTHoves Medium"],
+      birdBold: ["TTHoves Bold"]
     },
-    extend: {},
+    extend: {}
   },
-  plugins: [],
+  plugins: []
 }
