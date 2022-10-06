@@ -47,8 +47,9 @@ module.exports = {
       "7xl": ["5rem", { lineHeight: "6.25rem" }], // 80px/100px
       "8xl": ["6rem", { lineHeight: "1" }],
       "9xl": ["8rem", { lineHeight: "1" }],
+      "10px": ["10px", { lineHeight: "14px" }],
       "22px": ["22px", { lineHeight: "36px" }],
-      "10px": ["10px", { lineHeight: "14px" }]
+      "36px": ["36px", { lineHeight: "56px" }]
     },
 
     fontFamily: {
