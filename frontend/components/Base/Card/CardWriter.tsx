@@ -1,8 +1,10 @@
 import Image from "next/image"
+import Link from "next/link"
 import React from "react"
 import {
   CONTENT_TYPES,
-  MAPPING_CONTENT_TYPE_TEXT
+  MAPPING_CONTENT_TYPE_TEXT,
+  URLS
 } from "../../../utils/constants"
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
@@ -21,55 +23,57 @@ const fakeCard = {
 }
 const CardWriter = () => {
   return (
-    <div className="bg-white w-full rounded-[20px] p-7 flex flex-col gap-5 h-full">
-      <div className="rounded-xl w-full max-w-full relative h-full">
-        <Image
-          src={fakeCard?.image}
-          layout="fill"
-          alt=""
-          sizes="100vw"
-          objectFit="contain"
-        />
-      </div>
-      <div className="flex flex-col flex-1">
-        <div className="flex mt-1 gap-[6px]">
-          {fakeCard?.types?.map((type: any) => (
-            <div
-              key={type}
-              className={`font-semibold text-sm rounded-lg px-5 h-8 flex items-center 
-            ${getContentTypeColor(type)}`}
-            >
-              <span>{MAPPING_CONTENT_TYPE_TEXT[type]}</span>
-            </div>
-          ))}
-        </div>
-        <div
-          className={`${styles.multiLineActive} mt-1 text-[32px] leading-10 font-semibold`}
-        >
-          {fakeCard?.title}
-        </div>
-        <div className={`${styles.multiLineActive} mt-2`}>
-          {fakeCard?.detail}
-        </div>
-        <div className="mt-12 flex gap-2">
+    <Link href={URLS.DETAILS_ARTICLE}>
+      <div className="bg-white w-full rounded-[20px] p-7 flex flex-col gap-5 h-full cursor-pointer">
+        <div className="rounded-xl w-full max-w-full relative h-full">
           <Image
-            src={fakeCard?.authorAvatar}
-            width={44}
-            height={44}
+            src={fakeCard?.image}
+            layout="fill"
             alt=""
-            className="rounded-full"
+            sizes="100vw"
+            objectFit="contain"
           />
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-semibold">
-              {fakeCard?.authorName}
-            </span>
-            <span className="text-xs text-birdGray">
-              {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
-            </span>
+        </div>
+        <div className="flex flex-col flex-1">
+          <div className="flex mt-1 gap-[6px]">
+            {fakeCard?.types?.map((type: any) => (
+              <div
+                key={type}
+                className={`font-semibold text-sm rounded-lg px-5 h-8 flex items-center
+              ${getContentTypeColor(type)}`}
+              >
+                <span>{MAPPING_CONTENT_TYPE_TEXT[type]}</span>
+              </div>
+            ))}
+          </div>
+          <div
+            className={`${styles.multiLineActive} mt-1 text-[32px] leading-10 font-semibold`}
+          >
+            {fakeCard?.title}
+          </div>
+          <div className={`${styles.multiLineActive} mt-2`}>
+            {fakeCard?.detail}
+          </div>
+          <div className="mt-12 flex gap-2">
+            <Image
+              src={fakeCard?.authorAvatar}
+              width={44}
+              height={44}
+              alt=""
+              className="rounded-full"
+            />
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-semibold">
+                {fakeCard?.authorName}
+              </span>
+              <span className="text-xs text-birdGray">
+                {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
+              </span>
+            </div>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 
