@@ -78,9 +78,8 @@ const DetailsArticlePage = () => {
                   Share
                 </span>
                 {fakeBlog?.socials.map((item, index) => (
-                  <Link href={item.link}>
+                  <Link href={item.link} key={index}>
                     <div
-                      key={index}
                       className={clsx(
                         "h-8 w-8 flex items-center justify-center rounded-full cursor-pointer",
                         index === 2 && "bg-birdRed"
