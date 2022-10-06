@@ -301,7 +301,7 @@ function LandingPage() {
   ////#endregion RENDER
 
   return (
-    <div className="flex flex-col w-full ">
+    <div className="flex flex-col w-full bg-[#f7f7f8]">
       <div className={`${styles.banner} flex text-white pt-20`}>
         <div className={`${styles.section}`}>
           <p
@@ -315,7 +315,7 @@ function LandingPage() {
         </div>
       </div>
 
-      <div className={clsx("w-full bg-[#f7f7f8] pt-7", "md:pb-16")}>
+      <div className={clsx("w-full pt-7", "md:pb-16")}>
         <div className={`${styles.section} flex flex-col`}>
           <div
             className={clsx(

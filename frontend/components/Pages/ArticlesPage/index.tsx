@@ -1,6 +1,8 @@
-import React, { useState } from "react"
+import clsx from "clsx"
+import { useState } from "react"
 import { contentTypes } from "../../../utils/constants"
 import { CardVertical } from "../../Base/Card"
+import DropDown from "../../Base/DropDown"
 import Pagination from "../../Base/Pagination"
 
 const archives = [
@@ -34,13 +36,38 @@ const ArticlesPage = () => {
 
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
-      <div className="w-full max-w-[1440px] mx-auto px-[120px] pt-5 pb-20">
-        <p className="text-[40px] font-semibold font-birdMedium">
+      <div
+        className={clsx(
+          "w-full max-w-[1440px] mx-auto px-5 pt-5 pb-10",
+          "xs:px-[120px] xs:pb-20"
+        )}
+      >
+        <p
+          className={clsx(
+            "text-[40px] leading-[44px] text-center font-semibold font-birdMedium",
+            "xs:text-[40px] xs:leading-[60px] xs:text-left"
+          )}
+        >
           Firebird Blogs
         </p>
 
-        <div className="flex gap-5 relative mt-4">
-          <div className="sticky top-5 bg-white rounded-[20px] px-7 pt-5 pb-8 h-fit">
+        <div
+          className={clsx(
+            "flex flex-col gap-5 relative mt-7",
+            "xs:mt-4 xs:flex-row"
+          )}
+        >
+          <div className={clsx("grid grid-cols-2 gap-3", "xs:hidden")}>
+            <DropDown items={contentTypes} label="Category" />
+            <DropDown items={archives} label="Archived" />
+          </div>
+
+          <div
+            className={clsx(
+              "sticky top-5 bg-white rounded-[20px] px-7 pt-5 pb-8 h-fit hidden",
+              "xs:block"
+            )}
+          >
             <ul className="flex flex-col gap-3">
               <p className="font-semibold text-2xl">Category</p>
               {contentTypes.map((item: any) => (
@@ -67,11 +94,13 @@ const ArticlesPage = () => {
             </ul>
           </div>
 
-          <div className="flex-1 grid grid-cols-3 gap-5">
-            {new Array(filter.perPage).fill(1).map((item, index: number) => (
-              <CardVertical key={index} />
-            ))}
-            <Pagination />
+          <div className="flex-1">
+            <div className={clsx("grid grid-cols-1 gap-5", "xs:grid-cols-3")}>
+              {new Array(filter.perPage).fill(1).map((item, index: number) => (
+                <CardVertical key={index} />
+              ))}
+            </div>
+            <Pagination className="justify-center mt-10" currentPage={1} />
           </div>
         </div>
       </div>
