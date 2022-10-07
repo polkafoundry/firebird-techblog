@@ -133,10 +133,10 @@ const DetailsArticlePage = () => {
             </div>
             <div className="mt-5 text-white">
               <span className="font-semibold text-2xl block">
-                Subcribe to receive our latest blog
+                Subscribe to receive our latest blog
               </span>
               <span className="text-sm mt-2 block">
-                No spam, unsubcribe anytime and always bring contents!
+                No spam, unsubscribe anytime and always bring contents!
               </span>
 
               <div className="flex rounded-lg bg-white w-full h-[52px] mt-2 px-4 items-center">
@@ -151,9 +151,9 @@ const DetailsArticlePage = () => {
 
               <div
                 className="flex cursor-pointer h-[52px] mt-3 font-semibold bg-main rounded-lg justify-center items-center tracking-wider duration-500 hover:tracking-widest"
-                // onClick={handleSubcribe}
+                // onClick={handleSubscribe}
               >
-                Subcribe Now
+                Subscribe Now
               </div>
             </div>
           </div>

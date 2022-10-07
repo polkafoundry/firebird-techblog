@@ -58,9 +58,9 @@ function LandingPage() {
     setInputEmail(e.target.value)
   }
 
-  const handleSubcribe = () => {
+  const handleSubscribe = () => {
     //TODO: simple validate email
-    console.log("subcribe: ", inputEmail)
+    console.log("subscribe: ", inputEmail)
   }
 
   //#region RENDER
@@ -176,15 +176,15 @@ function LandingPage() {
 
           <div
             className={clsx(
-              `${styles.subcribe} flex flex-col px-8 pt-10 pb-[62px] text-white max-h-[480px] rounded-[20px]`,
+              `${styles.subscribe} flex flex-col px-8 pt-10 pb-[62px] text-white max-h-[480px] rounded-[20px]`,
               "md:pb-10"
             )}
           >
             <span className={clsx("font-semibold text-3xl", "md:text-[32px]")}>
-              Subcribe to receive our latest blog
+              Subscribe to receive our latest blog
             </span>
             <span className={clsx("text-lg mt-3", "md:mt-10")}>
-              No spam, unsubcribe anytime and always bring contents!
+              No spam, unsubscribe anytime and always bring contents!
             </span>
 
             <div
@@ -207,9 +207,9 @@ function LandingPage() {
                 "flex cursor-pointer h-[52px] mt-3 font-semibold bg-main rounded-lg justify-center items-center tracking-wider",
                 buttonStyles.hoverAnimated
               )}
-              onClick={handleSubcribe}
+              onClick={handleSubscribe}
             >
-              Subcribe Now
+              Subscribe Now
             </div>
           </div>
         </div>
