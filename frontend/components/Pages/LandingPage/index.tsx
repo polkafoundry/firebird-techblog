@@ -232,7 +232,7 @@ function LandingPage() {
             <div
               className={clsx(
                 "flex flex-col w-full max-w-[580px] items-center",
-                "xs:items-left"
+                "xs:items-start"
               )}
             >
               <span
