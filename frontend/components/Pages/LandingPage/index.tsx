@@ -290,9 +290,9 @@ function LandingPage() {
             </div>
           </div>
 
-          <div className="flex w-full">
+          {/* <div className="flex w-full">
             <CardActive />
-          </div>
+          </div> */}
         </div>
       </div>
     )

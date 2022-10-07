@@ -110,12 +110,12 @@ export type RouteTypes = {
 export const headerRoutes: Array<RouteTypes> = [
   {
     label: "Home",
-    target: "_self",
+    target: "_blank",
     uri: firebirdLanding
   },
   {
     label: "Blog",
-    target: "_blank",
+    target: "_self",
     uri: "/"
   },
   {
