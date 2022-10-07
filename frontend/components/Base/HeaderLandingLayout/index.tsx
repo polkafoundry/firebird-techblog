@@ -16,7 +16,7 @@ const HeaderLandingLayout = () => {
           />
         </a>
       </Link>
-      <div className="flex gap-5">
+      <div className="flex gap-5 overflow-hidden">
         <Link href="/about">About Firebird</Link>
         <Link href="/bird-nest">Bird nest</Link>
         <Link href="/build-nest">Build nest</Link>

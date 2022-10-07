@@ -1,14 +1,18 @@
+import clsx from "clsx"
 import Image from "next/image"
 import React from "react"
 import {
   CONTENT_TYPES,
-  MAPPING_CONTENT_TYPE_TEXT
+  MAPPING_CONTENT_TYPE_TEXT,
+  URLS
 } from "../../../utils/constants"
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
+import imgFake from "public/images/fake-card-active.png"
+import Link from "next/link"
 
 const fakeCard = {
-  image: "/images/fake-card-active.png",
+  image: imgFake,
   types: [CONTENT_TYPES.READER_CONTRIBUTION],
   title:
     "3 Steps to Web3: The Ultimate Guide to Navigating Web3 for Non-Tech Founders",
@@ -21,55 +25,64 @@ const fakeCard = {
 }
 const CardActive = () => {
   return (
-    <div className="bg-white w-full rounded-[20px] p-7 flex gap-8">
-      <div className="rounded-xl w-full max-w-[600px] relative h-full">
-        <Image
-          src={fakeCard?.image}
-          layout="fill"
-          alt=""
-          sizes="100vw"
-          objectFit="contain"
-        />
-      </div>
-      <div className="flex flex-col flex-1">
-        <div className="flex mt-1 gap-[6px]">
-          {fakeCard?.types?.map((type: any) => (
-            <div
-              key={type}
-              className={`font-semibold text-sm rounded-lg px-5 h-8 flex items-center 
+    <Link href={URLS.DETAILS_ARTICLE}>
+      <div
+        className={clsx(
+          "bg-white w-full rounded-[20px] p-7 flex flex-col gap-3 cursor-pointer",
+          "xs:flex-row xs:gap-8"
+        )}
+      >
+        <div className="rounded-xl w-full max-w-[600px] relative">
+          <Image src={fakeCard?.image} layout="responsive" alt="" />
+        </div>
+        <div className="flex flex-col flex-1">
+          <div className="flex mt-1 gap-[6px]">
+            {fakeCard?.types?.map((type: any) => (
+              <div
+                key={type}
+                className={`font-semibold text-sm rounded-lg px-5 h-8 flex items-center 
             ${getContentTypeColor(type)}`}
-            >
-              <span>{MAPPING_CONTENT_TYPE_TEXT[type]}</span>
+              >
+                <span>{MAPPING_CONTENT_TYPE_TEXT[type]}</span>
+              </div>
+            ))}
+          </div>
+          <div
+            className={clsx(
+              `${styles.multiLineActive} mt-1 text-xl leading-7 font-semibold`,
+              "xs:text-[32px] xs:leading-10"
+            )}
+          >
+            {fakeCard?.title}
+          </div>
+          <div
+            className={clsx(
+              `${styles.multiLineActive} mt-4 text-sm`,
+              "xs:mt-2 xs:text-base"
+            )}
+          >
+            {fakeCard?.detail}
+          </div>
+          <div className={clsx("mt-5 flex gap-2", "xs:mt-12")}>
+            <Image
+              src={fakeCard?.authorAvatar}
+              width={44}
+              height={44}
+              alt=""
+              className="rounded-full"
+            />
+            <div className="flex flex-col gap-1">
+              <span className="text-sm font-semibold">
+                {fakeCard?.authorName}
+              </span>
+              <span className="text-xs text-birdGray">
+                {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
+              </span>
             </div>
-          ))}
-        </div>
-        <div
-          className={`${styles.multiLineActive} mt-1 text-[32px] leading-10 font-semibold`}
-        >
-          {fakeCard?.title}
-        </div>
-        <div className={`${styles.multiLineActive} mt-2`}>
-          {fakeCard?.detail}
-        </div>
-        <div className="mt-12 flex gap-2">
-          <Image
-            src={fakeCard?.authorAvatar}
-            width={44}
-            height={44}
-            alt=""
-            className="rounded-full"
-          />
-          <div className="flex flex-col gap-1">
-            <span className="text-sm font-semibold">
-              {fakeCard?.authorName}
-            </span>
-            <span className="text-xs text-birdGray">
-              {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
-            </span>
           </div>
         </div>
       </div>
-    </div>
+    </Link>
   )
 }
 

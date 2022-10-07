@@ -4,7 +4,7 @@ import Image from "next/image"
 
 const HeaderDefaultLayout = () => {
   return (
-    <nav className="absolute -translate-x-1/2 left-1/2 h-20 w-full flex items-center justify-between max-w-screen-main px-[120px] text-black">
+    <nav className="absolute -translate-x-1/2 left-1/2 h-20 w-full flex items-center justify-between max-w-screen-main px-[120px] text-black overflow-hidden">
       <Link href="/">
         <a>
           <Image

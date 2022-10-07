@@ -24,3 +24,7 @@ export const MAPPING_CONTENT_TYPE_TEXT = {
   [CONTENT_TYPES.ANALYTICS]: "Analytics",
   [CONTENT_TYPES.READER_CONTRIBUTION]: "Reader’s Contribution"
 }
+
+export const URLS = {
+  DETAILS_ARTICLE: "/details-article"
+}

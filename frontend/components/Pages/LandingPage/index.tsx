@@ -7,6 +7,8 @@ import ButtonLink from "../../Base/ButtonLink"
 import { CardActive, CardHorizontal } from "../../Base/Card"
 import CardVertical from "../../Base/Card/CardVertical"
 import styles from "./landing.module.scss"
+import imgWrite from "public/images/bird-writer.png"
+import imgSubBanner from "public/images/befitter-banner.png"
 
 type FilterTypes = {
   search: string
@@ -56,9 +58,9 @@ function LandingPage() {
     setInputEmail(e.target.value)
   }
 
-  const handleSubcribe = () => {
+  const handleSubscribe = () => {
     //TODO: simple validate email
-    console.log("subcribe: ", inputEmail)
+    console.log("subscribe: ", inputEmail)
   }
 
   //#region RENDER
@@ -66,11 +68,26 @@ function LandingPage() {
   const renderLastestPost = () => {
     return (
       <>
-        <div className="flex w-full justify-between mt-8">
-          <span className="text-3xl font-semibold font-birdMedium">
+        <div
+          className={clsx(
+            "flex flex-col w-full justify-between mt-8 gap-3",
+            "xs:flex-row"
+          )}
+        >
+          <span
+            className={clsx(
+              "text-3xl font-semibold font-birdMedium text-center",
+              "xs:text-left"
+            )}
+          >
             Latest Post
           </span>
-          <div className="flex items-center rounded-lg px-5 h-[52px] bg-white w-full max-w-xs">
+          <div
+            className={clsx(
+              "flex items-center rounded-lg px-5 h-[52px] bg-white w-full",
+              "xs:max-w-xs"
+            )}
+          >
             <input
               type="text"
               placeholder="Search article"
@@ -88,11 +105,19 @@ function LandingPage() {
           </div>
         </div>
 
-        <div className="flex w-full mt-3">
+        <div className="hidden w-full mt-3 xs:flex">
           <CardActive />
         </div>
 
-        <div className="grid grid-cols-3 mt-5">
+        <div
+          className={clsx(
+            "flex flex-col items-center gap-5 mt-5  ",
+            "xs:flex-row"
+          )}
+        >
+          <div className="flex xs xs:hidden">
+            <CardVertical />
+          </div>
           {Array(3)
             .fill(1)
             .map((item, index) => (
@@ -122,13 +147,8 @@ function LandingPage() {
 
   const renderSubBanner = () => {
     return (
-      <div className="relative w-full h-[280px] mt-10 cursor-pointer">
-        <Image
-          src={"/images/befitter-banner.png"}
-          layout="fill"
-          objectFit="contain"
-          alt=""
-        />
+      <div className="relative w-full mt-10 cursor-pointer">
+        <Image src={imgSubBanner} layout="responsive" alt="" />
       </div>
     )
   }
@@ -136,11 +156,16 @@ function LandingPage() {
   const renderExclusiveContent = () => {
     return (
       <>
-        <div className="text-[32px] font-semibold font-birdMedium mt-10">
+        <div
+          className={clsx(
+            "text-[32px] font-semibold font-birdMedium mt-10 text-center ",
+            "xs:text-left"
+          )}
+        >
           Exclusive Content
         </div>
 
-        <div className="grid grid-cols-[_1fr_360px] gap-5 mt-4">
+        <div className={clsx("grid gap-5 mt-4", "lg:grid-cols-[_1fr_360px]")}>
           <div className="flex-1 grid grid-cols-1 gap-5">
             {Array(3)
               .fill(1)
@@ -150,16 +175,24 @@ function LandingPage() {
           </div>
 
           <div
-            className={`${styles.subcribe} flex flex-col px-8 py-10 text-white max-h-[480px]`}
+            className={clsx(
+              `${styles.subscribe} flex flex-col px-8 pt-10 pb-[62px] text-white max-h-[480px] rounded-[20px]`,
+              "md:pb-10"
+            )}
           >
-            <span className="font-semibold text-[32px]">
-              Subcribe to receive our latest blog
+            <span className={clsx("font-semibold text-3xl", "md:text-[32px]")}>
+              Subscribe to receive our latest blog
             </span>
-            <span className="text-lg mt-10">
-              No spam, unsubcribe anytime and always bring contents!
+            <span className={clsx("text-lg mt-3", "md:mt-10")}>
+              No spam, unsubscribe anytime and always bring contents!
             </span>
 
-            <div className="flex rounded-lg bg-white w-full h-[52px] mt-5 px-4 items-center">
+            <div
+              className={clsx(
+                "flex rounded-lg bg-white w-full h-[52px] mt-8 px-4 items-center",
+                "md:mt-5"
+              )}
+            >
               <input
                 type="text"
                 className="w-full outline-none text-black"
@@ -174,9 +207,9 @@ function LandingPage() {
                 "flex cursor-pointer h-[52px] mt-3 font-semibold bg-main rounded-lg justify-center items-center tracking-wider",
                 buttonStyles.hoverAnimated
               )}
-              onClick={handleSubcribe}
+              onClick={handleSubscribe}
             >
-              Subcribe Now
+              Subscribe Now
             </div>
           </div>
         </div>
@@ -186,25 +219,58 @@ function LandingPage() {
 
   const renderFirebirdWriter = () => {
     return (
-      <div className={`${styles.writer} mt-14 pt-10 pb-[100px]`}>
+      <div
+        className={clsx(
+          `${styles.writer} mt-14 pt-[60px] pb-[60px]`,
+          "xs:pt-10 xs:pb-[100px]"
+        )}
+      >
         <div className={clsx(styles.section, "flex flex-col gap-10")}>
-          <div className="flex">
-            <div className="flex flex-col w-full max-w-[580px]">
-              <span className="font-birdMedium font-semibold text-[56px]">
+          <div
+            className={clsx("flex flex-col items-center mb-5", "xs:flex-row")}
+          >
+            <div
+              className={clsx(
+                "flex flex-col w-full max-w-[580px] items-center",
+                "xs:items-left"
+              )}
+            >
+              <span
+                className={clsx(
+                  "font-birdMedium font-semibold text-[32px]",
+                  "xs:text-[56px]"
+                )}
+              >
                 The Firebird’s Writer
               </span>
-              <span className="text-lg">
+              <span
+                className={clsx(
+                  "text-lg text-center mt-3",
+                  "xs:text-left xs:mt-0"
+                )}
+              >
                 Become a contributor and share your own stories to bring
                 valuable blockchain knowledge to the community. <br /> Let’s
                 submit your articles for a chance to receive alluring rewards
                 from Firebird.
               </span>
 
-              <div className="flex gap-4 mt-3">
-                <ButtonLink href="writer" className="px-12 bg-black text-white">
+              <div className={clsx("flex gap-2 mt-5", "xs:mt-3 xs:gap-4")}>
+                <ButtonLink
+                  href="writer"
+                  className={clsx(
+                    "px-12 bg-black text-white text-base",
+                    "xs:text-lg"
+                  )}
+                >
                   Discover
                 </ButtonLink>
-                <Button className="gap-2 px-7 border-[2.5px] border-black">
+                <Button
+                  className={clsx(
+                    "gap-2 px-2 border-[2.5px] border-black text-base font-semibold tracking-normal",
+                    "xs:text-lg xs:px-7"
+                  )}
+                >
                   <>
                     <span>Post an article</span>
                     <Image
@@ -220,13 +286,7 @@ function LandingPage() {
             </div>
 
             <div className="relative w-full">
-              <Image
-                src="/images/bird-writer.png"
-                alt=""
-                layout="fill"
-                objectFit="contain"
-                priority={true}
-              />
+              <Image src={imgWrite} alt="" layout="responsive" />
             </div>
           </div>
 
@@ -241,20 +301,32 @@ function LandingPage() {
   ////#endregion RENDER
 
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full bg-[#f7f7f8]">
       <div className={`${styles.banner} flex text-white pt-20`}>
         <div className={`${styles.section}`}>
-          <p className="mt-12">The Firebird Blog</p>
+          <p
+            className={clsx(
+              "mt-14 text-center px-2",
+              "md:text-left md:mt-12 md:px-0"
+            )}
+          >
+            The Firebird Blog
+          </p>
         </div>
       </div>
 
-      <div className="w-full bg-[#f7f7f8] pb-16 pt-7">
+      <div className={clsx("w-full pt-7", "md:pb-16")}>
         <div className={`${styles.section} flex flex-col`}>
-          <div className="flex gap-2">
+          <div
+            className={clsx(
+              styles.hiddenScrollbar,
+              "flex gap-2 overflow-x-auto"
+            )}
+          >
             {contentTypes.map((item: any) => (
               <div
                 key={item?.value}
-                className={`px-8 py-2 rounded-lg cursor-pointer text-birdGray font-semibold ${
+                className={`px-8 py-2 rounded-lg cursor-pointer text-birdGray font-semibold whitespace-nowrap ${
                   contentType === item?.value ? styles.typeActived : ""
                 }`}
                 onClick={() => handleSelectType(item.value)}
@@ -266,9 +338,9 @@ function LandingPage() {
 
           {renderLastestPost()}
 
-          {renderSubBanner()}
+          {/* {renderSubBanner()} */}
 
-          {renderExclusiveContent()}
+          {/* {renderExclusiveContent()} */}
         </div>
       </div>
 
