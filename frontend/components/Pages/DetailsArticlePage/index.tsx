@@ -19,8 +19,8 @@ const fakeBlog = {
   ],
   title:
     "3 Steps to Web3: The Ultimate Guide to Navigating Web3 for Non-Tech Founders",
-  authorAvatar: "/images/fake-author-avatar.png",
-  authorName: "Doone Roisin",
+  authorAvatar: "/images/default-avatar.svg",
+  authorName: "Firebird Writer",
   date: "Jan 24",
   timeToRead: "4 min"
 }

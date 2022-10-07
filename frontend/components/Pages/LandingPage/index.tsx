@@ -256,7 +256,7 @@ function LandingPage() {
               </span>
 
               <div className={clsx("flex gap-2 mt-5", "xs:mt-3 xs:gap-4")}>
-                <ButtonLink
+                {/* <ButtonLink
                   href="writer"
                   className={clsx(
                     "px-12 bg-black text-white text-base",
@@ -264,7 +264,7 @@ function LandingPage() {
                   )}
                 >
                   Discover
-                </ButtonLink>
+                </ButtonLink> */}
                 <Button
                   className={clsx(
                     "gap-2 px-2 border-[2.5px] border-black text-base font-semibold tracking-normal",

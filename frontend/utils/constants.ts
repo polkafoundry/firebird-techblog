@@ -12,7 +12,11 @@ import iconTelegramHover from "/public/images/socials/telegram.svg"
 import iconTwitterHover from "/public/images/socials/twitter.svg"
 import iconRedditHover from "/public/images/socials/reddit.svg"
 
+import defaultAvatar from "/public/images/default-avatar.svg"
+
 const firebirdLanding = process.env.FIREBIRD_LANDING_PAGE || "/"
+const defaultAuthor = "Firebird Writer"
+export { defaultAvatar, defaultAuthor }
 
 export const CONTENT_TYPES = {
   ALL: "",

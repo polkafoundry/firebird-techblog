@@ -4,6 +4,8 @@ import Link from "next/link"
 import React from "react"
 import {
   CONTENT_TYPES,
+  defaultAuthor,
+  defaultAvatar,
   MAPPING_CONTENT_TYPE_TEXT,
   URLS
 } from "../../../utils/constants"
@@ -17,8 +19,8 @@ const fakeCard = {
   title: "How businesses can benefit from Web3.0 and blockchain",
   detail:
     "According to experts, combination of Web3. 0 and blockchain can help venture capitalists benefit from sectors such as e-commerce and fantasy sports. With Web3. 0 and blockchain expected to be adopted in next couple of years, businesses aim to use to ramp up offerings",
-  authorAvatar: "/images/fake-author-avatar.png",
-  authorName: "Doone Roisin",
+  authorAvatar: "/images/default-avatar.svg",
+  authorName: "Firebird Writer",
   date: "Jan 24",
   timeToRead: "4 min"
 }
@@ -65,7 +67,7 @@ const CardHorizontal = () => {
           <div className="mt-4 flex gap-2">
             <div className="contents md:hidden">
               <Image
-                src={fakeCard?.authorAvatar}
+                src={fakeCard?.authorAvatar || defaultAvatar}
                 width={44}
                 height={44}
                 alt=""
@@ -79,7 +81,7 @@ const CardHorizontal = () => {
               )}
             >
               <span className="text-sm font-semibold">
-                {fakeCard?.authorName}
+                {fakeCard?.authorName || defaultAuthor}
               </span>
               <span className="text-xs text-birdGray">
                 {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}

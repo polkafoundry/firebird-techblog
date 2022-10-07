@@ -1,8 +1,9 @@
 import Image from "next/image"
 import Link from "next/link"
-import React from "react"
 import {
   CONTENT_TYPES,
+  defaultAuthor,
+  defaultAvatar,
   MAPPING_CONTENT_TYPE_TEXT,
   URLS
 } from "../../../utils/constants"
@@ -16,8 +17,8 @@ const fakeCard = {
     "3 Steps to Web3: The Ultimate Guide to Navigating Web3 for Non-Tech Founders",
   detail:
     "Now that we're well over halfway through 2022, it's safe to say there's definitely been a rapid pace of change surrounding Web3 this year. In the month of March alone, there were 41,000 new articles published referencing Web3",
-  authorAvatar: "/images/fake-author-avatar.png",
-  authorName: "Doone Roisin",
+  authorAvatar: "/images/default-avatar.svg",
+  authorName: "Firebird Writer",
   date: "August 9",
   timeToRead: "4 min"
 }
@@ -56,7 +57,7 @@ const CardWriter = () => {
           </div>
           <div className="mt-12 flex gap-2">
             <Image
-              src={fakeCard?.authorAvatar}
+              src={fakeCard?.authorAvatar || defaultAvatar}
               width={44}
               height={44}
               alt=""
@@ -64,7 +65,7 @@ const CardWriter = () => {
             />
             <div className="flex flex-col gap-1">
               <span className="text-sm font-semibold">
-                {fakeCard?.authorName}
+                {fakeCard?.authorName || defaultAuthor}
               </span>
               <span className="text-xs text-birdGray">
                 {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
