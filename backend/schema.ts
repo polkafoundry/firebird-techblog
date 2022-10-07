@@ -1,4 +1,5 @@
 import { list } from '@keystone-6/core';
+import { image } from '@keystone-6/core/fields';
 import { isAdmin, isRootAdmin, Session } from './auth';
 import Const from './utils/constant';
 
@@ -86,6 +87,7 @@ export const lists = {
           displayMode: 'select'
         }
       }),
+      thumbnail: image({ storage: Const.NODE_ENV == 'production' ? 's3_redkite' : 'my_local_images' }),
       title: text(),
       category: relationship({ ref: 'Category', many: true, ui: { hideCreate: true } }),
       author_name: text(),

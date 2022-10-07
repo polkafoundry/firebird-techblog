@@ -107,6 +107,7 @@ type Article {
   id: ID!
   is_display: Int
   status: ArticleStatusType
+  thumbnail: ImageFieldOutput
   title: String
   category(
     where: CategoryWhereInput! = {}
@@ -130,6 +131,22 @@ enum ArticleStatusType {
   pending
   approved
   rejected
+}
+
+type ImageFieldOutput {
+  id: ID!
+  filesize: Int!
+  width: Int!
+  height: Int!
+  extension: ImageExtension!
+  url: String!
+}
+
+enum ImageExtension {
+  jpg
+  png
+  webp
+  gif
 }
 
 scalar DateTime
@@ -209,6 +226,7 @@ input ArticleOrderByInput {
 input ArticleUpdateInput {
   is_display: Int
   status: ArticleStatusType
+  thumbnail: ImageFieldInput
   title: String
   category: CategoryRelateToManyForUpdateInput
   author_name: String
@@ -221,6 +239,15 @@ input ArticleUpdateInput {
   is_admin: Boolean
   created_at: DateTime
 }
+
+input ImageFieldInput {
+  upload: Upload!
+}
+
+"""
+The `Upload` scalar type represents a file upload.
+"""
+scalar Upload
 
 input CategoryRelateToManyForUpdateInput {
   disconnect: [CategoryWhereUniqueInput!]
@@ -237,6 +264,7 @@ input ArticleUpdateArgs {
 input ArticleCreateInput {
   is_display: Int
   status: ArticleStatusType
+  thumbnail: ImageFieldInput
   title: String
   category: CategoryRelateToManyForCreateInput
   author_name: String
