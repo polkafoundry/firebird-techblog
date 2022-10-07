@@ -111,12 +111,12 @@ export const headerRoutes: Array<RouteTypes> = [
   {
     label: "Home",
     target: "_self",
-    uri: "/"
+    uri: firebirdLanding
   },
   {
     label: "Blog",
     target: "_blank",
-    uri: firebirdLanding
+    uri: "/"
   },
   {
     label: "Blog List",
