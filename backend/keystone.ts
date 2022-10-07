@@ -18,10 +18,10 @@ export default withAuth(
           uptime: process.uptime(),
         }),
       },
-      maxFileSize: 400 * 1024,
+      maxFileSize: 2 * 1024 * 1024,
       extendExpressApp: (app) => {
         app.post('/upload-image', fileUpload({
-          limits: { fileSize: 400 * 1024 },
+          limits: { fileSize: 2 * 1024 * 1024 },
           abortOnLimit: true,
         }), Controller.uploadImage);
       }
