@@ -74,7 +74,7 @@ const CardHorizontal = () => {
             </div>
             <div
               className={clsx(
-                "flex flex-col gap-[2px] items-left",
+                "flex flex-col gap-[2px] items-start",
                 "md:flex-row md:items-center md:gap-2"
               )}
             >
