@@ -18,12 +18,12 @@ export default withAuth(
           uptime: process.uptime(),
         }),
       },
+      maxFileSize: 400 * 1024,
       extendExpressApp: (app) => {
-        app.use(fileUpload({
+        app.post('/upload-image', fileUpload({
           limits: { fileSize: 400 * 1024 },
           abortOnLimit: true,
-        }))
-        app.post('/upload-image', Controller.uploadImage);
+        }), Controller.uploadImage);
       }
     },
     db: {

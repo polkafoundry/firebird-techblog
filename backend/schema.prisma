@@ -21,20 +21,25 @@ model Admin {
 }
 
 model Article {
-  id           Int               @id @default(autoincrement())
-  is_display   Int               @default(0)
-  status       ArticleStatusType
-  title        String            @default("")
-  category     Category[]        @relation("Article_category")
-  author_name  String            @default("")
-  author_image String            @default("")
-  author_email String            @default("")
-  hashtags     String            @default("")
-  is_exclusive Boolean           @default(false)
-  content      String?           @mysql.Text
-  references   String?           @mysql.Text
-  is_admin     Boolean           @default(false)
-  created_at   DateTime?
+  id                  Int               @id @default(autoincrement())
+  is_display          Int               @default(0)
+  status              ArticleStatusType
+  thumbnail_filesize  Int?
+  thumbnail_extension String?
+  thumbnail_width     Int?
+  thumbnail_height    Int?
+  thumbnail_id        String?
+  title               String            @default("")
+  category            Category[]        @relation("Article_category")
+  author_name         String            @default("")
+  author_image        String            @default("")
+  author_email        String            @default("")
+  hashtags            String            @default("")
+  is_exclusive        Boolean           @default(false)
+  content             String?           @mysql.Text
+  references          String?           @mysql.Text
+  is_admin            Boolean           @default(false)
+  created_at          DateTime?
 }
 
 model Category {
