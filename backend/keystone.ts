@@ -72,7 +72,7 @@ export default withAuth(
         secretAccessKey: Const.S3_SECRET_ACCESS_KEY,
         // The S3 links will be signed so they remain private
         signed: { expiry: 5000 },
-        endpoint: Const.S3_ENDPOINT
+        endpoint: Const.S3_ENDPOINT_KEYSTONE
       },
     }
   })
