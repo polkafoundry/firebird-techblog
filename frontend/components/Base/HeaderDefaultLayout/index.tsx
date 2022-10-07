@@ -1,6 +1,6 @@
-import React from "react"
-import Link from "next/link"
 import Image from "next/image"
+import Link from "next/link"
+import { headerRoutes, RouteTypes } from "../../../utils/constants"
 
 const HeaderDefaultLayout = () => {
   return (
@@ -17,11 +17,11 @@ const HeaderDefaultLayout = () => {
         </a>
       </Link>
       <div className="flex gap-5">
-        <Link href="/about">About Firebird</Link>
-        <Link href="/bird-nest">Bird nest</Link>
-        <Link href="/build-nest">Build nest</Link>
-        <Link href="/faq">FAQ</Link>
-        <Link href="/community">Community</Link>
+        {headerRoutes.map((item: RouteTypes, index: number) => (
+          <Link key={index} href={item.uri}>
+            <a target={item.target}>{item.label}</a>
+          </Link>
+        ))}
       </div>
     </nav>
   )

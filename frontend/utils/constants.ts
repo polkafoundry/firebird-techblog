@@ -1,3 +1,19 @@
+import { HTMLAttributeAnchorTarget } from "react"
+
+import iconMedium from "/public/images/socials/medium.svg"
+import iconGithub from "/public/images/socials/github.svg"
+import iconTelegram from "/public/images/socials/telegram.svg"
+import iconTwitter from "/public/images/socials/twitter.svg"
+import iconReddit from "/public/images/socials/reddit.svg"
+
+import iconMediumHover from "/public/images/socials/medium.svg"
+import iconGithubHover from "/public/images/socials/github.svg"
+import iconTelegramHover from "/public/images/socials/telegram.svg"
+import iconTwitterHover from "/public/images/socials/twitter.svg"
+import iconRedditHover from "/public/images/socials/reddit.svg"
+
+const firebirdLanding = process.env.FIREBIRD_LANDING_PAGE || "/"
+
 export const CONTENT_TYPES = {
   ALL: "",
   ECOSYSTEM: "ecosystem",
@@ -28,3 +44,84 @@ export const MAPPING_CONTENT_TYPE_TEXT = {
 export const URLS = {
   DETAILS_ARTICLE: "/details-article"
 }
+
+export type SocialItemTypes = {
+  img: string
+  imgHover: string
+  label: string
+  username: string
+  url: string
+}
+export const socialsData: Array<SocialItemTypes> = [
+  {
+    img: iconTwitter,
+    imgHover: iconTwitterHover,
+    label: "Official Twitter",
+    url: "https://twitter.com/Firebirdchain",
+    username: "@Firebirdchain"
+  },
+  {
+    img: iconGithub,
+    imgHover: iconGithubHover,
+    label: "Github",
+    url: "https://github.com/firebird",
+    username: "@Firebird"
+  },
+  {
+    img: iconMedium,
+    imgHover: iconMediumHover,
+    label: "Medium",
+    url: "https://medium.com/firebird",
+    username: "@Firebird"
+  },
+  {
+    img: iconReddit,
+    imgHover: iconRedditHover,
+    label: "Reddit",
+    url: "https://www.reddit.com/r/firebird/",
+    username: "r/firebird"
+  },
+  {
+    img: iconTelegram,
+    imgHover: iconTelegramHover,
+    label: "Annoucement Channel",
+    url: "https://t.me/FirebirdANN",
+    username: "@FirebirdANN"
+  },
+  {
+    img: iconTelegram,
+    imgHover: iconTelegramHover,
+    label: "Telegram Group",
+    url: "https://t.me/Firebird_en",
+    username: "@Firebird_en"
+  }
+]
+
+export type RouteTypes = {
+  label: string
+  uri: string
+  target: HTMLAttributeAnchorTarget
+}
+
+export const headerRoutes: Array<RouteTypes> = [
+  {
+    label: "Home",
+    target: "_self",
+    uri: "/"
+  },
+  {
+    label: "Blog",
+    target: "_blank",
+    uri: firebirdLanding
+  },
+  {
+    label: "Blog List",
+    target: "_self",
+    uri: "articles"
+  },
+  {
+    label: `Firebird's Writer`,
+    target: "_self",
+    uri: "/writer"
+  }
+]
