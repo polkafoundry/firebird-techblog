@@ -24,13 +24,19 @@ const CardVertical = (props: CardVerticalProps) => {
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-5 flex flex-col cursor-pointer",
-          "xs:max-w-[360px]"
+          "xs:max-w-[360px] xs:p-4",
+          "md:p-5"
         )}
       >
         <div className="rounded-xl w-full relative">
-          <Image src={fakeCard?.image} layout="responsive" alt="" className="rounded-xl" />
+          <Image
+            src={fakeCard?.image}
+            layout="responsive"
+            alt=""
+            className="rounded-xl"
+          />
         </div>
-        <div className="flex mt-3 gap-[6px]">
+        <div className={clsx("flex mt-3 gap-[6px]", "xs:mt-2", "md:mt-3")}>
           {fakeCard?.types?.map((type: any) => {
             return (
               <div
@@ -48,7 +54,8 @@ const CardVertical = (props: CardVerticalProps) => {
         <div
           className={clsx(
             `${styles.multiLine} mt-1 text-xl leading-7 font-semibold`,
-            "md:leading-8"
+            "xs:mt-2 xs:text-20px",
+            "mt:mt-1 md:text-xl md:leading-8"
           )}
         >
           {fakeCard?.title}
@@ -57,13 +64,14 @@ const CardVertical = (props: CardVerticalProps) => {
           <div
             className={clsx(
               `${styles.multiLine} mt-3 text-sm`,
-              "md:mt-2 md:text-base"
+              "xs:mt-2",
+              "md:text-base"
             )}
           >
             {fakeCard?.detail}
           </div>
         )}
-        <div className="mt-5 flex gap-2">
+        <div className={clsx("mt-5 flex gap-2", "xs:mt-3", "md:mt-5")}>
           <Image
             src={fakeCard?.authorAvatar || defaultAvatar}
             width={44}

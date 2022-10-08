@@ -3,17 +3,20 @@
   max-width: 1440px;
   margin: 0 auto;
   padding: 0 20px;
-  @media (min-width: theme('screens.xs')) {
+  @media (min-width: theme("screens.xs")) {
+    padding: 0 40px;
+  }
+  @media (min-width: theme("screens.lg")) {
     padding: 0 160px;
   }
 }
 
-.banner { 
+.banner {
   background: url("/images/bg-techblog.png") no-repeat center center;
   height: 320px;
   background-size: cover;
   font: normal normal 600 40px/44px TTHoves;
-  @media (min-width: theme('screens.xs')) {
+  @media (min-width: theme("screens.xs")) {
     font: normal normal 600 56px/64px TTHoves;
   }
 }
@@ -26,7 +29,7 @@
 .subscribe {
   background: url("/images/bg-subscribe.png") no-repeat bottom;
   background-size: cover;
-  @media (min-width: theme('screens.lg')) {
+  @media (min-width: theme("screens.lg")) {
     background-position: center;
     background-size: contain;
   }
@@ -43,6 +46,6 @@
 
 /* Hide scrollbar for IE, Edge and Firefox */
 .hiddenScrollbar {
-  -ms-overflow-style: none;  /* IE and Edge */
-  scrollbar-width: none;  /* Firefox */
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
 }
