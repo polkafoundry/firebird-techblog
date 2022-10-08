@@ -16,7 +16,7 @@ import iconRedditHover from "/public/images/socials/reddit.svg"
 
 import defaultAvatar from "/public/images/default-avatar.svg"
 
-const firebirdLanding = process.env.FIREBIRD_LANDING_PAGE || "/"
+const firebirdLanding = process.env.FIREBIRD_LANDING_PAGE || "https://firebird-landingpage.netlify.app/"
 const defaultAuthor = "Firebird Writer"
 export { defaultAvatar, defaultAuthor }
 
@@ -141,6 +141,6 @@ type HeadDefaultTypes = {
 export const headDefault: HeadDefaultTypes = {
   description:
     "Where you can discover Firebird-related news, including updates, research, analytics, events, partnerships, technological knowledge, etc.",
-  image: "https://redkite.polkafoundry.com/images/red-kite-sharing.png",
+  image: "https://d1j2c9jkfhu70p.cloudfront.net/Thumbnail_firebird_ebe64c4845.png",
   title: "The Firebird Blog"
 }
