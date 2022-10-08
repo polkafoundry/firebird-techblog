@@ -46,10 +46,15 @@ const FooterDefaultLayout = () => {
         )}
       >
         <div
-          className="absolute top-[60px] right-[84px] cursor-pointer"
+          className={clsx(
+            "top-5 right-5 absolute cursor-pointer",
+            "md:top-[60px] md:right-[84px]"
+          )}
           onClick={handleScrollToTop}
         >
-          <Image src={iconScroll} layout="fixed" alt="" />
+          <div className="relative w-8 h-8 md:w-10 md:h-10">
+            <Image src={iconScroll} layout="fill" alt="" />
+          </div>
         </div>
 
         <div className="w-full flex">
