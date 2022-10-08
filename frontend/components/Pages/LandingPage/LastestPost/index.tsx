@@ -1,7 +1,49 @@
 import clsx from "clsx"
 import Image from "next/image"
+import { CONTENT_TYPES } from "../../../../utils/constants"
 import ButtonLink from "../../../Base/ButtonLink"
 import { CardActive, CardVertical } from "../../../Base/Card"
+
+import imgFake1 from "public/images/fake-card-vertical-1.png"
+import imgFake2 from "public/images/fake-card-vertical-2.png"
+import imgFake3 from "public/images/fake-card-vertical-3.png"
+
+const fakeData = [
+  {
+    id: "3",
+    image: imgFake1,
+    types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
+    title:
+      "Why Firebird should be Used Extensively in Gaming and Metaverse Projects",
+    detail: `Firebird has officially been released recently and it promises to open up new opportunities for gaming and metaverse blockchain projects in the future.`,
+    authorAvatar: "/images/default-avatar.svg",
+    authorName: "Firebird Writer",
+    date: "Oct 10",
+    timeToRead: "4 min"
+  },
+  {
+    id: "4",
+    image: imgFake2,
+    types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.TECHNOLOGY],
+    title: "Validator node and how do we benefit from running a validator? ",
+    detail: `Proof-of-stake is a cryptocurrency consensus mechanism for processing transactions and creating new blocks in a blockchain. A consensus mechanism is a method for validating entries into a distributed database and keeping the database secure`,
+    authorAvatar: "/images/default-avatar.svg",
+    authorName: "Firebird Writer",
+    date: "Oct 10",
+    timeToRead: "4 min"
+  },
+  {
+    id: "5",
+    image: imgFake3,
+    types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
+    title: "Catch the Potential Future of Gaming and Metaverse with Firebird",
+    detail: `Currently, the gaming sector in general, and blockchain gaming, in particular, are expanding quickly. With the appearance of the metaverse, there’s a prediction that the metaverse and gaming will strongly grow together and usher in a new era for the gaming industry.`,
+    authorAvatar: "/images/default-avatar.svg",
+    authorName: "Firebird Writer",
+    date: "Oct 10",
+    timeToRead: "4 min"
+  }
+]
 
 const LastestPost = (props: any) => {
   const { inputSearch, handleSearch } = props
@@ -57,11 +99,9 @@ const LastestPost = (props: any) => {
         <div className="flex xs xs:hidden">
           <CardVertical />
         </div>
-        {Array(3)
-          .fill(1)
-          .map((item, index) => (
-            <CardVertical key={index} />
-          ))}
+        {fakeData.map((item, index) => (
+          <CardVertical cardData={item} key={index} />
+        ))}
       </div>
 
       <div className="flex justify-center mt-10">

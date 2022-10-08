@@ -1,21 +1,27 @@
 import { gql } from "@apollo/client"
 import Image from "next/image"
+import DefaultLayout from "../../components/Layouts/DefaultLayout"
+import DetailsArticlePage from "../../components/Pages/DetailsArticlePage"
 import client from "../../helpers/apollo-client"
 
 export default function ArticleDetail({ data }: { data: any }) {
   console.log(data)
   return (
-    <div>
-      <h1> Detail of article</h1>
-      <p>{data.id}</p>
-      <p>{data.is_display}</p>
-      <p>{data.author_name}</p>
-      <Image src={data.author_image} layout="fill" alt="" />
-      <p>{data.author_email}</p>
-      <p>{data.hashtags}</p>
-      <p dangerouslySetInnerHTML={{ __html: data.content }}></p>
-      <p dangerouslySetInnerHTML={{ __html: data.references }}></p>
-    </div>
+    // <div>
+    //   <h1> Detail of article</h1>
+    //   <p>{data.id}</p>
+    //   <p>{data.is_display}</p>
+    //   <p>{data.author_name}</p>
+    //   <Image src={data.author_image} layout="fill" alt="" />
+    //   <p>{data.author_email}</p>
+    //   <p>{data.hashtags}</p>
+    //   <p dangerouslySetInnerHTML={{ __html: data.content }}></p>
+    //   <p dangerouslySetInnerHTML={{ __html: data.references }}></p>
+    // </div>
+
+    <DefaultLayout>
+      <DetailsArticlePage articleDetail={data} />
+    </DefaultLayout>
   )
 }
 // get list of all articles:

@@ -12,25 +12,15 @@ import {
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
 
-const fakeCard = {
-  image: imgFake,
-  types: [CONTENT_TYPES.TECHNOLOGY, CONTENT_TYPES.COMMUNITY],
-  title: "How businesses can benefit from Web3.0 and blockchain",
-  detail:
-    "According to experts, combination of Web3. 0 and blockchain can help venture capitalists benefit from sectors such as e-commerce and fantasy sports. With Web3. 0 and blockchain expected to be adopted in next couple of years, businesses aim to use to ramp up offerings",
-  authorAvatar: "/images/default-avatar.svg",
-  authorName: "Firebird Writer",
-  date: "Jan 24",
-  timeToRead: "4 min"
-}
 type CardVerticalProps = {
+  cardData?: any
   hideDetail?: boolean
 }
 const CardVertical = (props: CardVerticalProps) => {
-  const { hideDetail = false } = props
+  const { hideDetail = false, cardData: fakeCard } = props
 
   return (
-    <Link href={URLS.DETAILS_ARTICLE}>
+    <Link href={`/articles/${fakeCard?.id}`}>
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-5 flex flex-col cursor-pointer",
@@ -38,7 +28,7 @@ const CardVertical = (props: CardVerticalProps) => {
         )}
       >
         <div className="rounded-xl w-full relative">
-          <Image src={fakeCard?.image} layout="responsive" alt="" />
+          <Image src={fakeCard?.image} layout="responsive" alt="" className="rounded-xl" />
         </div>
         <div className="flex mt-3 gap-[6px]">
           {fakeCard?.types?.map((type: any) => {

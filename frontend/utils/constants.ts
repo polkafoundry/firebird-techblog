@@ -129,3 +129,17 @@ export const headerRoutes: Array<RouteTypes> = [
     uri: "/writer"
   }
 ]
+
+type HeadDefaultTypes = {
+  image: string
+  title: string
+  description: string
+}
+
+
+export const headDefault: HeadDefaultTypes = {
+  description:
+    "Develop/ Build the next hassle-free and user-friendly NFT gaming & metaverse with Firebird.",
+  image: "https://redkite.polkafoundry.com/images/red-kite-sharing.png",
+  title: "Firebird"
+}

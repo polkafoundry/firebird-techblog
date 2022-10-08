@@ -6,35 +6,39 @@ import {
   CONTENT_TYPES,
   defaultAuthor,
   defaultAvatar,
-  MAPPING_CONTENT_TYPE_TEXT,
-  URLS
+  MAPPING_CONTENT_TYPE_TEXT
 } from "../../../utils/constants"
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
 
 const fakeCard = {
+  id: "2",
   image: imgFake,
-  types: [CONTENT_TYPES.READER_CONTRIBUTION],
-  title:
-    "3 Steps to Web3: The Ultimate Guide to Navigating Web3 for Non-Tech Founders",
-  detail:
-    "Now that we're well over halfway through 2022, it's safe to say there's definitely been a rapid pace of change surrounding Web3 this year. In the month of March alone, there were 41,000 new articles published referencing Web3",
+  types: [CONTENT_TYPES.TECHNOLOGY],
+  title: "Byzantine generals problem, blockchain and consensus",
+  detail: `The demand for understanding concepts of blockchain technology continues to grow, especially for beginners. One of the notable concepts pertaining to the blockchain landscape which has been troubling beginners refers to the Byzantine Generals’ Problem`,
   authorAvatar: "/images/default-avatar.svg",
   authorName: "Firebird Writer",
-  date: "August 9",
+  date: "Oct 10",
   timeToRead: "4 min"
 }
+
 const CardActive = () => {
   return (
-    <Link href={URLS.DETAILS_ARTICLE}>
+    <Link href={`/articles/${fakeCard.id}`}>
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-7 flex flex-col gap-3 cursor-pointer",
           "xs:flex-row xs:gap-8"
         )}
       >
-        <div className="rounded-xl w-full max-w-[600px] relative">
-          <Image src={fakeCard?.image} layout="responsive" alt="" />
+        <div className="rounded-2xl w-full max-w-[600px] relative">
+          <Image
+            src={fakeCard?.image}
+            layout="responsive"
+            alt=""
+            className="rounded-2xl"
+          />
         </div>
         <div className="flex flex-col flex-1">
           <div className="flex mt-1 gap-[6px]">
@@ -64,7 +68,7 @@ const CardActive = () => {
           >
             {fakeCard?.detail}
           </div>
-          <div className={clsx("mt-5 flex gap-2", "xs:mt-12")}>
+          <div className={clsx("mt-5 flex gap-2", "xs:mt-12 md:mt-auto")}>
             <Image
               src={fakeCard?.authorAvatar || defaultAvatar}
               width={44}
