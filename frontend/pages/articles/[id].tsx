@@ -6,7 +6,7 @@ import client from "../../helpers/apollo-client"
 
 export default function ArticleDetail({ data }: { data: any }) {
   return (
-    <DefaultLayout>
+    <DefaultLayout title="The Firebird Blog">
       <DetailsArticlePage articleDetail={data} />
     </DefaultLayout>
   )

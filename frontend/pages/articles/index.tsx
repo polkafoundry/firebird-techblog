@@ -27,7 +27,7 @@ const Articles = () => {
 
   useEffect(() => {
     const getData = async () => {
-      const res= await client.query({
+      const res = await client.query({
         query: gql`
           query {
             articles {
@@ -43,7 +43,7 @@ const Articles = () => {
   }, [])
 
   return (
-    <DefaultLayout>
+    <DefaultLayout title="The Firebird Blog">
       <ArticlesPage />
     </DefaultLayout>
   )

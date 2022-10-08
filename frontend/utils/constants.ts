@@ -140,7 +140,7 @@ type HeadDefaultTypes = {
 
 export const headDefault: HeadDefaultTypes = {
   description:
-    "Develop/ Build the next hassle-free and user-friendly NFT gaming & metaverse with Firebird.",
+    "Where you can discover Firebird-related news, including updates, research, analytics, events, partnerships, technological knowledge, etc.",
   image: "https://redkite.polkafoundry.com/images/red-kite-sharing.png",
-  title: "Firebird"
+  title: "The Firebird Blog"
 }
