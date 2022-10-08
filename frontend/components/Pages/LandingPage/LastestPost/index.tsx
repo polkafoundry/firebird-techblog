@@ -114,8 +114,8 @@ const LastestPost = (props: any) => {
           <CardVertical cardData={fakeCardActive} />
         </div>
         {fakeData.map((item, index) => (
-          <div className="flex ">
-            <CardVertical cardData={item} key={index} />
+          <div className="flex" key={index}>
+            <CardVertical cardData={item} />
           </div>
         ))}
       </div>
