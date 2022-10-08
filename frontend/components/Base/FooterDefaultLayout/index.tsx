@@ -1,6 +1,12 @@
 import Image from "next/image"
-import { headerRoutes, RouteTypes, SocialItemTypes, socialsData } from "../../../utils/constants"
+import {
+  headerRoutes,
+  RouteTypes,
+  SocialItemTypes,
+  socialsData
+} from "../../../utils/constants"
 import logoText from "/public/images/logo-text.svg"
+import iconScroll from "/public/images/icon-scroll-to-top.svg"
 import Tippy from "@tippyjs/react"
 import clsx from "clsx"
 
@@ -24,14 +30,28 @@ const buyPkfExchanges = [
 ]
 
 const FooterDefaultLayout = () => {
+  const handleScrollToTop = () => {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth"
+    })
+  }
+
   return (
     <div className="bg-black text-white w-full">
       <div
         className={clsx(
-          "flex flex-col max-w-screen-main mx-auto px-7 text-center pt-[60px] mb-3 box-border",
+          "flex flex-col relative max-w-screen-main mx-auto px-7 text-center pt-[60px] mb-3 box-border",
           "md:px-40 md:pt-24 md:text-left"
         )}
       >
+        <div
+          className="absolute top-[60px] right-[84px] cursor-pointer"
+          onClick={handleScrollToTop}
+        >
+          <Image src={iconScroll} layout="fixed" alt="" />
+        </div>
+
         <div className="w-full flex">
           <div className="flex flex-col max-w-full w-full md:max-w-[300px] items-center md:items-start">
             <div className="flex">

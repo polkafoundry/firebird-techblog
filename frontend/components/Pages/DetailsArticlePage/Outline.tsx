@@ -12,7 +12,12 @@ const Outline = () => {
       <h5 className="text-[32px] leading-10 font-birdMedium font-semibold">
         Outline
       </h5>
-      <div className="pb-5 border-b border-white border-opacity-40 text-sm leading-5">
+      <div
+        className={clsx(
+          "pb-5 text-sm leading-5",
+          // "border-b border-white border-opacity-40"
+        )}
+      >
         <div className="mt-5">
           <p>1. Web3 is the new trendy name for the decentralized web.</p>
         </div>
@@ -40,7 +45,7 @@ const Outline = () => {
           </p>
         </div>
       </div>
-      <div className="mt-5 text-white">
+      {/* <div className="mt-5 text-white">
         <span className="font-semibold text-2xl block">
           Subscribe to receive our latest blog
         </span>
@@ -64,7 +69,7 @@ const Outline = () => {
         >
           Subscribe Now
         </div>
-      </div>
+      </div> */}
     </div>
   )
 }

@@ -3,12 +3,14 @@ import { HTMLAttributeAnchorTarget } from "react"
 import iconMedium from "/public/images/socials/medium.svg"
 import iconGithub from "/public/images/socials/github.svg"
 import iconTelegram from "/public/images/socials/telegram.svg"
+import iconAnnouncement from "/public/images/socials/announcement.svg"
 import iconTwitter from "/public/images/socials/twitter.svg"
 import iconReddit from "/public/images/socials/reddit.svg"
 
 import iconMediumHover from "/public/images/socials/medium.svg"
 import iconGithubHover from "/public/images/socials/github.svg"
 import iconTelegramHover from "/public/images/socials/telegram.svg"
+import iconAnnouncementHover from "/public/images/socials/announcement.svg"
 import iconTwitterHover from "/public/images/socials/twitter.svg"
 import iconRedditHover from "/public/images/socials/reddit.svg"
 
@@ -86,8 +88,8 @@ export const socialsData: Array<SocialItemTypes> = [
     username: "r/firebird"
   },
   {
-    img: iconTelegram,
-    imgHover: iconTelegramHover,
+    img: iconAnnouncement,
+    imgHover: iconAnnouncementHover,
     label: "Annoucement Channel",
     url: "https://t.me/FirebirdANN",
     username: "@FirebirdANN"
@@ -118,11 +120,11 @@ export const headerRoutes: Array<RouteTypes> = [
     target: "_self",
     uri: "/"
   },
-  {
-    label: "Blog List",
-    target: "_self",
-    uri: "articles"
-  },
+  // {
+  //   label: "Blog List",
+  //   target: "_self",
+  //   uri: "articles"
+  // },
   {
     label: `Firebird's Writer`,
     target: "_self",
@@ -135,7 +137,6 @@ type HeadDefaultTypes = {
   title: string
   description: string
 }
-
 
 export const headDefault: HeadDefaultTypes = {
   description:

@@ -97,7 +97,7 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
                   </span>
                 </div>
               </div>
-              <div className="flex items-center gap-2 bg-white rounded-full py-2.5 px-[30px]">
+              {/* <div className="flex items-center gap-2 bg-white rounded-full py-2.5 px-[30px]">
                 <span className="text-xs font-bold text-birdGray uppercase tracking-wider">
                   Share
                 </span>
@@ -113,7 +113,7 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
                     </div>
                   </Link>
                 ))}
-              </div>
+              </div> */}
             </div>
             <div className={clsx("mt-5", "xs:mt-8")}>
               <div

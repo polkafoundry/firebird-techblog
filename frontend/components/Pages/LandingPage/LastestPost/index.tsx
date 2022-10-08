@@ -1,7 +1,6 @@
 import clsx from "clsx"
 import Image from "next/image"
 import { CONTENT_TYPES } from "../../../../utils/constants"
-import ButtonLink from "../../../Base/ButtonLink"
 import { CardActive, CardVertical } from "../../../Base/Card"
 
 import imgFake1 from "public/images/fake-card-vertical-1.png"
@@ -104,7 +103,7 @@ const LastestPost = (props: any) => {
         ))}
       </div>
 
-      <div className="flex justify-center mt-10">
+      {/* <div className="flex justify-center mt-10">
         <ButtonLink className="px-7 gap-3 bg-black text-white" href="articles">
           <>
             View more articles
@@ -116,7 +115,7 @@ const LastestPost = (props: any) => {
             />
           </>
         </ButtonLink>
-      </div>
+      </div> */}
     </>
   )
 }

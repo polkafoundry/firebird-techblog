@@ -19,7 +19,7 @@ const WriterPage = () => {
           perspectives.
         </span>
 
-        <div className="flex flex-col gap-5">
+        {/* <div className="flex flex-col gap-5">
           <div className="flex gap-5 mt-8">
             <div className="flex-1 w-full">
               <CardWriter />
@@ -52,7 +52,7 @@ const WriterPage = () => {
               />
             </>
           </ButtonLink>
-        </div>
+        </div> */}
       </>
     )
   }
