@@ -1,3 +1,4 @@
+import clsx from "clsx"
 import Image from "next/image"
 import React from "react"
 import Button from "../../Base/Button"
@@ -10,11 +11,23 @@ const WriterPage = () => {
 
   const renderBirdWriter = () => {
     return (
-      <>
-        <p className="text-[40px] font-semibold font-birdMedium mb-3">
+      <div className="">
+        <p
+          className={clsx(
+            "text-[40px] leading-[44px] font-semibold font-birdMedium mb-3 text-center",
+            "xs:text-[60px] xs:leading-[80px] xs:text-left",
+            "md:text-[56px] md:leading-[64px]"
+          )}
+        >
           The Firebird Writer
         </p>
-        <span className="text-[22px]">
+        <span
+          className={clsx(
+            "text-sm text-center block",
+            "xs:text-lg xs:text-left",
+            "md:text-22px"
+          )}
+        >
           Reading distinctive blockchain articles from various contributors’
           perspectives.
         </span>
@@ -53,22 +66,38 @@ const WriterPage = () => {
             </>
           </ButtonLink>
         </div> */}
-      </>
+      </div>
     )
   }
 
   const renderBecomeContributor = () => {
     return (
       <>
-        <p className="text-main text-xl font-birdMedium mt-20">Write & Earn</p>
+        <p
+          className={clsx(
+            "text-main text-16px font-birdMedium mt-20 text-center",
+            "xs:text-xl xs:text-left",
+            "md:leading-[28px]"
+          )}
+        >
+          Write & Earn
+        </p>
 
-        <div className="grid grid-cols-2">
+        <div
+          className={clsx("grid grid-cols-1 mt-1", "xs:grid-cols-2", "md:mt-4")}
+        >
           <div className="flex flex-col pr-10">
-            <span className="text-[56px] font-birdMedium font-semibold">
+            <span
+              className={clsx(
+                "text-32px font-birdMedium font-semibold text-center",
+                "xs:text-4xl xs:text-left",
+                "md:text-6xl"
+              )}
+            >
               Become a Firebird Contributor
             </span>
 
-            <div className="relative w-full h-full">
+            <div className="relative w-full h-[240px] xs:h-full mb-5 xs:mt-0">
               <Image
                 src="/images/bird-writer.png"
                 alt=""
@@ -79,18 +108,24 @@ const WriterPage = () => {
             </div>
           </div>
 
-          <div className="flex flex-col text-lg">
+          <div
+            className={clsx(
+              "flex flex-col text-sm",
+              "xs:text-base",
+              "md:text-lg"
+            )}
+          >
             <span>
               If you have useful knowledge, creative ideas, research, or
               experiences relating to Firebird and blockchain, don’t hesitate to
               contribute to our community.
             </span>
-            <span className="mt-2">
+            <span className="mt-2 text-center xs:text-left xs:mt-3 md:mt-2">
               Let’s become contributors to bring valuable information to the
               community and get attractive rewards from the Firebird team.
             </span>
-            <div className="flex">
-              <Button className="mt-5 gap-2 px-7 border-[2.5px] border-black">
+            <div className="flex justify-center xs:justify-start">
+              <Button className="mt-5 gap-2 px-7 border-[2.5px] border-black text-16px xs:text-18px xs:mt-3 md:mt-5">
                 <>
                   <span>Post an article</span>
                   <Image
@@ -105,10 +140,21 @@ const WriterPage = () => {
             </div>
 
             <div className="flex flex-col mt-14">
-              <span className="text-main font-birdMedium font-semibold">
+              <span
+                className={clsx(
+                  "text-main text-16px font-birdMedium font-semibold",
+                  "md:text-20px"
+                )}
+              >
                 How to participate?
               </span>
-              <ul className="mt-3 list-decimal pl-4 text-sm leading-6">
+              <ul
+                className={clsx(
+                  "mt-3 list-decimal pl-4 text-sm leading-6",
+                  "xs:text-12px",
+                  "md:text-sm"
+                )}
+              >
                 <li>
                   {`Click the "Post an article” button and enter your content in the form.`}
                 </li>
@@ -132,7 +178,13 @@ const WriterPage = () => {
 
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
-      <div className="w-full max-w-[1440px] mx-auto px-[160px] pt-5 pb-20">
+      <div
+        className={clsx(
+          "w-full max-w-[1440px] mx-auto px-5 pt-5 pb-10",
+          "xs:px-10 xs:pb-20",
+          "lg:px-[160px]"
+        )}
+      >
         {renderBirdWriter()}
 
         {renderBecomeContributor()}
