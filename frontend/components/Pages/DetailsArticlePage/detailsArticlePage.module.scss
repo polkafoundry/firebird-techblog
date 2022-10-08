@@ -1,0 +1,6 @@
+.content {
+  max-width: 100%;
+  @media (min-width: theme("screens.lg")) {
+    max-width: calc(100% - 420px);
+  }
+}

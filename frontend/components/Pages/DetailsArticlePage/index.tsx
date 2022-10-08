@@ -12,6 +12,7 @@ import iconFb from "/public/images/icon-fb.png"
 import iconLink from "/public/images/icon-link.png"
 import iconTele from "/public/images/icon-telegram.png"
 import iconTwitter from "/public/images/icon-twitter.png"
+import styles from "./detailsArticlePage.module.scss"
 
 const socials = [
   { icon: iconTele, link: "" },
@@ -57,12 +58,7 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
             "xs:mt-4 xs:flex-row"
           )}
         >
-          <div
-            className="flex-1"
-            style={{
-              maxWidth: "calc(100% - 420px)"
-            }}
-          >
+          <div className={clsx(styles.content, "flex-1")}>
             <CardType cardTypes={articleDetail?.types || fakeTypes()} />
             <h1
               className={clsx(

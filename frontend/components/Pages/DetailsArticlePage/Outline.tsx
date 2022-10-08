@@ -6,7 +6,7 @@ const Outline = () => {
     <div
       className={clsx(
         "sticky top-5 h-fit w-[360px] bg-black text-white rounded-[20px] pt-7 pb-8 px-8 hidden",
-        "xs:flex xs:flex-col"
+        "lg:flex lg:flex-col"
       )}
     >
       <h5 className="text-[32px] leading-10 font-birdMedium font-semibold">
@@ -14,7 +14,7 @@ const Outline = () => {
       </h5>
       <div
         className={clsx(
-          "pb-5 text-sm leading-5",
+          "pb-5 text-sm leading-5"
           // "border-b border-white border-opacity-40"
         )}
       >
