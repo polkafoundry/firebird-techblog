@@ -17,6 +17,10 @@
   background-size: cover;
   font: normal normal 600 40px/44px TTHoves;
   @media (min-width: theme("screens.xs")) {
+    font: normal normal 600 120px/110px TTHoves;
+    height: auto;
+  }
+  @media (min-width: theme("screens.md")) {
     font: normal normal 600 56px/64px TTHoves;
   }
 }

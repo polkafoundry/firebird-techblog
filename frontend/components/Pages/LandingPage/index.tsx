@@ -85,6 +85,7 @@ function LandingPage() {
           <p
             className={clsx(
               "mt-14 text-center px-2",
+              "xs:mb-20",
               "md:text-left md:mt-12 md:px-0"
             )}
           >

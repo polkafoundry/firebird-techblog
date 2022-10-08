@@ -35,10 +35,11 @@ const CardActive = () => {
       >
         <div
           className={clsx(
-            "rounded-2xl w-full max-w-[600px] relative",
+            "rounded-2xl w-full max-w-[600px] relative flex-2",
             "xs:max-w-[436px]",
-            "md:max-w-[480px]",
-            "lg:max-w-[500px]"
+            "md:max-w-[500px]",
+            "lg:max-w-[550px]",
+            "xl:max-w-[610px]"
           )}
         >
           <Image
