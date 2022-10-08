@@ -85,6 +85,7 @@ function LandingPage() {
           <p
             className={clsx(
               "mt-14 text-center px-2",
+              "xs:mb-20",
               "md:text-left md:mt-12 md:px-0"
             )}
           >
@@ -93,7 +94,7 @@ function LandingPage() {
         </div>
       </div>
 
-      <div className={clsx("w-full pt-7", "md:pb-16")}>
+      <div className={clsx("w-full pt-7", "xs:pt-5", "md:pt-7 md:pb-16")}>
         <div className={`${styles.section} flex flex-col`}>
           <div
             className={clsx(
@@ -104,9 +105,12 @@ function LandingPage() {
             {contentTypes.map((item: any) => (
               <div
                 key={item?.value}
-                className={`px-8 py-2 rounded-lg cursor-pointer bg-white text-birdGray font-semibold whitespace-nowrap ${
-                  contentType === item?.value ? styles.typeActived : ""
-                }`}
+                className={clsx(
+                  contentType === item?.value && styles.typeActived,
+                  "px-8 py-2 rounded-lg cursor-pointer bg-white text-birdGray font-semibold whitespace-nowrap text-base",
+                  "xs:text-20px",
+                  "md:text-base"
+                )}
                 onClick={() => handleSelectType(item.value)}
               >
                 {item?.label}

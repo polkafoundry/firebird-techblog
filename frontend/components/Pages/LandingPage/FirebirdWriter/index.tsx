@@ -10,21 +10,28 @@ const FirebirdWriter = () => {
     <div
       className={clsx(
         `${styles.writer} mt-14 pt-[60px] pb-[60px]`,
-        "xs:pt-10 xs:pb-[100px]"
+        "xs:py-20",
+        "md:pt-10 xs:pb-[100px]"
       )}
     >
       <div className={clsx(styles.section, "flex flex-col gap-10")}>
-        <div className={clsx("flex flex-col items-center mb-5", "xs:flex-row")}>
+        <div
+          className={clsx(
+            "flex flex-col items-center mb-5 gap-5",
+            "xs:flex-row"
+          )}
+        >
           <div
             className={clsx(
-              "flex flex-col w-full max-w-[580px] items-center",
+              "flex flex-col w-full max-w-[580px] items-center ",
               "xs:items-start"
             )}
           >
             <span
               className={clsx(
                 "font-birdMedium font-semibold text-[32px]",
-                "xs:text-[56px]"
+                "xs:text-[40px] xs:leading-[52px]",
+                "lg:text-[56px]"
               )}
             >
               The Firebird’s Writer
@@ -32,7 +39,8 @@ const FirebirdWriter = () => {
             <span
               className={clsx(
                 "text-lg text-center mt-3",
-                "xs:text-left xs:mt-0"
+                "xs:text-left xs:mt-2",
+                "md:mt-0"
               )}
             >
               Become a contributor and share your own stories to bring valuable
@@ -70,7 +78,7 @@ const FirebirdWriter = () => {
             </div>
           </div>
 
-          <div className="relative w-full">
+          <div className="relative w-full  md:max-h-full">
             <Image src={imgWrite} alt="" layout="responsive" />
           </div>
         </div>

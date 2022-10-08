@@ -6,6 +6,7 @@ import { CardActive, CardVertical } from "../../../Base/Card"
 import imgFake1 from "public/images/fake-card-vertical-1.png"
 import imgFake2 from "public/images/fake-card-vertical-2.png"
 import imgFake3 from "public/images/fake-card-vertical-3.png"
+import imgFakeActive from "public/images/fake-card-active.png"
 
 const fakeData = [
   {
@@ -44,14 +45,27 @@ const fakeData = [
   }
 ]
 
+const fakeCardActive = {
+  id: "2",
+  image: imgFakeActive,
+  types: [CONTENT_TYPES.TECHNOLOGY],
+  title: "Byzantine generals problem, blockchain and consensus",
+  detail: `The demand for understanding concepts of blockchain technology continues to grow, especially for beginners. One of the notable concepts pertaining to the blockchain landscape which has been troubling beginners refers to the Byzantine Generals’ Problem`,
+  authorAvatar: "/images/default-avatar.svg",
+  authorName: "Firebird Writer",
+  date: "Oct 10",
+  timeToRead: "4 min"
+}
+
 const LastestPost = (props: any) => {
   const { inputSearch, handleSearch } = props
   return (
     <>
       <div
         className={clsx(
-          "flex flex-col w-full justify-between mt-8 gap-3",
-          "xs:flex-row"
+          "flex flex-col w-full justify-between items-baseline mt-8 gap-3",
+          "xs:flex-row xs:mt-12",
+          "md:mt-8"
         )}
       >
         <span
@@ -85,21 +99,24 @@ const LastestPost = (props: any) => {
         </div>
       </div>
 
-      <div className="hidden w-full mt-3 xs:flex">
+      <div className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}>
         <CardActive />
       </div>
 
       <div
         className={clsx(
-          "flex flex-col items-center gap-5 mt-5  ",
-          "xs:flex-row"
+          "flex flex-col items-center gap-5 mt-5",
+          "xs:flex-row xs:mt-[26px] xs:gap-[14px] xs:grid xs:grid-cols-2",
+          "md:mt-5 md:gap-5 md:grid-cols-3 "
         )}
       >
-        <div className="flex xs xs:hidden">
-          <CardVertical />
+        <div className="flex md:hidden">
+          <CardVertical cardData={fakeCardActive} />
         </div>
         {fakeData.map((item, index) => (
-          <CardVertical cardData={item} key={index} />
+          <div className="flex" key={index}>
+            <CardVertical cardData={item} />
+          </div>
         ))}
       </div>
 

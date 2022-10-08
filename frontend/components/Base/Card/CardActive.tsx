@@ -29,10 +29,19 @@ const CardActive = () => {
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-7 flex flex-col gap-3 cursor-pointer",
-          "xs:flex-row xs:gap-8"
+          "sm:flex-row sm:gap-8 sm:py-5 sm:px-4",
+          "md:p-7"
         )}
       >
-        <div className="rounded-2xl w-full max-w-[600px] relative">
+        <div
+          className={clsx(
+            "rounded-2xl w-full max-w-[600px] relative flex-2",
+            "xs:max-w-[436px]",
+            "md:max-w-[500px]",
+            "lg:max-w-[550px]",
+            "xl:max-w-[610px]"
+          )}
+        >
           <Image
             src={fakeCard?.image}
             layout="responsive"
