@@ -24,7 +24,7 @@ const uploadImage = async (req: any, res: any) => {
         const image = req.files?.file
         if (!image) return console.log('asjdhsakjdsa')
 
-        const imageUrl = process.env.NODE_ENV == "production" ? uploadImageToS3(image) : await uploadImageToLocalStorage(image)
+        const imageUrl = process.env.NODE_ENV == "production" ? await uploadImageToS3(image) : await uploadImageToLocalStorage(image)
 
         return res.send({ url: imageUrl })
     } catch (error: any) {

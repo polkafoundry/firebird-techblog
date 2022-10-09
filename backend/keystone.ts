@@ -18,12 +18,12 @@ export default withAuth(
           uptime: process.uptime(),
         }),
       },
+      maxFileSize: 2 * 1024 * 1024,
       extendExpressApp: (app) => {
-        app.use(fileUpload({
-          limits: { fileSize: 400 * 1024 },
+        app.post('/upload-image', fileUpload({
+          limits: { fileSize: 2 * 1024 * 1024 },
           abortOnLimit: true,
-        }))
-        app.post('/upload-image', Controller.uploadImage);
+        }), Controller.uploadImage);
       }
     },
     db: {
@@ -72,7 +72,7 @@ export default withAuth(
         secretAccessKey: Const.S3_SECRET_ACCESS_KEY,
         // The S3 links will be signed so they remain private
         signed: { expiry: 5000 },
-        endpoint: Const.S3_ENDPOINT
+        endpoint: Const.S3_ENDPOINT_KEYSTONE
       },
     }
   })
