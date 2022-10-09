@@ -4,8 +4,23 @@ import Button from "../../../Base/Button"
 import styles from "../landing.module.scss"
 
 import imgWrite from "public/images/bird-writer.png"
+import { useState } from "react"
+import PostArticleDialog from "../../../Base/PostArticleDialog"
 
 const FirebirdWriter = () => {
+  const [openModalPost, setOpenModalPost] = useState<boolean>(false)
+
+  const handleOpenPostArticle = () => {
+    setOpenModalPost(true)
+  }
+  const handleClosePostArticle = () => {
+    setOpenModalPost(false)
+  }
+
+  const onSubmitPost = (data: any) => {
+    console.log(data)
+  }
+
   return (
     <div
       className={clsx(
@@ -63,6 +78,7 @@ const FirebirdWriter = () => {
                   "gap-2 px-2 border-[2.5px] border-black text-base font-semibold tracking-normal",
                   "xs:text-lg xs:px-7"
                 )}
+                onClick={handleOpenPostArticle}
               >
                 <>
                   <span>Post an article</span>
@@ -87,6 +103,12 @@ const FirebirdWriter = () => {
           <CardActive />
         </div> */}
       </div>
+
+      <PostArticleDialog
+        handleClose={handleClosePostArticle}
+        onSubmit={onSubmitPost}
+        open={openModalPost}
+      />
     </div>
   )
 }

@@ -4,6 +4,7 @@ import clsx from "clsx"
 type ButtonProps = {
   className?: string
   children: any
+  onClick?: () => void
 }
 
 const buttonStyles = {
@@ -13,7 +14,7 @@ const buttonStyles = {
 }
 
 const Button = (props: ButtonProps) => {
-  const { className = "", children } = props
+  const { className = "", children, onClick } = props
 
   return (
     <div
@@ -22,6 +23,7 @@ const Button = (props: ButtonProps) => {
         buttonStyles.hoverAnimated,
         className
       )}
+      onClick={onClick}
     >
       {children}
     </div>

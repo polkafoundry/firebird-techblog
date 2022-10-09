@@ -10,9 +10,12 @@
   },
   "dependencies": {
     "@apollo/client": "^3.6.9",
+    "@ckeditor/ckeditor5-build-decoupled-document": "^35.2.0",
+    "@ckeditor/ckeditor5-react": "^5.0.2",
     "@headlessui/react": "^1.7.3",
     "@netlify/plugin-nextjs": "^4.23.3",
     "@tippyjs/react": "^4.2.6",
+    "axios": "^1.1.2",
     "clsx": "^1.2.1",
     "dotenv": "^16.0.3",
     "graphql": "^16.6.0",
