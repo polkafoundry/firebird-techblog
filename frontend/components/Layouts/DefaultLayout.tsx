@@ -16,7 +16,8 @@ const DefaultLayout = (props: LayoutProps) => {
   const {
     description: defaultDescription,
     image: defaultImage,
-    title: defaultTitle
+    title: defaultTitle,
+    keywords: defaultKeywords
   } = headDefault
 
   return (
@@ -33,10 +34,7 @@ const DefaultLayout = (props: LayoutProps) => {
           key="description"
         />
         <meta property="og:image" content={image || defaultImage} key="image" />
-        <meta
-          name="keywords"
-          content="ecosystem, research, analytics, gaming, metaverse"
-        ></meta>
+        <meta name="keywords" content={defaultKeywords}></meta>
         <meta name="twitter:card" content="summary_large_image" />
         <meta name="twitter:title" content={title || defaultTitle} />
         <meta
