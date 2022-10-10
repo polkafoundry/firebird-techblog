@@ -1,0 +1,19 @@
+version: "3.7"
+
+services:
+  firebird_techblog:
+    build:
+      context: .
+      dockerfile: dockerfile
+    restart: always
+    env_file: 
+      - .env
+    ports: 
+      - "$PORT:$PORT"
+    networks:
+      - firebird_techblog
+    container_name: firebird_techblog
+
+networks:
+    firebird_techblog:
+        driver: bridge
