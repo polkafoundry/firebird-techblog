@@ -1,11 +1,9 @@
 import clsx from "clsx"
 import Image from "next/image"
-import Button from "../../../Base/Button"
 import styles from "../landing.module.scss"
 
 import imgWrite from "public/images/bird-writer.png"
 import { useState } from "react"
-import PostArticleDialog from "../../../Base/PostArticleDialog"
 
 const FirebirdWriter = () => {
   const [openModalPost, setOpenModalPost] = useState<boolean>(false)
@@ -105,11 +103,11 @@ const FirebirdWriter = () => {
         </div> */}
       </div>
 
-      <PostArticleDialog
+      {/* <PostArticleDialog
         handleClose={handleClosePostArticle}
         onSubmit={onSubmitPost}
         open={openModalPost}
-      />
+      /> */}
     </div>
   )
 }

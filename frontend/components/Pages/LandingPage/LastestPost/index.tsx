@@ -33,11 +33,11 @@ const fakeData = [
     timeToRead: "4 min"
   },
   {
-    id: "5",
-    image: imgFake3,
-    types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
-    title: "Catch the Potential Future of Gaming and Metaverse with Firebird",
-    detail: `Currently, the gaming sector in general, and blockchain gaming, in particular, are expanding quickly. With the appearance of the metaverse, there’s a prediction that the metaverse and gaming will strongly grow together and usher in a new era for the gaming industry.`,
+    id: "2",
+    image: imgFakeActive,
+    types: [CONTENT_TYPES.TECHNOLOGY],
+    title: "Byzantine generals problem, blockchain and consensus",
+    detail: `The demand for understanding concepts of blockchain technology continues to grow, especially for beginners. One of the notable concepts pertaining to the blockchain landscape which has been troubling beginners refers to the Byzantine Generals’ Problem`,
     authorAvatar: "/images/default-avatar.svg",
     authorName: "Firebird Writer",
     date: "Oct 10",
@@ -46,11 +46,11 @@ const fakeData = [
 ]
 
 const fakeCardActive = {
-  id: "2",
-  image: imgFakeActive,
-  types: [CONTENT_TYPES.TECHNOLOGY],
-  title: "Byzantine generals problem, blockchain and consensus",
-  detail: `The demand for understanding concepts of blockchain technology continues to grow, especially for beginners. One of the notable concepts pertaining to the blockchain landscape which has been troubling beginners refers to the Byzantine Generals’ Problem`,
+  id: "5",
+  image: imgFake3,
+  types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
+  title: "Catch the Potential Future of Gaming and Metaverse with Firebird",
+  detail: `Currently, the gaming sector in general, and blockchain gaming, in particular, are expanding quickly. With the appearance of the metaverse, there’s a prediction that the metaverse and gaming will strongly grow together and usher in a new era for the gaming industry.`,
   authorAvatar: "/images/default-avatar.svg",
   authorName: "Firebird Writer",
   date: "Oct 10",

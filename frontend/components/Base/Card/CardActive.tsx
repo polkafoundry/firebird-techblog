@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
-import imgFake from "public/images/fake-card-active.png"
+import imgFake from "public/images/fake-card-vertical-3.png"
 import {
   CONTENT_TYPES,
   defaultAuthor,
@@ -12,11 +12,11 @@ import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
 
 const fakeCard = {
-  id: "2",
+  id: "5",
   image: imgFake,
-  types: [CONTENT_TYPES.TECHNOLOGY],
-  title: "Byzantine generals problem, blockchain and consensus",
-  detail: `The demand for understanding concepts of blockchain technology continues to grow, especially for beginners. One of the notable concepts pertaining to the blockchain landscape which has been troubling beginners refers to the Byzantine Generals’ Problem`,
+  types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
+  title: "Catch the Potential Future of Gaming and Metaverse with Firebird",
+  detail: `Currently, the gaming sector in general, and blockchain gaming, in particular, are expanding quickly. With the appearance of the metaverse, there’s a prediction that the metaverse and gaming will strongly grow together and usher in a new era for the gaming industry.`,
   authorAvatar: "/images/default-avatar.svg",
   authorName: "Firebird Writer",
   date: "Oct 10",
