@@ -118,9 +118,17 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
                 dangerouslySetInnerHTML={{ __html: articleDetail.content }}
                 className="flex flex-col gap-3"
               ></div>
-              <div
-                dangerouslySetInnerHTML={{ __html: articleDetail.references }}
-              ></div>
+              {articleDetail.references && (
+                <>
+                  <span className="text-3xl">References</span>
+                  <div
+                    className={clsx("break-words", styles.references)}
+                    dangerouslySetInnerHTML={{
+                      __html: articleDetail.references
+                    }}
+                  ></div>
+                </>
+              )}
             </div>
           </div>
 
