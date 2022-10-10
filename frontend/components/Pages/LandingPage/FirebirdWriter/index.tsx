@@ -49,22 +49,23 @@ const FirebirdWriter = () => {
                 "lg:text-[56px]"
               )}
             >
-              The Firebird’s Writer
+              The Firebird Writer
             </span>
             <span
               className={clsx(
                 "text-lg text-center mt-3",
                 "xs:text-left xs:mt-2",
-                "md:mt-0"
+                "md:mt-6"
               )}
             >
-              Become a contributor and share your own stories to bring valuable
-              blockchain knowledge to the community. <br /> Let’s submit your
-              articles for a chance to receive alluring rewards from Firebird.
+              Let’s get ready to embrace write-and-earn programs with alluring
+              rewards from Firebird in the near future. <br /> More information
+              will be revealed soon. Please stay tunned and follow our channels
+              for the latest updates.
             </span>
 
-            <div className={clsx("flex gap-2 mt-5", "xs:mt-3 xs:gap-4")}>
-              {/* <ButtonLink
+            {/* <div className={clsx("flex gap-2 mt-5", "xs:mt-3 xs:gap-4")}>
+              <ButtonLink
                 href="writer"
                 className={clsx(
                   "px-12 bg-black text-white text-base",
@@ -72,7 +73,7 @@ const FirebirdWriter = () => {
                 )}
               >
                 Discover
-              </ButtonLink> */}
+              </ButtonLink>
               <Button
                 className={clsx(
                   "gap-2 px-2 border-[2.5px] border-black text-base font-semibold tracking-normal",
@@ -91,7 +92,7 @@ const FirebirdWriter = () => {
                   />
                 </>
               </Button>
-            </div>
+            </div> */}
           </div>
 
           <div className="relative w-full  md:max-h-full">
