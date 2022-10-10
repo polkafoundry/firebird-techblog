@@ -120,7 +120,9 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
               ></div>
               {articleDetail.references && (
                 <>
-                  <span className="text-3xl">References</span>
+                  <span className="text-3xl mt-[60px] font-semibold">
+                    References
+                  </span>
                   <div
                     className={clsx("break-words", styles.references)}
                     dangerouslySetInnerHTML={{
