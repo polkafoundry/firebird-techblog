@@ -119,17 +119,15 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
                 className="flex flex-col gap-3"
               ></div>
               {articleDetail.references && (
-                <>
-                  <span className="text-3xl mt-[60px] font-semibold">
-                    References
-                  </span>
+                <div className="mt-[60px] flex flex-col">
+                  <span className="text-3xl font-semibold">References</span>
                   <div
                     className={clsx("break-words", styles.references)}
                     dangerouslySetInnerHTML={{
                       __html: articleDetail.references
                     }}
                   ></div>
-                </>
+                </div>
               )}
             </div>
           </div>
