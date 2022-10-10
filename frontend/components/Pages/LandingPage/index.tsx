@@ -96,7 +96,7 @@ function LandingPage() {
 
       <div className={clsx("w-full pt-7", "xs:pt-5", "md:pt-7 md:pb-16")}>
         <div className={`${styles.section} flex flex-col`}>
-          <div
+          {/* <div
             className={clsx(
               styles.hiddenScrollbar,
               "flex gap-2 overflow-x-auto"
@@ -116,7 +116,7 @@ function LandingPage() {
                 {item?.label}
               </div>
             ))}
-          </div>
+          </div> */}
 
           <LastestPost inputSearch={inputSearch} handleSearch={handleSearch} />
 

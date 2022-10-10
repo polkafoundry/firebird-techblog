@@ -76,7 +76,7 @@ const LastestPost = (props: any) => {
         >
           Latest Post
         </span>
-        <div
+        {/* <div
           className={clsx(
             "flex items-center rounded-lg px-5 h-[52px] bg-white w-full",
             "xs:max-w-xs"
@@ -96,7 +96,7 @@ const LastestPost = (props: any) => {
             height={24}
             alt=""
           />
-        </div>
+        </div> */}
       </div>
 
       <div className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}>
