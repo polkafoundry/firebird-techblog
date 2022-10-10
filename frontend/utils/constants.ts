@@ -144,8 +144,7 @@ type HeadDefaultTypes = {
 export const headDefault: HeadDefaultTypes = {
   description:
     "Discover our latest news, including updates, research, analytics, events, partnerships, technological knowledge, and etc.",
-  image:
-    "https://d1j2c9jkfhu70p.cloudfront.net/Thumbnail_firebird_ebe64c4845.png",
+  image: "https://d1j2c9jkfhu70p.cloudfront.net/Thumbnail_2_7bc61c9253.png",
   title: "The Firebird Blog",
   keywords: ""
 }
