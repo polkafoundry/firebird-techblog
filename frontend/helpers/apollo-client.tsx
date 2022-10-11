@@ -1,8 +1,10 @@
-import { ApolloClient, InMemoryCache } from "@apollo/client";
+import { ApolloClient, InMemoryCache } from "@apollo/client"
+
+const baseUrl = process.env.NEXT_BASE_API
 
 const client = new ApolloClient({
-  uri: "http://localhost:8000/api/graphql",
-  cache: new InMemoryCache(),
-});
+  uri: baseUrl,
+  cache: new InMemoryCache()
+})
 
-export default client;
+export default client

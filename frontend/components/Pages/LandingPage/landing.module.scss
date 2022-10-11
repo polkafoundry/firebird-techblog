@@ -1,0 +1,55 @@
+.section {
+  width: 100%;
+  max-width: 1440px;
+  margin: 0 auto;
+  padding: 0 20px;
+  @media (min-width: theme("screens.xs")) {
+    padding: 0 40px;
+  }
+  @media (min-width: theme("screens.lg")) {
+    padding: 0 160px;
+  }
+}
+
+.banner {
+  background: url("/images/bg-techblog.png") no-repeat center center;
+  height: 320px;
+  background-size: cover;
+  font: normal normal 600 40px/44px TTHoves;
+  @media (min-width: theme("screens.xs")) {
+    font: normal normal 600 120px/110px TTHoves;
+    height: auto;
+  }
+  @media (min-width: theme("screens.md")) {
+    font: normal normal 600 56px/64px TTHoves;
+  }
+}
+
+.typeActived {
+  background-color: black;
+  color: white;
+}
+
+.subscribe {
+  background: url("/images/bg-subscribe.png") no-repeat bottom;
+  background-size: cover;
+  @media (min-width: theme("screens.lg")) {
+    background-position: center;
+    background-size: contain;
+  }
+}
+
+.writer {
+  background: linear-gradient(180deg, #efa84f 0%, #ea3223 100%);
+}
+
+/* Hide scrollbar for Chrome, Safari and Opera */
+.hiddenScrollbar::-webkit-scrollbar {
+  display: none;
+}
+
+/* Hide scrollbar for IE, Edge and Firefox */
+.hiddenScrollbar {
+  -ms-overflow-style: none; /* IE and Edge */
+  scrollbar-width: none; /* Firefox */
+}

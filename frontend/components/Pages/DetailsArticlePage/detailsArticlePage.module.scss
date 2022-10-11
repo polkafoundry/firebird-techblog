@@ -1,0 +1,14 @@
+.content {
+  max-width: 100%;
+  @media (min-width: theme("screens.lg")) {
+    max-width: calc(100% - 420px);
+  }
+}
+.references {
+  a {
+    color: #528dff;
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
