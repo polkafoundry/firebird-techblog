@@ -4,6 +4,9 @@ import styles from "../landing.module.scss"
 
 import imgWrite from "public/images/bird-writer.png"
 import { useState } from "react"
+import ButtonLink from "../../../Base/ButtonLink"
+import Button from "../../../Base/Button"
+import PostArticleDialog from "../../../Base/PostArticleDialog"
 
 const FirebirdWriter = () => {
   const [openModalPost, setOpenModalPost] = useState<boolean>(false)
@@ -62,7 +65,7 @@ const FirebirdWriter = () => {
               for the latest updates.
             </span>
 
-            {/* <div className={clsx("flex gap-2 mt-5", "xs:mt-3 xs:gap-4")}>
+            <div className={clsx("flex gap-2 mt-5", "xs:mt-3 xs:gap-4")}>
               <ButtonLink
                 href="writer"
                 className={clsx(
@@ -90,7 +93,7 @@ const FirebirdWriter = () => {
                   />
                 </>
               </Button>
-            </div> */}
+            </div>
           </div>
 
           <div className="relative w-full  md:max-h-full">
@@ -103,11 +106,11 @@ const FirebirdWriter = () => {
         </div> */}
       </div>
 
-      {/* <PostArticleDialog
+      <PostArticleDialog
         handleClose={handleClosePostArticle}
         onSubmit={onSubmitPost}
         open={openModalPost}
-      /> */}
+      />
     </div>
   )
 }

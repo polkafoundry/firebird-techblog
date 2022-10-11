@@ -1,7 +1,39 @@
 import clsx from "clsx"
 import React from "react"
 
-const Outline = () => {
+type OutlineProps = {
+  headings?: any[]
+}
+
+const Outline = (props: OutlineProps) => {
+  const headings = props.headings
+  console.log("headingss", headings)
+  // const headings = [
+  //   {
+  //     content: "1. Web3 is the new trendy name for the decentralized web."
+  //   },
+  //   {
+  //     content:
+  //       "2. Web1 is read-only, Web2 is read-write, Web3 is read-write-own.",
+  //     active: true,
+  //     subHeadings: [
+  //       {
+  //         content: "2.1. Web3 is a money layer for the internet.",
+  //         active: true
+  //       },
+  //       { content: "2.2. Web3 is an identity layer for the internet." }
+  //     ]
+  //   },
+  //   {
+  //     content:
+  //       "3. Web3 is a reaction to social networks not keeping our data secure, and selling it for their own profit."
+  //   },
+  //   {
+  //     content:
+  //       "4. Web3 is a way for artists and creators to not only own what they produce on a platform, but the platform itself."
+  //   }
+  // ]
+
   return (
     <div
       className={clsx(
@@ -18,32 +50,29 @@ const Outline = () => {
           // "border-b border-white border-opacity-40"
         )}
       >
-        <div className="mt-5">
-          <p>1. Web3 is the new trendy name for the decentralized web.</p>
-        </div>
-        <div className="mt-5">
-          <p className="opacity-80">
-            2. Web1 is read-only, Web2 is read-write, Web3 is read-write-own.
-          </p>
-          <p className="pl-4 mt-0.5 opacity-80">
-            2.1. Web3 is a money layer for the internet.
-          </p>
-          <p className="pl-4 mt-0.5 opacity-80">
-            2.2. Web3 is an identity layer for the internet.
-          </p>
-        </div>
-        <div className="mt-5">
-          <p className="opacity-80">
-            3. Web3 is a reaction to social networks not keeping our data
-            secure, and selling it for their own profit.
-          </p>
-        </div>
-        <div className="mt-5">
-          <p className="opacity-80">
-            4. Web3 is a way for artists and creators to not only own what they
-            produce on a platform, but the platform itself.
-          </p>
-        </div>
+        {headings.map((item) => (
+          <div className="mt-5" key={item.content}>
+            <p
+              className={clsx(
+                "cursor-pointer",
+                item.active ? "" : "opacity-80"
+              )}
+            >
+              {item.content}
+            </p>
+            {item.subHeadings?.map((subHeading) => (
+              <p
+                key={subHeading.content}
+                className={clsx(
+                  "pl-4 mt-0.5 cursor-pointer",
+                  subHeading.active ? "opacity-100" : "opacity-80"
+                )}
+              >
+                {subHeading.content}
+              </p>
+            ))}
+          </div>
+        ))}
       </div>
       {/* <div className="mt-5 text-white">
         <span className="font-semibold text-2xl block">
