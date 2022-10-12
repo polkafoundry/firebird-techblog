@@ -13,7 +13,7 @@ import iconLink from "/public/images/icon-link.png"
 import iconTele from "/public/images/icon-telegram.png"
 import iconTwitter from "/public/images/icon-twitter.png"
 import styles from "./detailsArticlePage.module.scss"
-import { useCallback, useEffect, useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const socials = [
   { icon: iconTele, link: "" },
@@ -77,7 +77,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     return () => {
       window.removeEventListener("scroll", handleMatchOutlineWithScroll)
     }
-  }, [headingActive])
+  }, [headingTags])
 
   useEffect(() => {
     handleMatchOutlineWithScroll()
@@ -136,9 +136,10 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
 
   const scrollToView = (element: Element) => {
     element.scrollIntoView({
-      behavior: "smooth"
+      behavior: "smooth",
+      block: "start"
     })
-    window.scrollBy(0, -50)
+    // window.scrollBy(0, -50)
   }
 
   const handleMatchOutlineWithScroll = () => {

@@ -29,7 +29,7 @@ const Outline = (props: OutlineProps) => {
           <div className="mt-5" key={item.content}>
             <p
               className={clsx(
-                "cursor-pointer",
+                "cursor-pointer inline-block",
                 (headingActive.mainHeadingIndex !== index ||
                   headingActive.isSubHeadingActive) &&
                   "opacity-80"
@@ -42,7 +42,7 @@ const Outline = (props: OutlineProps) => {
               <p
                 key={subHeading.content}
                 className={clsx(
-                  "pl-4 mt-0.5 cursor-pointer",
+                  "pl-4 mt-0.5 inline-block cursor-pointer",
                   headingActive.subHeadingIndex !== index && "opacity-80"
                 )}
                 onClick={() => handleClick(subHeading.element)}
