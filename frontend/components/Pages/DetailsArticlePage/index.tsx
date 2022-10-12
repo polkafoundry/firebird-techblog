@@ -29,7 +29,8 @@ type DetailArticleTypes = {
 const DetailsArticlePage = (props: DetailArticleTypes) => {
   const { articleDetail = {} } = props
   const [headings, setHeadings] = useState<any[]>([])
-  const [outlineElements, setOutlineElements] = useState<any[]>([])
+  const contentRef = useRef<HTMLHeadingElement>(null)
+  const headingTags = ["H2", "H3", "H4"]
 
   const fakeTypes = () => {
     switch (articleDetail?.id) {
@@ -48,82 +49,26 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
   }
 
   useEffect(() => {
-    // const headings = loadingOutline(articleDetail.content)
-    // setHeadings(headings)
-    // // const headings = formatOutline(temp)
-    // console.log("headings :>> ", headings)
-  }, [])
+    loadingOutline()
 
-  const headingTags = ["H2", "H3", "H4"]
-  const loadingOutline = (detailContent: string) => {
-    const parser = new DOMParser()
-    const doc = parser.parseFromString(detailContent, "text/html")
-    const elements = doc.body.children
-    let headings = []
+    window.addEventListener("scroll", handleScroll)
 
-    for (let i = 0; i < elements.length; i++) {
-      const currentElement = elements[i]
-      const elementTagName = currentElement.tagName
-      if (headingTags.includes(elementTagName)) {
-        headings.push({
-          tagName: elementTagName,
-          content: currentElement.childElementCount
-            ? currentElement.children[0].textContent
-            : currentElement.textContent
-        })
-      }
+    return () => {
+      window.removeEventListener("scroll", handleScroll)
     }
+  }, [])
+  // const handleScroll = (event: any) => {
+  //       console.log('window.scrollY', window.scrollY);
+  //     };
 
-    headings = formatOutline(headings)
-
-    return headings
+  const handleScroll = () => {
+    console.log("scrollTop: ", window.scrollY)
+    console.log("offset: ", window.pageYOffset)
+    console.log("ele0: ", headings[0].element.offsetTop)
   }
 
-  // Outline will show like
-  // mainTagName
-  //   subTagName
-  //   subTagName
-  // mainTagName
-  const formatOutline = (headings: any[]) => {
-    const mainTagName = headings[0].tagName
-    const subTagName =
-      mainTagName === headingTags[0] ? headingTags[1] : headingTags[2]
-    console.log("mainTagName :>> ", mainTagName)
-    console.log("subTagName :>> ", subTagName)
-
-    const headingFormated: any[] = []
-    headings.forEach((heading) => {
-      console.log("heading.tagName", heading.tagName)
-      if (heading.tagName === mainTagName) {
-        headingFormated.push({
-          content: heading.content,
-          subHeadings: [],
-          tagName: heading.tagName
-        })
-      } else if (heading.tagName === subTagName) {
-        headingFormated[headingFormated.length - 1].subHeadings.push({
-          content: heading.content,
-          tagName: heading.tagName
-        })
-      }
-    })
-
-    return headingFormated
-  }
-
-  const contentRef = useRef(null)
-
-  const test = () => {
-    // contentRef.current.querySelectorAll("h2")[2].scrollIntoView({
-    //   behavior: "smooth"
-    // })
-    // var scrollDiv = document.getElementById("myDiv").offsetTop;
-    // window.scrollTo({ top: 2000, behavior: "smooth" })
-    // const heading2Elements = contentRef.current.querySelectorAll("h2")
-    // const heading3Elements = contentRef.current.querySelectorAll("h3")
-    // const heading4Elements = contentRef.current.querySelectorAll("h4")
-
-    const elements = contentRef.current.children
+  const loadingOutline = () => {
+    const elements = contentRef?.current?.children || []
     let headings = []
 
     for (let i = 0; i < elements.length; i++) {
@@ -135,26 +80,53 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
     }
 
     headings = formatOutline(headings)
+    setHeadings(headings)
+  }
 
-    console.log("headingsxx", headings)
+  // Outline will show like
+  // mainTagName
+  //   subTagName
+  //   subTagName
+  // mainTagName
+  const formatOutline = (headings: any[]) => {
+    const mainTagName = headings[0].tagName
+    const subTagName =
+      mainTagName === headingTags[0] ? headingTags[1] : headingTags[2]
 
-    // for (var i = 0; i < heading2Elements.length; i++) {
-    //   const offsetTop = heading2Elements[i].offsetTop
-    //   console.log("offsetTop1 :>> ", offsetTop)
-    // }
-    // for (var i = 0; i < heading3Elements.length; i++) {
-    //   const offsetTop = heading3Elements[i].offsetTop
-    //   console.log("offsetTop2 :>> ", offsetTop)
-    // }
-    // for (var i = 0; i < heading4Elements.length; i++) {
-    //   const offsetTop = heading4Elements[i].offsetTop
-    //   console.log("offsetTop3 :>> ", offsetTop)
-    // }
+    const headingFormated: any[] = []
+    headings.forEach((heading) => {
+      if (heading.tagName === mainTagName) {
+        headingFormated.push({
+          content: getTextContent(heading),
+          subHeadings: [],
+          element: heading
+        })
+      } else if (heading.tagName === subTagName) {
+        headingFormated[headingFormated.length - 1].subHeadings.push({
+          content: getTextContent(heading),
+          element: heading
+        })
+      }
+    })
+
+    return headingFormated
+  }
+
+  const getTextContent = (currentElement: Element) => {
+    return currentElement.childElementCount
+      ? currentElement.children[0].textContent
+      : currentElement.textContent
+  }
+
+  const scrollToView = (element: Element) => {
+    element.scrollIntoView({
+      behavior: "smooth"
+    })
   }
 
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
-      <button onClick={test}>test</button>
+      <button onClick={loadingOutline}>test</button>
 
       <div
         className={clsx(
@@ -243,7 +215,7 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
             </div>
           </div>
 
-          <Outline headings={headings} />
+          <Outline headings={headings} handleClick={scrollToView} />
         </div>
 
         {/* <div className="mt-16">
