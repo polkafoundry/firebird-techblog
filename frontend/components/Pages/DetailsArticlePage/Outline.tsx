@@ -4,10 +4,11 @@ import React from "react"
 type OutlineProps = {
   headings: any[]
   handleClick: any
+  headingActiveIndex?: any
 }
 
 const Outline = (props: OutlineProps) => {
-  const { headings, handleClick } = props
+  const { headings, handleClick, headingActiveIndex = 0 } = props
 
   return (
     <div
@@ -25,23 +26,25 @@ const Outline = (props: OutlineProps) => {
           // "border-b border-white border-opacity-40"
         )}
       >
-        {headings?.map((item) => (
+        {headings?.map((item, index) => (
           <div className="mt-5" key={item.content}>
             <p
               className={clsx(
                 "cursor-pointer",
-                item.active ? "" : "opacity-80"
+                (headingActiveIndex.mainHeadingIndex !== index ||
+                  headingActiveIndex.isSubHeadingActive) &&
+                  "opacity-80"
               )}
               onClick={() => handleClick(item.element)}
             >
               {item.content}
             </p>
-            {item.subHeadings?.map((subHeading: any) => (
+            {item.subHeadings?.map((subHeading: any, index: number) => (
               <p
                 key={subHeading.content}
                 className={clsx(
                   "pl-4 mt-0.5 cursor-pointer",
-                  subHeading.active ? "opacity-100" : "opacity-80"
+                  headingActiveIndex.subHeadingIndex !== index && "opacity-80"
                 )}
                 onClick={() => handleClick(subHeading.element)}
               >

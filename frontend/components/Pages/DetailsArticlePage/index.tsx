@@ -22,13 +22,32 @@ const socials = [
   { icon: iconLink, link: "" }
 ]
 
-type DetailArticleTypes = {
+type DetailArticleProps = {
   articleDetail: any
 }
 
-const DetailsArticlePage = (props: DetailArticleTypes) => {
+type HeadingProps = {
+  content: string
+  subHeadings?: Array<{
+    content: string
+    element: HTMLElement
+  }>
+  element: HTMLElement
+}
+
+type HeadingActiveProps = {
+  isSubHeadingActive: boolean
+  mainHeadingIndex: number
+  subHeadingIndex?: number
+}
+
+const DetailsArticlePage = (props: DetailArticleProps) => {
   const { articleDetail = {} } = props
-  const [headings, setHeadings] = useState<any[]>([])
+  const [headings, setHeadings] = useState<HeadingProps[]>([])
+  const [headingActive, setHeadingActive] = useState<HeadingActiveProps>({
+    isSubHeadingActive: false,
+    mainHeadingIndex: 0
+  })
   const contentRef = useRef<HTMLHeadingElement>(null)
   const headingTags = ["H2", "H3", "H4"]
 
@@ -50,22 +69,12 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
 
   useEffect(() => {
     loadingOutline()
-
     window.addEventListener("scroll", handleScroll)
 
     return () => {
       window.removeEventListener("scroll", handleScroll)
     }
   }, [])
-  // const handleScroll = (event: any) => {
-  //       console.log('window.scrollY', window.scrollY);
-  //     };
-
-  const handleScroll = () => {
-    console.log("scrollTop: ", window.scrollY)
-    console.log("offset: ", window.pageYOffset)
-    console.log("ele0: ", headings[0].element.offsetTop)
-  }
 
   const loadingOutline = () => {
     const elements = contentRef?.current?.children || []
@@ -88,7 +97,7 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
   //   subTagName
   //   subTagName
   // mainTagName
-  const formatOutline = (headings: any[]) => {
+  const formatOutline = (headings: Element[]) => {
     const mainTagName = headings[0].tagName
     const subTagName =
       mainTagName === headingTags[0] ? headingTags[1] : headingTags[2]
@@ -122,12 +131,47 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
     element.scrollIntoView({
       behavior: "smooth"
     })
+    window.scrollBy(0, -50)
+  }
+
+  const handleScroll = () => {
+    setHeadingActive(getActiveHeadingIndex())
+  }
+
+  // active heading will have position less than 100
+  const getActiveHeadingIndex = () => {
+    const headingPosTop = headings.map((heading: HeadingProps) => {
+      const newSubHeadingPos = heading.subHeadings?.map(
+        (subheading) => subheading.element.getBoundingClientRect().top
+      )
+
+      return {
+        pos: heading.element.getBoundingClientRect().top,
+        subHeadings: newSubHeadingPos
+      }
+    })
+
+    for (let i = headingPosTop.length - 1; i >= 0; i--) {
+      const mainHeading: any = headingPosTop[i]
+      const subHeading = mainHeading.subHeadings
+      for (let j = subHeading.length - 1; j >= 0; j--) {
+        if (subHeading[j] < 100) {
+          return {
+            isSubHeadingActive: true,
+            mainHeadingIndex: i,
+            subHeadingIndex: j
+          }
+        }
+      }
+      if (headingPosTop[i].pos < 100) {
+        return { isSubHeadingActive: false, mainHeadingIndex: i }
+      }
+    }
+    return { isSubHeadingActive: false, mainHeadingIndex: 0 }
   }
 
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
-      <button onClick={loadingOutline}>test</button>
-
       <div
         className={clsx(
           "w-full max-w-[1440px] mx-auto px-5 pt-5 pb-10",
@@ -215,7 +259,11 @@ const DetailsArticlePage = (props: DetailArticleTypes) => {
             </div>
           </div>
 
-          <Outline headings={headings} handleClick={scrollToView} />
+          <Outline
+            headings={headings}
+            headingActiveIndex={headingActive}
+            handleClick={scrollToView}
+          />
         </div>
 
         {/* <div className="mt-16">
