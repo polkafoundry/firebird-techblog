@@ -40,6 +40,7 @@ model Article {
   references          String?           @mysql.Text
   is_admin            Boolean           @default(false)
   created_at          DateTime?
+  alias               String            @unique @default("")
 }
 
 model Category {

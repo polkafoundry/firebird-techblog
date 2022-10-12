@@ -47,10 +47,15 @@ export const lists = {
       },
       item: {
         create: ({ session, context, listKey, inputData, operation }) => {
+          if (inputData.title) inputData.alias = inputData.title.replace(/[^\w\s]/gi, '').trim().replace(/ +/g, '-').toLowerCase()
           inputData.created_at = new Date()
           inputData.is_admin = !!session?.data
           inputData.status = !!session?.data ? Const.ARTICLE_STATUS.APPROVED : Const.ARTICLE_STATUS.PENDING
           if (session?.data) inputData.author_email = session.data.email
+          return true
+        },
+        update: ({ session, context, listKey, inputData, operation }) => {
+          if (inputData.title) inputData.alias = inputData.title.replace(/[^\w\s]/gi, '').trim().replace(/ +/g, '-').toLowerCase()
           return true
         }
       }
@@ -88,7 +93,14 @@ export const lists = {
         }
       }),
       thumbnail: image({ storage: Const.NODE_ENV == 'production' ? 's3_redkite' : 'my_local_images' }),
-      title: text(),
+      title: text({
+        validation: {
+          isRequired: true
+        },
+        db: {
+          isNullable: false
+        }
+      }),
       category: relationship({ ref: 'Category', many: true, ui: { hideCreate: true } }),
       author_name: text(),
       author_image: text(),
@@ -128,6 +140,17 @@ export const lists = {
           }
         }
       }),
+      alias: text({
+        ui: {
+          createView: {
+            fieldMode: 'hidden'
+          },
+          itemView: {
+            fieldMode: 'hidden'
+          }
+        },
+        isIndexed: 'unique'
+      })
     },
   }),
   Category: list({

@@ -125,6 +125,7 @@ type Article {
   references: String
   is_admin: Boolean
   created_at: DateTime
+  alias: String
 }
 
 enum ArticleStatusType {
@@ -154,6 +155,7 @@ scalar DateTime
 
 input ArticleWhereUniqueInput {
   id: ID
+  alias: String
 }
 
 input ArticleWhereInput {
@@ -172,6 +174,7 @@ input ArticleWhereInput {
   is_exclusive: BooleanFilter
   is_admin: BooleanFilter
   created_at: DateTimeNullableFilter
+  alias: StringFilter
 }
 
 input IntFilter {
@@ -221,6 +224,7 @@ input ArticleOrderByInput {
   is_exclusive: OrderDirection
   is_admin: OrderDirection
   created_at: OrderDirection
+  alias: OrderDirection
 }
 
 input ArticleUpdateInput {
@@ -238,6 +242,7 @@ input ArticleUpdateInput {
   references: String
   is_admin: Boolean
   created_at: DateTime
+  alias: String
 }
 
 input ImageFieldInput {
@@ -276,6 +281,7 @@ input ArticleCreateInput {
   references: String
   is_admin: Boolean
   created_at: DateTime
+  alias: String
 }
 
 input CategoryRelateToManyForCreateInput {

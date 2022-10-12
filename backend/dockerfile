@@ -1,0 +1,20 @@
+FROM node:16
+
+RUN mkdir /firebird-techblog
+
+# Create app directory
+WORKDIR /firebird-techblog
+
+# Install app dependencies
+# A wildcard is used to ensure both package.json AND package-lock.json are copied
+# where available (npm@5+)
+COPY package.json yarn.lock ./
+
+RUN yarn install
+
+# Bundle app source
+COPY . .
+
+RUN yarn deploy
+
+CMD ["yarn", "start"]
