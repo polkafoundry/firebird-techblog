@@ -68,7 +68,23 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
   }
 
   useEffect(() => {
+    const loadingOutline = () => {
+      const elements = contentRef?.current?.children || []
+      let headings = []
+
+      for (let i = 0; i < elements.length; i++) {
+        const currentElement = elements[i]
+        const elementTagName = currentElement.tagName
+        if (headingTags.includes(elementTagName)) {
+          headings.push(currentElement)
+        }
+      }
+
+      headings = formatOutline(headings)
+      setHeadings(headings)
+    }
     loadingOutline()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
   useEffect(() => {
@@ -77,27 +93,13 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     return () => {
       window.removeEventListener("scroll", handleMatchOutlineWithScroll)
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headingTags])
 
   useEffect(() => {
     handleMatchOutlineWithScroll()
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headings])
-
-  const loadingOutline = () => {
-    const elements = contentRef?.current?.children || []
-    let headings = []
-
-    for (let i = 0; i < elements.length; i++) {
-      const currentElement = elements[i]
-      const elementTagName = currentElement.tagName
-      if (headingTags.includes(elementTagName)) {
-        headings.push(currentElement)
-      }
-    }
-
-    headings = formatOutline(headings)
-    setHeadings(headings)
-  }
 
   // Outline will show like
   // mainTagName
