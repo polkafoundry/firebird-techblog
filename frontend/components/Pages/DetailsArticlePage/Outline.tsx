@@ -4,12 +4,11 @@ import React from "react"
 type OutlineProps = {
   headings: any[]
   handleClick: any
-  headingActiveIndex?: any
+  headingActive?: any
 }
 
 const Outline = (props: OutlineProps) => {
-  const { headings, handleClick, headingActiveIndex = 0 } = props
-
+  const { headings, handleClick, headingActive } = props
   return (
     <div
       className={clsx(
@@ -31,8 +30,8 @@ const Outline = (props: OutlineProps) => {
             <p
               className={clsx(
                 "cursor-pointer",
-                (headingActiveIndex.mainHeadingIndex !== index ||
-                  headingActiveIndex.isSubHeadingActive) &&
+                (headingActive.mainHeadingIndex !== index ||
+                  headingActive.isSubHeadingActive) &&
                   "opacity-80"
               )}
               onClick={() => handleClick(item.element)}
@@ -44,7 +43,7 @@ const Outline = (props: OutlineProps) => {
                 key={subHeading.content}
                 className={clsx(
                   "pl-4 mt-0.5 cursor-pointer",
-                  headingActiveIndex.subHeadingIndex !== index && "opacity-80"
+                  headingActive.subHeadingIndex !== index && "opacity-80"
                 )}
                 onClick={() => handleClick(subHeading.element)}
               >

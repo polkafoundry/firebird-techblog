@@ -13,7 +13,7 @@ import iconLink from "/public/images/icon-link.png"
 import iconTele from "/public/images/icon-telegram.png"
 import iconTwitter from "/public/images/icon-twitter.png"
 import styles from "./detailsArticlePage.module.scss"
-import { useEffect, useRef, useState } from "react"
+import { useCallback, useEffect, useRef, useState } from "react"
 
 const socials = [
   { icon: iconTele, link: "" },
@@ -69,12 +69,19 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
 
   useEffect(() => {
     loadingOutline()
-    window.addEventListener("scroll", handleScroll)
+  }, [])
+
+  useEffect(() => {
+    window.addEventListener("scroll", handleMatchOutlineWithScroll)
 
     return () => {
-      window.removeEventListener("scroll", handleScroll)
+      window.removeEventListener("scroll", handleMatchOutlineWithScroll)
     }
-  }, [])
+  }, [headingActive])
+
+  useEffect(() => {
+    handleMatchOutlineWithScroll()
+  }, [headings])
 
   const loadingOutline = () => {
     const elements = contentRef?.current?.children || []
@@ -134,12 +141,13 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     window.scrollBy(0, -50)
   }
 
-  const handleScroll = () => {
-    setHeadingActive(getActiveHeadingIndex())
+  const handleMatchOutlineWithScroll = () => {
+    const newHeadingActive = getActiveHeading()
+    setHeadingActive(newHeadingActive)
   }
 
   // active heading will have position less than 100
-  const getActiveHeadingIndex = () => {
+  const getActiveHeading = () => {
     const headingPosTop = headings.map((heading: HeadingProps) => {
       const newSubHeadingPos = heading.subHeadings?.map(
         (subheading) => subheading.element.getBoundingClientRect().top
@@ -261,7 +269,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
 
           <Outline
             headings={headings}
-            headingActiveIndex={headingActive}
+            headingActive={headingActive}
             handleClick={scrollToView}
           />
         </div>
