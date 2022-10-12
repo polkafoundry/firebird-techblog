@@ -148,3 +148,9 @@ export const headDefault: HeadDefaultTypes = {
   title: "The Firebird Blog",
   keywords: ""
 }
+
+export enum ModalPostTypes {
+  EDIT_POST,
+  VIEW_THUMBNAIL,
+  VIEW_DETAIL
+}

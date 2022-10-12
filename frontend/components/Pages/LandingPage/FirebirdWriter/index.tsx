@@ -7,15 +7,23 @@ import { useState } from "react"
 import ButtonLink from "../../../Base/ButtonLink"
 import Button from "../../../Base/Button"
 import PostArticleDialog from "../../../Base/PostArticleDialog"
+import { ModalPostTypes } from "../../../../utils/constants"
 
 const FirebirdWriter = () => {
   const [openModalPost, setOpenModalPost] = useState<boolean>(false)
+  const [modalPostType, setModalPostType] = useState<ModalPostTypes>(
+    ModalPostTypes.EDIT_POST
+  )
 
   const handleOpenPostArticle = () => {
     setOpenModalPost(true)
   }
   const handleClosePostArticle = () => {
     setOpenModalPost(false)
+  }
+
+  const handleChangPostType = (type: ModalPostTypes) => {
+    setModalPostType(type)
   }
 
   const onSubmitPost = (data: any) => {
@@ -109,7 +117,9 @@ const FirebirdWriter = () => {
       <PostArticleDialog
         handleClose={handleClosePostArticle}
         onSubmit={onSubmitPost}
+        handleChangPostType={handleChangPostType}
         open={openModalPost}
+        modalType={modalPostType}
       />
     </div>
   )
