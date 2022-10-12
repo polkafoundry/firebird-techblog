@@ -21,5 +21,6 @@ export default {
     S3_ACCESS_KEY_ID: process.env.S3_ACCESS_KEY_ID || '',
     S3_SECRET_ACCESS_KEY: process.env.S3_SECRET_ACCESS_KEY || '',
     S3_ENDPOINT: process.env.S3_ENDPOINT || '',
-    S3_ENDPOINT_KEYSTONE: process.env.S3_ENDPOINT_KEYSTONE || ''
+    S3_ENDPOINT_KEYSTONE: process.env.S3_ENDPOINT_KEYSTONE || '',
+    SESSION_SECRET: process.env.SESSION_SECRET
 }
