@@ -3,7 +3,9 @@ import { createAuth } from '@keystone-6/auth';
 
 import { statelessSessions } from '@keystone-6/core/session';
 
-let sessionSecret = '-- DEV COOKIE SECRET; CHANGE ME --';
+import Const from './utils/constant'
+
+let sessionSecret = Const.SESSION_SECRET || '-- DEV COOKIE SECRET; CHANGE ME --';
 let sessionMaxAge = 60 * 60 * 24 * 30; // 30 days
 
 const { withAuth } = createAuth({
