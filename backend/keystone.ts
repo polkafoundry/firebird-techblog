@@ -9,6 +9,7 @@ export default withAuth(
   // Using the config function helps typescript guide you to the available options.
   config({
     server: {
+      cors: { origin: '*', credentials: true },
       port: Const.PORT,
       healthCheck: {
         path: '/my-health-check',
