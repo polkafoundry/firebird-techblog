@@ -1,0 +1,6 @@
+.fitWithDialog {
+  min-height: calc(100% - 75px);
+  @media (min-width: theme("screens.xs")) {
+    min-height: calc(100% - 90px);
+  }
+}

@@ -5,12 +5,13 @@ import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 
 type CardTypeProps = {
   cardTypes: any[]
+  isPreviewPost?: boolean
 }
 
 const CardType = (props: CardTypeProps) => {
-  const { cardTypes } = props
+  const { cardTypes, isPreviewPost = false } = props
   return (
-    <div className="flex mt-3 gap-[6px]">
+    <div className="flex flex-wrap gap-[6px]">
       {cardTypes &&
         cardTypes.map((type: any) => {
           return (
@@ -21,7 +22,11 @@ const CardType = (props: CardTypeProps) => {
                 getContentTypeColor(type)
               )}
             >
-              <span>{MAPPING_CONTENT_TYPE_TEXT[type]}</span>
+              <span
+                className={clsx(isPreviewPost && "text-14px", "xs:text-16px")}
+              >
+                {MAPPING_CONTENT_TYPE_TEXT[type]}
+              </span>
             </div>
           )
         })}

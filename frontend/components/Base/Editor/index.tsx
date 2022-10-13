@@ -12,7 +12,6 @@ const Editor = (props: EditoProps) => {
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false)
   const { CKEditor, DecoupledEditor } = editorRef.current || {}
 
-  console.log("content :>> ", content)
   class UploadAdapter {
     loader
     constructor(loader: any) {

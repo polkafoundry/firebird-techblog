@@ -1,17 +1,21 @@
 import clsx from "clsx"
+import moment from "moment"
 import Image from "next/image"
+import Link from "next/link"
 import { useState } from "react"
 import {
   contentTypes,
   defaultAuthor,
-  defaultAvatar,
-  ModalPostTypes
+  ModalPostTypes,
+  socialShare
 } from "../../../utils/constants"
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import Button from "../Button"
-import { CardActive } from "../Card"
+import AuthorImage from "../Card/AuthorImage"
+import CardThumbnail from "../Card/CardThumbnail"
 import CardType from "../Card/CardType"
 import Editor from "../Editor"
+import styles from "./post.module.scss"
 import iconBack from "/public/images/icon-back.svg"
 import iconView from "/public/images/icon-view.svg"
 
@@ -168,9 +172,12 @@ const PostArticleDialog = (props: DialogTypes) => {
           )}
         >
           <Button
-            className="h-[60px] justify-center border-2 border-birdGray text-birdGray px-12 text-14px font-semibold opacity-50"
+            className={clsx(
+              "h-[60px] justify-center border-2 border-birdGray text-birdGray px-12 text-14px font-semibold",
+              formData.content.length === 0 && "opacity-50"
+            )}
             onClick={handleViewPost}
-            // disabled={true}
+            disabled={formData.content.length === 0}
           >
             <Image src={iconView} alt="" />
             <span className="ml-1.5">View post</span>
@@ -210,7 +217,14 @@ const PostArticleDialog = (props: DialogTypes) => {
     }
 
     return (
-      <div className="mt-[22px] px-5 xs:px-10 xs:mt-[32px] md:px-[60px]">
+      <div
+        className={clsx(
+          "mt-[22px] px-5",
+          styles.fitWithDialog,
+          "xs:mt-[32px] xs:px-10",
+          "md:px-[60px]"
+        )}
+      >
         <div className={clsx("flex justify-center gap-2", "md:gap-3")}>
           <button
             type="button"
@@ -237,84 +251,96 @@ const PostArticleDialog = (props: DialogTypes) => {
             Detail
           </button>
         </div>
-        <div
-          className={clsx(
-            "mt-3 bg-[#F6F6F6] rounded-t-[20px] px-5 py-4 h-full",
-            "xs:p-8",
-            "md:px-[70px]"
-          )}
-        >
-          {modalType === ModalPostTypes.VIEW_DETAIL ? (
+        {modalType === ModalPostTypes.VIEW_DETAIL && (
+          <div
+            className={clsx(
+              "mt-3 bg-[#F6F6F6] rounded-t-[20px] px-5 py-4 ",
+              styles.fitWithDialog,
+              "xs:p-8",
+              "md:px-[70px]"
+            )}
+          >
             <div>
-              <CardType cardTypes={formData?.categories} />
-              <h1
-                className={clsx(
-                  "text-3xl font-birdMedium font-semibold mt-3",
-                  "xs:mt-4 xs:text-4xl",
-                  "md:text-36px"
-                )}
-              >
-                {formData?.title}
-              </h1>
-              <div
-                className={clsx(
-                  "flex flex-col justify-between items-center mt-3 gap-3",
-                  "xs:flex-row xs:mt-2"
-                )}
-              >
-                <div className="flex gap-2 h-fit">
-                  <div className="rounded-full overflow-hidden">
-                    <picture>
-                      <img
-                        src={formData?.author_image || defaultAvatar}
-                        width={44}
-                        height={44}
-                        alt=""
-                        style={{ width: 44, height: 44, objectFit: "cover" }}
-                        // className="rounded-full"
-                      />
-                    </picture>
+              <div className="">
+                <CardType cardTypes={formData?.categories} isPreviewPost />
+                <h1
+                  className={clsx(
+                    "text-20px font-birdMedium font-semibold mt-3",
+                    "xs:mt-2 xs:text-32px",
+                    "md:text-[36px] md:leading-[48px]"
+                  )}
+                >
+                  {formData?.title}
+                </h1>
+                <div
+                  className={clsx(
+                    "flex flex-col justify-between items-center mt-8 gap-[18px]",
+                    "xs:flex-row xs:mt-4 xs:gap-0",
+                    "md:mt-5"
+                  )}
+                >
+                  <div className="flex gap-2 h-fit">
+                    <AuthorImage image={formData.author_image} />
+                    <div className="flex flex-col gap-1">
+                      <span
+                        className={clsx(
+                          "text-14/20 font-semibold",
+                          "xs:text-16px"
+                        )}
+                      >
+                        {formData?.author_name || defaultAuthor}
+                      </span>
+                      <span
+                        className={clsx(
+                          "text-12px text-birdGray",
+                          "xs:text-sm"
+                        )}
+                      >
+                        {`${moment(new Date()).format("ll")} | ${"4 min"} read`}
+                      </span>
+                    </div>
                   </div>
-                  <div className="flex flex-col gap-1">
-                    <span className="text-sm font-semibold">
-                      {formData?.author_name || defaultAuthor}
+                  <div className="flex items-center gap-2 bg-white rounded-full py-2.5 px-[30px]">
+                    <span className="text-xs font-bold text-birdGray uppercase tracking-wider">
+                      Share
                     </span>
-                    <span className="text-xs text-birdGray">
-                      {`${new Date().toDateString() || "Oct 10"} | ${
-                        formData?.timeToRead || "4 min"
-                      } read`}
-                    </span>
+                    {socialShare.map((item, index) => (
+                      <Link href={item.link} key={index}>
+                        <div
+                          className={clsx(
+                            "h-8 w-8 flex items-center justify-center rounded-full cursor-pointer",
+                            index === 2 && "bg-birdRed"
+                          )}
+                        >
+                          <Image src={item.icon} alt="" />
+                        </div>
+                      </Link>
+                    ))}
                   </div>
                 </div>
-                {/* <div className="flex items-center gap-2 bg-white rounded-full py-2.5 px-[30px]">
-                <span className="text-xs font-bold text-birdGray uppercase tracking-wider">
-                  Share
-                </span>
-                {socials.map((item, index) => (
-                  <Link href={item.link} key={index}>
-                    <div
-                      className={clsx(
-                        "h-8 w-8 flex items-center justify-center rounded-full cursor-pointer",
-                        index === 2 && "bg-birdRed"
-                      )}
-                    >
-                      <Image src={item.icon} alt="" />
-                    </div>
-                  </Link>
-                ))}
-              </div> */}
+                <div
+                  dangerouslySetInnerHTML={{ __html: formData.content }}
+                  className={clsx("flex flex-col gap-3 mt-5", "xs:mt-8")}
+                ></div>
               </div>
-              <div
-                dangerouslySetInnerHTML={{ __html: formData.content }}
-                className={clsx("flex flex-col gap-3 mt-5", "xs:mt-8")}
-              ></div>
             </div>
-          ) : (
-            <div>
-              <CardActive />
+          </div>
+        )}
+        {modalType === ModalPostTypes.VIEW_THUMBNAIL && (
+          <div
+            className={clsx(
+              "mt-3 bg-[#F6F6F6] rounded-t-[20px] px-5 py-4 flex items-center",
+              styles.fitWithDialog,
+              "xs:p-8",
+              "md:px-[70px]"
+            )}
+          >
+            <div className="h-fit">
+              <CardThumbnail cardDetail={formData} />
             </div>
-          )}
-        </div>
+          </div>
+        )}
+        <div className="h-8 sm:h-10 md:h-8"></div>
       </div>
     )
   }
@@ -331,7 +357,7 @@ const PostArticleDialog = (props: DialogTypes) => {
     >
       <div
         className={clsx(
-          "flex flex-col w-full overflow-y-auto bg-white rounded-[20px] pt-10 pb-8",
+          "flex flex-col w-full h-full overflow-y-auto bg-white rounded-[20px] pt-10 pb-8",
           "xs:pt-12"
         )}
       >

@@ -1,20 +1,25 @@
 import { HTMLAttributeAnchorTarget } from "react"
 
-import iconMedium from "/public/images/socials/medium.svg"
-import iconGithub from "/public/images/socials/github.svg"
-import iconTelegram from "/public/images/socials/telegram.svg"
 import iconAnnouncement from "/public/images/socials/announcement.svg"
-import iconTwitter from "/public/images/socials/twitter.svg"
+import iconGithub from "/public/images/socials/github.svg"
+import iconMedium from "/public/images/socials/medium.svg"
 import iconReddit from "/public/images/socials/reddit.svg"
+import iconTelegram from "/public/images/socials/telegram.svg"
+import iconTwitter from "/public/images/socials/twitter.svg"
 
-import iconMediumHover from "/public/images/socials/medium.svg"
-import iconGithubHover from "/public/images/socials/github.svg"
-import iconTelegramHover from "/public/images/socials/telegram.svg"
 import iconAnnouncementHover from "/public/images/socials/announcement.svg"
-import iconTwitterHover from "/public/images/socials/twitter.svg"
+import iconGithubHover from "/public/images/socials/github.svg"
+import iconMediumHover from "/public/images/socials/medium.svg"
 import iconRedditHover from "/public/images/socials/reddit.svg"
+import iconTelegramHover from "/public/images/socials/telegram.svg"
+import iconTwitterHover from "/public/images/socials/twitter.svg"
 
 import defaultAvatar from "/public/images/default-avatar.svg"
+
+import iconFb from "/public/images/icon-fb.png"
+import iconLink from "/public/images/icon-link.png"
+import iconTeleBlack from "/public/images/icon-telegram.png"
+import iconTwitterBlack from "/public/images/icon-twitter.png"
 
 const firebirdLanding =
   process.env.FIREBIRD_LANDING_PAGE ||
@@ -154,3 +159,10 @@ export enum ModalPostTypes {
   VIEW_THUMBNAIL,
   VIEW_DETAIL
 }
+
+export const socialShare = [
+  { icon: iconTeleBlack, link: "" },
+  { icon: iconTwitterBlack, link: "" },
+  { icon: iconFb, link: "" },
+  { icon: iconLink, link: "" }
+]

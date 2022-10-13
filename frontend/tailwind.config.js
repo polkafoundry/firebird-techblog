@@ -50,6 +50,7 @@ module.exports = {
       "10px": ["10px", { lineHeight: "14px" }],
       "12px": ["12px", { lineHeight: "16px" }],
       "14px": ["14px", { lineHeight: "16px" }],
+      "14/20": ["14px", { lineHeight: "20px" }],
       "16px": ["16px", { lineHeight: "20px" }],
       "18px": ["18px", { lineHeight: "24px" }],
       "20px": ["20px", { lineHeight: "28px" }],
