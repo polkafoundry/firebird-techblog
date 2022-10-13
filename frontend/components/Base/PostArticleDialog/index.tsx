@@ -46,11 +46,10 @@ const PostArticleDialog = (props: DialogTypes) => {
       ...prevState,
       [fieldName]: fieldValue
     }))
-    validateDataInput(fieldName, fieldValue)
+    updateErrorDataInput(fieldName, fieldValue)
   }
 
-  const validateDataInput = (fieldName: string, fieldValue: string) => {
-    // validate data
+  const updateErrorDataInput = (fieldName: string, fieldValue: string) => {
     if (fieldValue.trim() === "") {
       setErrorFormData((prevState) => ({
         ...prevState,
@@ -74,14 +73,17 @@ const PostArticleDialog = (props: DialogTypes) => {
   }
 
   const isValidDataInputs = () => {
-    validateDataInput("author_name", formData.author_name)
-    validateDataInput("author_email", formData.author_email)
-    validateDataInput("title", formData.title)
+    updateErrorDataInput("author_name", formData.author_name)
+    updateErrorDataInput("author_email", formData.author_email)
+    updateErrorDataInput("title", formData.title)
 
-    const errorFormDataKeys = Object.keys(errorFormData)
-    for (let i = 0; i < errorFormDataKeys.length; i++) {
-      if (errorFormData[errorFormDataKeys[i] as keyof FormErrorDataTypes])
-        return false
+    if (
+      formData.author_name.trim() === "" ||
+      formData.author_email.trim() === "" ||
+      formData.title.trim() === "" ||
+      !EMAIL_PATTERN.test(formData.author_email)
+    ) {
+      return false
     }
 
     return true
@@ -215,30 +217,7 @@ const PostArticleDialog = (props: DialogTypes) => {
         </div>
 
         {renderInputField("title", "Your post title *")}
-
-        {/* <div>
-          <input
-            type="text"
-            name="title"
-            placeholder="Your post title *"
-            className={inputStyles}
-            value={formData.title}
-            onChange={handleFormChange}
-          />
-          {errorFormData.title}
-        </div> */}
         {renderInputField("author_image", "Your avatar image link")}
-
-        {/* <div>
-          <input
-            type="text"
-            name="author_image"
-            placeholder="Your avatar image link"
-            className={inputStyles}
-            value={formData.author_image}
-            onChange={handleFormChange}
-          />
-        </div> */}
 
         <span className={clsx("mt-3 font-semibold", "xs:mt-2")}>
           Choose Categories
@@ -380,18 +359,16 @@ const PostArticleDialog = (props: DialogTypes) => {
         {modalType === ModalPostTypes.VIEW_THUMBNAIL && (
           <div
             className={clsx(
-              "mt-3 bg-[#F6F6F6] rounded-t-[20px] px-5 py-4 flex items-center",
+              "mt-3 bg-[#F6F6F6] rounded-t-[20px] px-5 py-4 flex w-full items-center",
               styles.fitWithDialog,
               "xs:p-8",
               "md:px-[70px]"
             )}
           >
-            <div className="h-fit">
-              <CardThumbnail cardDetail={formData} />
-            </div>
+            <CardThumbnail cardDetail={formData} />
           </div>
         )}
-        <div className="h-8 sm:h-10 md:h-8"></div>
+        {/* <div className="h-8"></div> */}
       </div>
     )
   }
