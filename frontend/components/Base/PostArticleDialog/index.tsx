@@ -26,6 +26,7 @@ import {
 import styles from "./post.module.scss"
 import iconBack from "/public/images/icon-back.svg"
 import iconView from "/public/images/icon-view.svg"
+import iconLink from "/public/images/icon-link-gray.svg"
 
 const inputStyles = clsx(
   "flex w-full h-[52px] px-5 justify-center bg-[#F7F8F9] rounded-lg border border-[#DEDEDE] text-sm",
@@ -120,8 +121,12 @@ const PostArticleDialog = (props: DialogTypes) => {
   }
 
   const renderEditForm = () => {
-    const renderInputField = (fieldName: any, placeholder: string) => (
-      <div>
+    const renderInputField = (
+      fieldName: any,
+      placeholder: string,
+      leftIcon?: any
+    ) => (
+      <div className="relative">
         <input
           type="text"
           name={fieldName}
@@ -135,6 +140,9 @@ const PostArticleDialog = (props: DialogTypes) => {
             {errorFormData[fieldName as keyof FormErrorDataTypes]}
           </span>
         )}
+        <div className="absolute top-[10px] right-[10px]">
+          <Image src={leftIcon} alt="" />
+        </div>
       </div>
     )
 
@@ -217,7 +225,7 @@ const PostArticleDialog = (props: DialogTypes) => {
         </div>
 
         {renderInputField("title", "Your post title *")}
-        {renderInputField("author_image", "Your avatar image link")}
+        {renderInputField("author_image", "Your avatar image link", iconLink)}
 
         <span className={clsx("mt-3 font-semibold", "xs:mt-2")}>
           Choose Categories
