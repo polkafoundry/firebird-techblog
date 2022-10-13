@@ -22,18 +22,18 @@ import iconTeleBlack from "/public/images/icon-telegram.png"
 import iconTwitterBlack from "/public/images/icon-twitter.png"
 
 const firebirdLanding =
-  process.env.FIREBIRD_LANDING_PAGE ||
+  process.env.NEXT_PUBLIC_FIREBIRD_LANDING_PAGE ||
   "https://firebird-landingpage.netlify.app/"
 const defaultAuthor = "Firebird Writer"
 export { defaultAvatar, defaultAuthor }
 
 export const CONTENT_TYPES = {
   ALL: "",
-  ECOSYSTEM: "ecosystem",
-  TECHNOLOGY: "technology",
-  COMMUNITY: "community",
-  ANALYTICS: "analytics",
-  READER_CONTRIBUTION: "reader_contribution"
+  ECOSYSTEM: "3",
+  TECHNOLOGY: "4",
+  COMMUNITY: "2",
+  ANALYTICS: "1",
+  READER_CONTRIBUTION: "5"
 }
 
 export const contentTypes = [
