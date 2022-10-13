@@ -113,7 +113,7 @@ function LandingPage() {
 
   const renderSubBanner = () => {
     return (
-      <div className="relative w-full mt-10 cursor-pointer">
+      <div className={clsx("relative w-full mt-10 cursor-pointer", "xs:mt-20")}>
         <Image src={imgSubBanner} layout="responsive" alt="" />
       </div>
     )
@@ -163,7 +163,7 @@ function LandingPage() {
 
           <LastestPost inputSearch={inputSearch} handleSearch={handleSearch} />
 
-          {/* {renderSubBanner()} */}
+          {renderSubBanner()}
 
           <ExclusiveContent
             inputEmail={inputEmail}

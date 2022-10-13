@@ -40,15 +40,12 @@ const FirebirdWriter = () => {
     >
       <div className={clsx(styles.section, "flex flex-col gap-10")}>
         <div
-          className={clsx(
-            "flex flex-col items-center mb-5 gap-5",
-            "xs:flex-row"
-          )}
+          className={clsx("flex flex-col items-center mb-5 ", "sm:flex-row")}
         >
           <div
             className={clsx(
               "flex flex-col w-full max-w-[580px] items-center ",
-              "xs:items-start"
+              "sm:items-start"
             )}
           >
             <span
@@ -104,7 +101,7 @@ const FirebirdWriter = () => {
             </div>
           </div>
 
-          <div className="relative w-full  md:max-h-full">
+          <div className="relative w-full mt-5 sm:mt-0 xs:w-3/5 md:max-h-full">
             <Image src={imgWrite} alt="" layout="responsive" />
           </div>
         </div>
