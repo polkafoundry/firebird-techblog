@@ -6,6 +6,7 @@ import { useState } from "react"
 import {
   contentTypes,
   defaultAuthor,
+  EMAIL_PATTERN,
   ModalPostTypes,
   socialShare
 } from "../../../utils/constants"
@@ -15,64 +16,91 @@ import AuthorImage from "../Card/AuthorImage"
 import CardThumbnail from "../Card/CardThumbnail"
 import CardType from "../Card/CardType"
 import Editor from "../Editor"
+import {
+  defaultErrorValues,
+  defaultInputValues,
+  DialogTypes,
+  FormDataTypes,
+  FormErrorDataTypes
+} from "./InitState"
 import styles from "./post.module.scss"
 import iconBack from "/public/images/icon-back.svg"
 import iconView from "/public/images/icon-view.svg"
 
 const inputStyles = clsx(
-  "flex h-[52px] px-5 justify-center bg-[#F7F8F9] rounded-lg border border-[#DEDEDE] text-sm",
+  "flex w-full h-[52px] px-5 justify-center bg-[#F7F8F9] rounded-lg border border-[#DEDEDE] text-sm",
   "sm:text-base"
 )
-
-type DialogTypes = {
-  open: boolean
-  handleClose: () => void
-  onSubmit: (data: any) => void
-  handleChangPostType: (data: any) => void
-  modalType: ModalPostTypes
-}
-
-type FormDataTypes = {
-  author_name: string
-  author_image: string
-  author_email: string
-  title: string
-  categories: Array<string>
-  content: string
-}
 
 const PostArticleDialog = (props: DialogTypes) => {
   const { handleClose, onSubmit, open, handleChangPostType, modalType } = props
 
-  const [formData, setFormData] = useState<FormDataTypes>({
-    author_email: "",
-    author_image: "",
-    author_name: "",
-    categories: [],
-    content: "",
-    title: ""
-  })
+  const [formData, setFormData] = useState<FormDataTypes>(defaultInputValues)
+  const [errorFormData, setErrorFormData] =
+    useState<FormErrorDataTypes>(defaultErrorValues)
 
   const handleFormChange = (e: any) => {
+    const fieldName = e.target.name
+    const fieldValue = e.target.value
     setFormData((prevState) => ({
       ...prevState,
-      [e.target.name]: e.target.value
+      [fieldName]: fieldValue
+    }))
+    validateDataInput(fieldName, fieldValue)
+  }
+
+  const validateDataInput = (fieldName: string, fieldValue: string) => {
+    // validate data
+    if (fieldValue.trim() === "") {
+      setErrorFormData((prevState) => ({
+        ...prevState,
+        [fieldName]: "This field is required!"
+      }))
+      return
+    }
+    if (fieldName === "author_email") {
+      if (!EMAIL_PATTERN.test(fieldValue)) {
+        setErrorFormData((prevState) => ({
+          ...prevState,
+          [fieldName]: "Please enter email correctly!"
+        }))
+        return
+      }
+    }
+    setErrorFormData((prevState) => ({
+      ...prevState,
+      [fieldName]: ""
     }))
   }
+
+  const isValidDataInputs = () => {
+    validateDataInput("author_name", formData.author_name)
+    validateDataInput("author_email", formData.author_email)
+    validateDataInput("title", formData.title)
+
+    const errorFormDataKeys = Object.keys(errorFormData)
+    for (let i = 0; i < errorFormDataKeys.length; i++) {
+      if (errorFormData[errorFormDataKeys[i] as keyof FormErrorDataTypes])
+        return false
+    }
+
+    return true
+  }
+
   const handleSelectCategory = (value: string) => {
     let categories = [...formData.categories]
     const newCategories = categories.includes(value)
       ? categories.filter((item) => item !== value)
       : [...categories, value]
 
-    console.log(newCategories)
     setFormData((prevState) => ({
       ...prevState,
       categories: newCategories
     }))
   }
+
   const handleSubmit = () => {
-    console.log("handel Submit: ", formData)
+    if (isValidDataInputs()) console.log("handel Submit: ", formData)
   }
   const handleEditorChange = (content: any) => {
     setFormData((prevState) => ({
@@ -82,7 +110,7 @@ const PostArticleDialog = (props: DialogTypes) => {
   }
 
   const handleViewPost = () => {
-    handleChangPostType(ModalPostTypes.VIEW_DETAIL)
+    if (isValidDataInputs()) handleChangPostType(ModalPostTypes.VIEW_DETAIL)
   }
 
   const handleBackToEditForm = () => {
@@ -90,6 +118,86 @@ const PostArticleDialog = (props: DialogTypes) => {
   }
 
   const renderEditForm = () => {
+    const renderInputField = (fieldName: any, placeholder: string) => (
+      <div>
+        <input
+          type="text"
+          name={fieldName}
+          placeholder={placeholder}
+          className={inputStyles}
+          value={formData[fieldName as keyof FormDataTypes]}
+          onChange={handleFormChange}
+        />
+        {errorFormData[fieldName as keyof FormErrorDataTypes] && (
+          <span className="text-birdRed text-sm">
+            {errorFormData[fieldName as keyof FormErrorDataTypes]}
+          </span>
+        )}
+      </div>
+    )
+
+    const renderCardCategorys = () => (
+      <div className={clsx("flex flex-wrap gap-2", "xs:gap-[10px]")}>
+        {contentTypes
+          .slice(1, contentTypes.length)
+          .map((item: any, index: number) => (
+            <div
+              className={clsx(
+                "flex  h-8 rounded-lg px-5 items-center cursor-pointer text-sm font-semibold",
+                formData.categories.includes(item.value)
+                  ? getContentTypeColor(item.value)
+                  : "bg-[#eeeeee] text-[#747474]"
+              )}
+              key={index}
+              onClick={() => handleSelectCategory(item.value)}
+            >
+              {item.label}
+            </div>
+          ))}
+      </div>
+    )
+
+    const renderActionButtons = () => (
+      <div
+        className={clsx(
+          "flex flex-col justify-between mt-1 gap-3",
+          "sm:flex-row"
+        )}
+      >
+        <Button
+          className={clsx(
+            "h-[60px] justify-center border-2 border-birdGray text-birdGray px-12 text-14px font-semibold",
+            formData.content.length === 0 && "opacity-50"
+          )}
+          onClick={handleViewPost}
+          disabled={formData.content.length === 0}
+        >
+          <Image src={iconView} alt="" />
+          <span className="ml-1.5">View post</span>
+        </Button>
+
+        <div
+          className={clsx(
+            "flex flex-col-reverse items-center mt-auto gap-3",
+            "sm:flex-row"
+          )}
+        >
+          <Button
+            className="w-full justify-center ml-auto text-birdGray px-10"
+            onClick={handleClose}
+          >
+            Cancel
+          </Button>
+          <Button
+            className="w-full justify-center h-[60px] bg-main text-white px-12"
+            onClick={handleSubmit}
+          >
+            Submit
+          </Button>
+        </div>
+      </div>
+    )
+
     return (
       <form
         action="submit"
@@ -99,63 +207,43 @@ const PostArticleDialog = (props: DialogTypes) => {
           "lg:px-[150px]"
         )}
       >
-        <div className={clsx("grid grid-cols-2 gap-2", "xs:gap-3")}>
-          <input
-            type="text"
-            name="author_name"
-            placeholder="Your name *"
-            className={inputStyles}
-            value={formData.author_name}
-            onChange={handleFormChange}
-          />
-          <input
-            type="text"
-            name="author_email"
-            placeholder="Your email address *"
-            className={inputStyles}
-            value={formData.author_email}
-            onChange={handleFormChange}
-          />
+        <div
+          className={clsx("grid grid-cols-1 gap-2", "xs:grid-cols-2 xs:gap-3")}
+        >
+          {renderInputField("author_name", "Your name *")}
+          {renderInputField("author_email", "Your email address *")}
         </div>
 
-        <input
-          type="text"
-          name="title"
-          placeholder="Your post title *"
-          className={inputStyles}
-          value={formData.title}
-          onChange={handleFormChange}
-        />
-        <input
-          type="text"
-          name="author_image"
-          placeholder="Your avatar image link"
-          className={inputStyles}
-          value={formData.author_image}
-          onChange={handleFormChange}
-        />
+        {renderInputField("title", "Your post title *")}
+
+        {/* <div>
+          <input
+            type="text"
+            name="title"
+            placeholder="Your post title *"
+            className={inputStyles}
+            value={formData.title}
+            onChange={handleFormChange}
+          />
+          {errorFormData.title}
+        </div> */}
+        {renderInputField("author_image", "Your avatar image link")}
+
+        {/* <div>
+          <input
+            type="text"
+            name="author_image"
+            placeholder="Your avatar image link"
+            className={inputStyles}
+            value={formData.author_image}
+            onChange={handleFormChange}
+          />
+        </div> */}
 
         <span className={clsx("mt-3 font-semibold", "xs:mt-2")}>
           Choose Categories
         </span>
-        <div className={clsx("flex flex-wrap gap-2", "xs:gap-[10px]")}>
-          {contentTypes
-            .slice(1, contentTypes.length)
-            .map((item: any, index: number) => (
-              <div
-                className={clsx(
-                  "flex  h-8 rounded-lg px-5 items-center cursor-pointer text-sm font-semibold",
-                  formData.categories.includes(item.value)
-                    ? getContentTypeColor(item.value)
-                    : "bg-[#eeeeee] text-[#747474]"
-                )}
-                key={index}
-                onClick={() => handleSelectCategory(item.value)}
-              >
-                {item.label}
-              </div>
-            ))}
-        </div>
+        {renderCardCategorys()}
 
         <div
           className={clsx(
@@ -165,44 +253,7 @@ const PostArticleDialog = (props: DialogTypes) => {
         >
           <Editor content={formData.content} onChange={handleEditorChange} />
         </div>
-        <div
-          className={clsx(
-            "flex flex-col justify-between mt-1 gap-3",
-            "sm:flex-row"
-          )}
-        >
-          <Button
-            className={clsx(
-              "h-[60px] justify-center border-2 border-birdGray text-birdGray px-12 text-14px font-semibold",
-              formData.content.length === 0 && "opacity-50"
-            )}
-            onClick={handleViewPost}
-            disabled={formData.content.length === 0}
-          >
-            <Image src={iconView} alt="" />
-            <span className="ml-1.5">View post</span>
-          </Button>
-
-          <div
-            className={clsx(
-              "flex flex-col-reverse items-center mt-auto gap-3",
-              "sm:flex-row"
-            )}
-          >
-            <Button
-              className="w-full justify-center ml-auto text-birdGray px-10"
-              onClick={handleClose}
-            >
-              Cancel
-            </Button>
-            <Button
-              className="w-full justify-center h-[60px] bg-main text-white px-12"
-              onClick={handleSubmit}
-            >
-              Submit
-            </Button>
-          </div>
-        </div>
+        {renderActionButtons()}
       </form>
     )
   }
