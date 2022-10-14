@@ -15,7 +15,7 @@ import imgFake from "/public/images/fake-card-vertical.png"
 
 const fakeCard = {
   image: imgFake,
-  types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
+  types: ["ecosystem", "analytics"],
   title: "How businesses can benefit from Web3.0 and blockchain",
   detail:
     "According to experts, combination of Web3. 0 and blockchain can help venture capitalists benefit from sectors such as e-commerce and fantasy sports. With Web3. 0 and blockchain expected to be adopted in next couple of years, businesses aim to use to ramp up offerings",
@@ -49,14 +49,20 @@ const CardHorizontal = () => {
             ))}
           </div>
           <div
-            className={clsx(`${styles.multiLine} mt-1 text-20px font-semibold`)}
+            className={clsx(
+              `${styles.multiLine} mt-1 text-xl leading-7 font-semibold`,
+              "md:leading-8"
+            )}
           >
             {fakeCard?.title}
           </div>
-          <div className="md:hidden lg:block">
-            <div className={clsx(styles.multiLine, "mt-3 text-sm", "md:mt-2")}>
-              {fakeCard?.detail}
-            </div>
+          <div
+            className={clsx(
+              `${styles.multiLine} mt-3 text-sm`,
+              "md:mt-2 md:text-base"
+            )}
+          >
+            {fakeCard?.detail}
           </div>
           <div className="mt-4 flex gap-2">
             <div className="contents md:hidden">

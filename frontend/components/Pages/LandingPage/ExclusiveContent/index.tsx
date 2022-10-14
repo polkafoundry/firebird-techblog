@@ -14,22 +14,14 @@ const ExclusiveContent = (props: any) => {
     <>
       <div
         className={clsx(
-          "text-[32px] font-semibold font-birdMedium mt-10 text-center",
-          "xs:text-left xs:mt-20"
+          "text-[32px] font-semibold font-birdMedium mt-10 text-center ",
+          "xs:text-left"
         )}
       >
         Exclusive Content
       </div>
 
-      <div
-        className={clsx(
-          "grid gap-5 mt-4",
-          "sm:grid-cols-[_1fr_260px]",
-          "md:grid-cols-[_1fr_300px]",
-          "lg:md:grid-cols-[_1fr_330px]",
-          "main:md:grid-cols-[_1fr_360px]"
-        )}
-      >
+      <div className={clsx("grid gap-5 mt-4", "lg:grid-cols-[_1fr_360px]")}>
         <div className="flex-1 grid grid-cols-1 gap-5">
           {Array(3)
             .fill(1)
@@ -40,35 +32,20 @@ const ExclusiveContent = (props: any) => {
 
         <div
           className={clsx(
-            `${styles.subscribe} sticky top-5 flex flex-col px-8 pt-10 pb-[62px] text-white max-h-[480px]  rounded-[20px]`,
-            "xs:max-h-[410px] xs:px-5",
-            "md:pb-10 md:max-h-[440px] md:px-8",
-            "main:max-h-[480px] "
+            `${styles.subscribe} flex flex-col px-8 pt-10 pb-[62px] text-white max-h-[480px] rounded-[20px]`,
+            "md:pb-10"
           )}
         >
-          <span
-            className={clsx(
-              "font-semibold text-3xl",
-              "xs:text-2xl",
-              "md:text-[32px]"
-            )}
-          >
+          <span className={clsx("font-semibold text-3xl", "md:text-[32px]")}>
             Subscribe to receive our latest blog
           </span>
-          <span
-            className={clsx(
-              "text-lg mt-3",
-              "xs:text-sm",
-              "md:mt-10 md:text-lg"
-            )}
-          >
+          <span className={clsx("text-lg mt-3", "md:mt-10")}>
             No spam, unsubscribe anytime and always bring contents!
           </span>
 
           <div
             className={clsx(
               "flex rounded-lg bg-white w-full h-[52px] mt-8 px-4 items-center",
-              "xs:mt-3",
               "md:mt-5"
             )}
           >
