@@ -54,6 +54,11 @@ model AMABanner {
   banner String @default("")
 }
 
+model Subscribe {
+  id    Int    @id @default(autoincrement())
+  email String @unique @default("")
+}
+
 enum ArticleStatusType {
   pending
   approved

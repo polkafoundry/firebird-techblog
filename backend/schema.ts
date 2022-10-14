@@ -162,5 +162,17 @@ export const lists = {
     fields: {
       banner: text()
     }
-  })
+  }),
+  Subscribe: list({
+    access: {
+      operation: {
+        query: isAdmin,
+        update: isAdmin,
+        delete: isAdmin
+      }
+    },
+    fields: {
+      email: text({ validation: { isRequired: true }, isIndexed: 'unique' })
+    }
+  }),
 };
