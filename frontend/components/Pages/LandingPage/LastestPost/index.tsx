@@ -7,6 +7,7 @@ import imgFake1 from "public/images/fake-card-vertical-1.png"
 import imgFake2 from "public/images/fake-card-vertical-2.png"
 import imgFake3 from "public/images/fake-card-vertical-3.png"
 import imgFakeActive from "public/images/fake-card-active.png"
+import ButtonLink from "../../../Base/ButtonLink"
 
 const fakeData = [
   {
@@ -76,7 +77,7 @@ const LastestPost = (props: any) => {
         >
           Latest Post
         </span>
-        {/* <div
+        <div
           className={clsx(
             "flex items-center rounded-lg px-5 h-[52px] bg-white w-full",
             "xs:max-w-xs"
@@ -96,7 +97,7 @@ const LastestPost = (props: any) => {
             height={24}
             alt=""
           />
-        </div> */}
+        </div>
       </div>
 
       <div className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}>
@@ -120,7 +121,7 @@ const LastestPost = (props: any) => {
         ))}
       </div>
 
-      {/* <div className="flex justify-center mt-10">
+      <div className={clsx("flex justify-center mt-5", "xs:mt-8", "md:mt-10")}>
         <ButtonLink className="px-7 gap-3 bg-black text-white" href="articles">
           <>
             View more articles
@@ -132,7 +133,7 @@ const LastestPost = (props: any) => {
             />
           </>
         </ButtonLink>
-      </div> */}
+      </div>
     </>
   )
 }

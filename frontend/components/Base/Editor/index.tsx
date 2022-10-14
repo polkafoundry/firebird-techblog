@@ -1,7 +1,13 @@
 import React, { useEffect, useRef, useState } from "react"
 import axios from "axios"
 
-const Editor = () => {
+type EditoProps = {
+  content: any
+  onChange: (data: any) => void
+}
+
+const Editor = (props: EditoProps) => {
+  const { content, onChange } = props
   const editorRef = useRef<any>()
   const [editorLoaded, setEditorLoaded] = useState<boolean>(false)
   const { CKEditor, DecoupledEditor } = editorRef.current || {}
@@ -43,8 +49,6 @@ const Editor = () => {
     setEditorLoaded(true)
   }, [])
 
-  const [data, setData] = useState("")
-
   function MyCustomUploadAdapterPlugin(editor: any) {
     editor.plugins.get("FileRepository").createUploadAdapter = (
       loader: any
@@ -57,7 +61,7 @@ const Editor = () => {
       {editorLoaded ? (
         <CKEditor
           editor={DecoupledEditor}
-          data={data}
+          data={content}
           config={{
             extraPlugins: [MyCustomUploadAdapterPlugin]
           }}
@@ -71,10 +75,18 @@ const Editor = () => {
                 editor.ui.getEditableElement()
               )
             // this.editor = editor
+            editor.editing.view.change((writer: any) => {
+              writer.setStyle(
+                "height",
+                "200px",
+                editor.editing.view.document.getRoot()
+              )
+            })
           }}
           onChange={(event: any, editor: any) => {
             const data = editor.getData()
-            setData(data)
+            // setData(data)
+            onChange(data)
           }}
         />
       ) : (

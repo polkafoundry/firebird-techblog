@@ -12,6 +12,8 @@ import imgSubBanner from "public/images/befitter-banner.png"
 import ExclusiveContent from "./ExclusiveContent"
 import LastestPost from "./LastestPost"
 import FirebirdWriter from "./FirebirdWriter"
+import client from "../../../helpers/apollo-client"
+import { gql } from "@apollo/client"
 
 type FilterTypes = {
   search: string
@@ -33,9 +35,50 @@ function LandingPage() {
     search: "",
     type: ""
   })
+  const [articlesData, setArticlesData] = useState<any>([])
+  const [loading, setLoading] = useState<boolean>(false)
 
   useEffect(() => {
     console.log("filter", filter)
+
+    const getData = async () => {
+      setLoading(true)
+      try {
+        let res = await client.query({
+          query: gql`
+            query ($where: ArticleWhereInput!) {
+              articles(where: $where) {
+                id
+                title
+                author_name
+                author_image
+                thumbnail {
+                  url
+                }
+                category {
+                  id
+                  name
+                }
+              }
+            }
+          `,
+          variables: {
+            where: { category: { some: { id: { in: [+filter.type] } } } }
+          }
+        })
+        setLoading(false)
+
+        if (res?.data?.articles) {
+          setArticlesData(res.data.articles)
+          console.log("articlesData", res.data.articles)
+        }
+      } catch (error) {
+        setLoading(false)
+        console.log("Articles ERROR", error)
+      }
+    }
+
+    getData()
   }, [filter])
 
   useEffect(() => {
@@ -70,7 +113,7 @@ function LandingPage() {
 
   const renderSubBanner = () => {
     return (
-      <div className="relative w-full mt-10 cursor-pointer">
+      <div className={clsx("relative w-full mt-10 cursor-pointer", "xs:mt-20")}>
         <Image src={imgSubBanner} layout="responsive" alt="" />
       </div>
     )
@@ -96,7 +139,7 @@ function LandingPage() {
 
       <div className={clsx("w-full pt-7", "xs:pt-5", "md:pt-7 md:pb-16")}>
         <div className={`${styles.section} flex flex-col`}>
-          {/* <div
+          <div
             className={clsx(
               styles.hiddenScrollbar,
               "flex gap-2 overflow-x-auto"
@@ -116,17 +159,17 @@ function LandingPage() {
                 {item?.label}
               </div>
             ))}
-          </div> */}
+          </div>
 
           <LastestPost inputSearch={inputSearch} handleSearch={handleSearch} />
 
-          {/* {renderSubBanner()} */}
+          {renderSubBanner()}
 
-          {/* <ExclusiveContent
+          <ExclusiveContent
             inputEmail={inputEmail}
             handleChangeEmail={handleChangeEmail}
             handleSubscribe={handleSubscribe}
-          /> */}
+          />
         </div>
       </div>
 

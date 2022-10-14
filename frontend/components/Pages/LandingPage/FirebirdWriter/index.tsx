@@ -7,15 +7,23 @@ import { useState } from "react"
 import ButtonLink from "../../../Base/ButtonLink"
 import Button from "../../../Base/Button"
 import PostArticleDialog from "../../../Base/PostArticleDialog"
+import { ModalPostTypes } from "../../../../utils/constants"
 
 const FirebirdWriter = () => {
   const [openModalPost, setOpenModalPost] = useState<boolean>(false)
+  const [modalPostType, setModalPostType] = useState<ModalPostTypes>(
+    ModalPostTypes.EDIT_POST
+  )
 
   const handleOpenPostArticle = () => {
     setOpenModalPost(true)
   }
   const handleClosePostArticle = () => {
     setOpenModalPost(false)
+  }
+
+  const handleChangPostType = (type: ModalPostTypes) => {
+    setModalPostType(type)
   }
 
   const onSubmitPost = (data: any) => {
@@ -32,15 +40,12 @@ const FirebirdWriter = () => {
     >
       <div className={clsx(styles.section, "flex flex-col gap-10")}>
         <div
-          className={clsx(
-            "flex flex-col items-center mb-5 gap-5",
-            "xs:flex-row"
-          )}
+          className={clsx("flex flex-col items-center mb-5 ", "sm:flex-row")}
         >
           <div
             className={clsx(
               "flex flex-col w-full max-w-[580px] items-center ",
-              "xs:items-start"
+              "sm:items-start"
             )}
           >
             <span
@@ -96,7 +101,7 @@ const FirebirdWriter = () => {
             </div>
           </div>
 
-          <div className="relative w-full  md:max-h-full">
+          <div className="relative w-full mt-5 sm:mt-0 xs:w-3/5 md:max-h-full">
             <Image src={imgWrite} alt="" layout="responsive" />
           </div>
         </div>
@@ -109,7 +114,9 @@ const FirebirdWriter = () => {
       <PostArticleDialog
         handleClose={handleClosePostArticle}
         onSubmit={onSubmitPost}
+        handleChangPostType={handleChangPostType}
         open={openModalPost}
+        modalType={modalPostType}
       />
     </div>
   )

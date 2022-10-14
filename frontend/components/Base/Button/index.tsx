@@ -5,6 +5,7 @@ type ButtonProps = {
   className?: string
   children: any
   onClick?: () => void
+  disabled?: boolean
 }
 
 const buttonStyles = {
@@ -14,16 +15,16 @@ const buttonStyles = {
 }
 
 const Button = (props: ButtonProps) => {
-  const { className = "", children, onClick } = props
+  const { className = "", children, onClick, disabled = false } = props
 
   return (
     <div
       className={clsx(
         buttonStyles.button,
-        buttonStyles.hoverAnimated,
+        !disabled && buttonStyles.hoverAnimated,
         className
       )}
-      onClick={onClick}
+      onClick={!disabled ? onClick : () => {}}
     >
       {children}
     </div>

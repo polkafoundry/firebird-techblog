@@ -80,8 +80,10 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
         }
       }
 
-      headings = formatOutline(headings)
-      setHeadings(headings)
+      if (headings.length) {
+        headings = formatOutline(headings)
+        setHeadings(headings)
+      }
     }
     loadingOutline()
     // eslint-disable-next-line react-hooks/exhaustive-deps
