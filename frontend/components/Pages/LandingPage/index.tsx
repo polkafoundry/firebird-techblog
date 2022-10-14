@@ -1,28 +1,18 @@
+import { useQuery } from "@apollo/client"
 import clsx from "clsx"
 import Image from "next/image"
-import { useEffect, useState } from "react"
-import { contentTypes, CONTENT_TYPES } from "../../../utils/constants"
-import Button from "../../Base/Button"
-import ButtonLink from "../../Base/ButtonLink"
-import { CardActive, CardHorizontal } from "../../Base/Card"
-import CardVertical from "../../Base/Card/CardVertical"
-import styles from "./landing.module.scss"
-import imgWrite from "public/images/bird-writer.png"
 import imgSubBanner from "public/images/befitter-banner.png"
+import { useEffect, useState } from "react"
+import { GET_ARTICLES } from "../../../graphql/article"
+import { contentTypes, CONTENT_TYPES } from "../../../utils/constants"
 import ExclusiveContent from "./ExclusiveContent"
-import LastestPost from "./LastestPost"
 import FirebirdWriter from "./FirebirdWriter"
-import client from "../../../helpers/apollo-client"
-import { gql } from "@apollo/client"
+import styles from "./landing.module.scss"
+import LastestPost from "./LastestPost"
 
 type FilterTypes = {
   search: string
   type: typeof contentTypes[number]["value"]
-}
-const buttonStyles = {
-  hoverAnimated: "duration-500 hover:tracking-widest",
-  button:
-    "flex h-14 rounded-[60px] items-center tracking-wider text-lg font-birdMedium cursor-pointer"
 }
 
 function LandingPage() {
@@ -35,51 +25,20 @@ function LandingPage() {
     search: "",
     type: ""
   })
-  const [articlesData, setArticlesData] = useState<any>([])
-  const [loading, setLoading] = useState<boolean>(false)
+
+  const {
+    data: articlesData,
+    loading,
+    error
+  } = useQuery(GET_ARTICLES, {
+    variables: {
+      where: { category: { some: { id: { in: [+filter.type] } } } }
+    }
+  })
 
   useEffect(() => {
-    console.log("filter", filter)
-
-    const getData = async () => {
-      setLoading(true)
-      try {
-        let res = await client.query({
-          query: gql`
-            query ($where: ArticleWhereInput!) {
-              articles(where: $where) {
-                id
-                title
-                author_name
-                author_image
-                thumbnail {
-                  url
-                }
-                category {
-                  id
-                  name
-                }
-              }
-            }
-          `,
-          variables: {
-            where: { category: { some: { id: { in: [+filter.type] } } } }
-          }
-        })
-        setLoading(false)
-
-        if (res?.data?.articles) {
-          setArticlesData(res.data.articles)
-          console.log("articlesData", res.data.articles)
-        }
-      } catch (error) {
-        setLoading(false)
-        console.log("Articles ERROR", error)
-      }
-    }
-
-    getData()
-  }, [filter])
+    console.log("articlesData", articlesData)
+  }, [articlesData])
 
   useEffect(() => {
     const timer = setTimeout(() => {
