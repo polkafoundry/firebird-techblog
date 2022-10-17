@@ -58,14 +58,12 @@ function LandingPage() {
 
   const handleSelectType = (type: any) => {
     setContentType(type)
-    if (type === CONTENT_TYPES.ALL) {
-      refetch({ category: {}, take: LIMIT_RESULTS })
-    } else {
-      refetch({
-        category: { some: { id: { equals: type } } },
-        take: LIMIT_RESULTS
-      })
-    }
+
+    refetch({
+      category:
+        type !== CONTENT_TYPES.ALL ? { some: { id: { equals: type } } } : {},
+      take: LIMIT_RESULTS
+    })
   }
 
   const handleSearch = (e: any) => {

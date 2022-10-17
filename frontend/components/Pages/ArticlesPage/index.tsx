@@ -1,5 +1,6 @@
 import { useQuery } from "@apollo/client"
 import clsx from "clsx"
+import moment from "moment"
 import { useEffect, useState } from "react"
 import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
 import { getMinReadEstimate, getThumbnailDes } from "../../../utils/ckeditor"
@@ -14,11 +15,11 @@ import DropDown from "../../Base/DropDown"
 import Pagination from "../../Base/Pagination"
 
 const archives = [
-  { value: "8", label: "August 2022" },
-  { value: "9", label: "September 2022" },
-  { value: "10", label: "October 2022" },
-  { value: "11", label: "November  2022" },
-  { value: "12", label: "December 2022" }
+  { value: new Date(2022, 7, 1), label: "August 2022" },
+  { value: new Date(2022, 8, 1), label: "September 2022" },
+  { value: new Date(2022, 9, 1), label: "October 2022" },
+  { value: new Date(2022, 10, 1), label: "November 2022" },
+  { value: new Date(2022, 11, 1), label: "December 2022" }
 ]
 
 const PAGE_SIZE = 9
@@ -27,38 +28,55 @@ const ArticlesPage = () => {
   const [filter, setFilter] = useState<any>({
     category: "",
     archive: "",
-    perPage: 9,
+    perPage: PAGE_SIZE,
     page: 1
   })
 
-  const {
-    data: articlesData = [],
-    loading,
-    error,
-    refetch
-  } = useQuery(GET_TOP_LASTEST_ARTICLES, {
-    variables: { category: {}, take: PAGE_SIZE }
-  })
+  const { data: articlesData = [], refetch } = useQuery(
+    GET_TOP_LASTEST_ARTICLES,
+    {
+      variables: { category: {}, take: PAGE_SIZE, skip: 0, created_at: {} }
+    }
+  )
+
+  console.log("articlesData :>> ", articlesData)
 
   const handleSelectCategory = (value: any) => {
     setFilter((prevFilter: any) => ({
       ...prevFilter,
-      category: value
+      category: value,
+      page: 1
     }))
-    if (value === CONTENT_TYPES.ALL) {
-      refetch({ category: {}, take: PAGE_SIZE })
-    } else {
-      refetch({
-        category: { some: { id: { equals: value } } },
-        take: PAGE_SIZE
-      })
-    }
+
+    refetch({
+      category:
+        value !== CONTENT_TYPES.ALL ? { some: { id: { equals: value } } } : {},
+      take: PAGE_SIZE,
+      skip: 0
+    })
   }
+
   const handleSelectArchive = (value: any) => {
     setFilter((prevFilter: any) => ({
       ...prevFilter,
-      archive: value
+      archive: value,
+      page: 1
     }))
+    const endOfMonth = moment(value).endOf("month")
+    console.log("endOfMonth.toString() :>> ", value.toString())
+    console.log("endOfMonth.toString() :>> ", endOfMonth.toString())
+    refetch({
+      category:
+        filter.category !== CONTENT_TYPES.ALL
+          ? { some: { id: { equals: filter.category } } }
+          : {},
+      created_at: {
+        gte: value,
+        lte: endOfMonth
+      },
+      take: PAGE_SIZE,
+      skip: 0
+    })
   }
 
   const handleChangePage = (value: any) => {
@@ -66,6 +84,15 @@ const ArticlesPage = () => {
       ...prevFilter,
       page: value
     }))
+
+    refetch({
+      category:
+        filter.category !== CONTENT_TYPES.ALL
+          ? { some: { id: { equals: filter.category } } }
+          : {},
+      take: PAGE_SIZE,
+      skip: (value - 1) * PAGE_SIZE
+    })
   }
 
   useEffect(() => {

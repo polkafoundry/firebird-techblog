@@ -23,9 +23,14 @@ export const GET_TOP_LASTEST_ARTICLES = gql`
     $category: CategoryManyRelationFilter
     $take: Int!
     $skip: Int
+    $created_at: DateTimeNullableFilter
   ) {
     articles(
-      where: { is_display: { equals: 1 }, category: $category }
+      where: {
+        is_display: { equals: 1 }
+        category: $category
+        created_at: $created_at
+      }
       orderBy: { created_at: desc }
       take: $take
       skip: $skip
