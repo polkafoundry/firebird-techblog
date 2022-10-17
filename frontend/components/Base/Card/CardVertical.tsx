@@ -1,13 +1,10 @@
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
-import imgFake from "public/images/fake-card-vertical.png"
 import {
-  CONTENT_TYPES,
   defaultAuthor,
   defaultAvatar,
-  MAPPING_CONTENT_TYPE_TEXT,
-  URLS
+  MAPPING_CONTENT_TYPE_TEXT
 } from "../../../utils/constants"
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
@@ -17,10 +14,10 @@ type CardVerticalProps = {
   hideDetail?: boolean
 }
 const CardVertical = (props: CardVerticalProps) => {
-  const { hideDetail = false, cardData: fakeCard } = props
+  const { hideDetail = false, cardData } = props
 
   return (
-    <Link href={`/articles/${fakeCard?.id}`}>
+    <Link href={`/articles/${cardData?.id}`}>
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-5 flex flex-col cursor-pointer",
@@ -28,16 +25,20 @@ const CardVertical = (props: CardVerticalProps) => {
           "md:p-5"
         )}
       >
-        <div className="rounded-xl w-full relative">
-          <Image
-            src={fakeCard?.image}
-            layout="responsive"
-            alt=""
-            className="rounded-xl"
-          />
+        <div className="w-full h-auto relative">
+          <picture className="rounded-xl">
+            <img
+              src={cardData?.image}
+              alt=""
+              style={{
+                objectFit: "cover",
+                borderRadius: 12
+              }}
+            />
+          </picture>
         </div>
         <div className={clsx("flex mt-3 gap-[6px]", "xs:mt-2", "md:mt-3")}>
-          {fakeCard?.types?.map((type: any) => {
+          {cardData?.types?.map((type: any) => {
             return (
               <div
                 key={type}
@@ -58,7 +59,7 @@ const CardVertical = (props: CardVerticalProps) => {
             "mt:mt-1 md:text-xl md:leading-8"
           )}
         >
-          {fakeCard?.title}
+          {cardData?.title}
         </div>
         {!hideDetail && (
           <div
@@ -68,12 +69,12 @@ const CardVertical = (props: CardVerticalProps) => {
               "md:text-base"
             )}
           >
-            {fakeCard?.detail}
+            {cardData?.detail}
           </div>
         )}
         <div className={clsx("mt-5 flex gap-2", "xs:mt-3", "md:mt-5")}>
           <Image
-            src={fakeCard?.authorAvatar || defaultAvatar}
+            src={cardData?.authorAvatar || defaultAvatar}
             width={44}
             height={44}
             alt=""
@@ -81,10 +82,10 @@ const CardVertical = (props: CardVerticalProps) => {
           />
           <div className="flex flex-col gap-1">
             <span className="text-sm font-semibold">
-              {fakeCard?.authorName || defaultAuthor}
+              {cardData?.authorName || defaultAuthor}
             </span>
             <span className="text-xs text-birdGray">
-              {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
+              {`${cardData?.date} | ${cardData?.timeToRead} read`}
             </span>
           </div>
         </div>

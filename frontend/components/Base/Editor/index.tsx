@@ -68,6 +68,7 @@ const Editor = (props: EditoProps) => {
           onReady={(editor: any) => {
             // You can store the "editor" and use when it is needed.
             console.log("Editor is ready to use!", editor)
+            if (!editor) return
             editor.ui
               .getEditableElement()
               .parentElement.insertBefore(

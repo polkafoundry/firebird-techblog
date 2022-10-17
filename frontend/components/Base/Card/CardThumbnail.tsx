@@ -1,7 +1,7 @@
 import clsx from "clsx"
 import moment from "moment"
 import Image from "next/image"
-import { defaultAuthor, defaultAvatar } from "../../../utils/constants"
+import { defaultAuthor } from "../../../utils/constants"
 import AuthorImage from "./AuthorImage"
 import styles from "./card.module.scss"
 import CardType from "./CardType"
@@ -16,19 +16,13 @@ type CardDetailTypes = {
   author_image: string
   author_email: string
   title: string
+  detail: string
   categories: any
   content: string
 }
 
 const CardThumbnail = (props: CardActiveProps) => {
   const { cardDetail } = props
-  const getThumbnailDes = () => {
-    const wrapper = document.createElement("div")
-    wrapper.innerHTML = cardDetail?.content || ""
-    const firstParag: any = wrapper.firstChild
-
-    return firstParag.innerText
-  }
 
   return (
     <div
@@ -65,9 +59,9 @@ const CardThumbnail = (props: CardActiveProps) => {
             "sm:text-sm md:mt-3"
           )}
         >
-          {/* {cardDetail?.detail} */}
+          {cardDetail?.detail}
           {/* {`Firebird has officially been released recently and it promises to open up new opportunities for gaming and metaverse blockchain projects in the future. Why do we say that? In this article, let’s explore the reasons why Firebird is a potential platform for VCs and gaming projects to invest in.`} */}
-          {getThumbnailDes()}
+          {/* {getThumbnailDes(cardDetail?.content || "")} */}
         </div>
         <div className={clsx("mt-2 flex gap-2", "sm:mt-auto")}>
           <AuthorImage image={cardDetail?.author_image} />

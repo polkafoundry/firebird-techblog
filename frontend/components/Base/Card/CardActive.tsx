@@ -1,9 +1,7 @@
 import clsx from "clsx"
 import Image from "next/image"
 import Link from "next/link"
-import imgFake from "public/images/fake-card-vertical-3.png"
 import {
-  CONTENT_TYPES,
   defaultAuthor,
   defaultAvatar,
   MAPPING_CONTENT_TYPE_TEXT
@@ -11,21 +9,15 @@ import {
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
 
-const fakeCard = {
-  id: "5",
-  image: imgFake,
-  types: [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM],
-  title: "Catch the Potential Future of Gaming and Metaverse with Firebird",
-  detail: `Currently, the gaming sector in general, and blockchain gaming, in particular, are expanding quickly. With the appearance of the metaverse, there’s a prediction that the metaverse and gaming will strongly grow together and usher in a new era for the gaming industry.`,
-  authorAvatar: "/images/default-avatar.svg",
-  authorName: "Firebird Writer",
-  date: "Oct 10",
-  timeToRead: "4 min"
+type CardActiveProps = {
+  cardData?: any
 }
 
-const CardActive = () => {
+const CardActive = (props: CardActiveProps) => {
+  const { cardData } = props
+
   return (
-    <Link href={`/articles/${fakeCard.id}`}>
+    <Link href={`/articles/${cardData?.id}`}>
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-7 flex flex-col gap-3 cursor-pointer",
@@ -42,16 +34,20 @@ const CardActive = () => {
             "xl:max-w-[610px]"
           )}
         >
-          <Image
-            src={fakeCard?.image}
-            layout="responsive"
-            alt=""
-            className="rounded-2xl"
-          />
+          <picture className="rounded-xl">
+            <img
+              src={cardData?.image}
+              alt=""
+              style={{
+                objectFit: "cover",
+                borderRadius: 12
+              }}
+            />
+          </picture>
         </div>
         <div className="flex flex-col flex-1">
           <div className="flex mt-1 gap-[6px]">
-            {fakeCard?.types?.map((type: any) => (
+            {cardData?.types?.map((type: any) => (
               <div
                 key={type}
                 className={`font-semibold text-sm rounded-lg px-5 h-8 flex items-center 
@@ -67,7 +63,7 @@ const CardActive = () => {
               "xs:text-[32px] xs:leading-10"
             )}
           >
-            {fakeCard?.title}
+            {cardData?.title}
           </div>
           <div
             className={clsx(
@@ -75,11 +71,11 @@ const CardActive = () => {
               "xs:mt-2 xs:text-base"
             )}
           >
-            {fakeCard?.detail}
+            {cardData?.detail}
           </div>
           <div className={clsx("mt-5 flex gap-2", "xs:mt-12 md:mt-auto")}>
             <Image
-              src={fakeCard?.authorAvatar || defaultAvatar}
+              src={cardData?.authorAvatar || defaultAvatar}
               width={44}
               height={44}
               alt=""
@@ -87,10 +83,10 @@ const CardActive = () => {
             />
             <div className="flex flex-col gap-1">
               <span className="text-sm font-semibold">
-                {fakeCard?.authorName || defaultAuthor}
+                {cardData?.authorName || defaultAuthor}
               </span>
               <span className="text-xs text-birdGray">
-                {`${fakeCard?.date} | ${fakeCard?.timeToRead} read`}
+                {`${cardData?.date} | ${cardData?.timeToRead} read`}
               </span>
             </div>
           </div>

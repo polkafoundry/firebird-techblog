@@ -2,7 +2,10 @@
 const nextConfig = {
   reactStrictMode: true,
   swcMinify: true,
-  pageExtensions: ['ts', 'tsx']
+  pageExtensions: ["ts", "tsx"],
+  images: {
+    domains: ["redkite-public.s3.amazonaws.com"]
+  }
 }
 
 module.exports = nextConfig

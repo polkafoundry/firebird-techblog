@@ -3,8 +3,14 @@ import clsx from "clsx"
 import Image from "next/image"
 import imgSubBanner from "public/images/befitter-banner.png"
 import { useEffect, useState } from "react"
-import { GET_ARTICLES } from "../../../graphql/article"
-import { contentTypes, CONTENT_TYPES } from "../../../utils/constants"
+import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
+import { getThumbnailDes } from "../../../utils/ckeditor"
+import {
+  contentTypes,
+  CONTENT_TYPES,
+  defaultAvatar
+} from "../../../utils/constants"
+import { formatTime } from "../../../utils/format"
 import ExclusiveContent from "./ExclusiveContent"
 import FirebirdWriter from "./FirebirdWriter"
 import styles from "./landing.module.scss"
@@ -27,18 +33,23 @@ function LandingPage() {
   })
 
   const {
-    data: articlesData,
+    data: articlesData = [],
     loading,
-    error
-  } = useQuery(GET_ARTICLES, {
-    variables: {
-      where: { category: { some: { id: { in: [+filter.type] } } } }
-    }
-  })
+    error,
+    refetch
+  } = useQuery(GET_TOP_LASTEST_ARTICLES)
 
   useEffect(() => {
-    console.log("articlesData", articlesData)
-  }, [articlesData])
+    if (contentType === CONTENT_TYPES.ALL) {
+      refetch({
+        category: {}
+      })
+    } else {
+      refetch({
+        category: { some: { id: { equals: contentType } } }
+      })
+    }
+  }, [contentType, filter.type, refetch])
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -67,6 +78,20 @@ function LandingPage() {
     //TODO: simple validate email
     console.log("subscribe: ", inputEmail)
   }
+
+  const formatData = articlesData.articles
+    ? articlesData.articles.map((article: any) => ({
+        id: article.id,
+        image: article.thumbnail?.url,
+        types: article.category.map((cat: any) => cat.id),
+        title: article.title,
+        detail: getThumbnailDes(article.content || ""),
+        authorAvatar: article.author_image || defaultAvatar,
+        authorName: article.author_name || "Firebird Writer",
+        date: formatTime(article.created_at),
+        timeToRead: "4 min"
+      }))
+    : []
 
   //#region RENDER
 
@@ -120,7 +145,11 @@ function LandingPage() {
             ))}
           </div>
 
-          <LastestPost inputSearch={inputSearch} handleSearch={handleSearch} />
+          <LastestPost
+            inputSearch={inputSearch}
+            handleSearch={handleSearch}
+            articles={formatData}
+          />
 
           {renderSubBanner()}
 
