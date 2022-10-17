@@ -18,13 +18,17 @@ export const GET_ARTICLES = gql`
   }
 `
 
-const LIMIT_RESULTS = 4
 export const GET_TOP_LASTEST_ARTICLES = gql`
-  query Articles($category: CategoryManyRelationFilter!) {
+  query Articles(
+    $category: CategoryManyRelationFilter
+    $take: Int!
+    $skip: Int
+  ) {
     articles(
       where: { is_display: { equals: 1 }, category: $category }
       orderBy: { created_at: desc }
-      take: ${LIMIT_RESULTS}
+      take: $take
+      skip: $skip
     ) {
       id
       title

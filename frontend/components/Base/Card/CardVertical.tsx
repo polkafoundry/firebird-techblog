@@ -12,9 +12,10 @@ import styles from "./card.module.scss"
 type CardVerticalProps = {
   cardData?: any
   hideDetail?: boolean
+  insideBlogPage?: boolean
 }
 const CardVertical = (props: CardVerticalProps) => {
-  const { hideDetail = false, cardData } = props
+  const { hideDetail = false, insideBlogPage = false, cardData } = props
 
   return (
     <Link href={`/articles/${cardData?.id}`}>
@@ -37,7 +38,13 @@ const CardVertical = (props: CardVerticalProps) => {
             />
           </picture>
         </div>
-        <div className={clsx("flex mt-3 gap-[6px]", "xs:mt-2", "md:mt-3")}>
+        <div
+          className={clsx(
+            "flex flex-wrap mt-3 gap-[6px]",
+            "xs:mt-2",
+            "md:mt-3"
+          )}
+        >
           {cardData?.types?.map((type: any) => {
             return (
               <div
@@ -54,9 +61,10 @@ const CardVertical = (props: CardVerticalProps) => {
         </div>
         <div
           className={clsx(
-            `${styles.multiLine} mt-1 text-xl leading-7 font-semibold`,
+            `${styles.multiLine} mt-1 text-20px font-semibold`,
             "xs:mt-2 xs:text-20px",
-            "mt:mt-1 md:text-xl md:leading-8"
+            "md:mt-1",
+            insideBlogPage ? "md:text-18px" : "md:text-xl"
           )}
         >
           {cardData?.title}

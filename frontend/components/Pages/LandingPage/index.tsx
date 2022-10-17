@@ -4,7 +4,7 @@ import Image from "next/image"
 import imgSubBanner from "public/images/befitter-banner.png"
 import { useEffect, useState } from "react"
 import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
-import { getThumbnailDes } from "../../../utils/ckeditor"
+import { getMinReadEstimate, getThumbnailDes } from "../../../utils/ckeditor"
 import {
   contentTypes,
   CONTENT_TYPES,
@@ -31,25 +31,19 @@ function LandingPage() {
     search: "",
     type: ""
   })
+  const LIMIT_RESULTS = 4
 
   const {
     data: articlesData = [],
     loading,
     error,
     refetch
-  } = useQuery(GET_TOP_LASTEST_ARTICLES)
-
-  useEffect(() => {
-    if (contentType === CONTENT_TYPES.ALL) {
-      refetch({
-        category: {}
-      })
-    } else {
-      refetch({
-        category: { some: { id: { equals: contentType } } }
-      })
+  } = useQuery(GET_TOP_LASTEST_ARTICLES, {
+    variables: {
+      category: {},
+      take: LIMIT_RESULTS
     }
-  }, [contentType, filter.type, refetch])
+  })
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -64,6 +58,14 @@ function LandingPage() {
 
   const handleSelectType = (type: any) => {
     setContentType(type)
+    if (type === CONTENT_TYPES.ALL) {
+      refetch({ category: {}, take: LIMIT_RESULTS })
+    } else {
+      refetch({
+        category: { some: { id: { equals: type } } },
+        take: LIMIT_RESULTS
+      })
+    }
   }
 
   const handleSearch = (e: any) => {
@@ -89,7 +91,7 @@ function LandingPage() {
         authorAvatar: article.author_image || defaultAvatar,
         authorName: article.author_name || "Firebird Writer",
         date: formatTime(article.created_at),
-        timeToRead: "4 min"
+        timeToRead: getMinReadEstimate(article.content || "")
       }))
     : []
 

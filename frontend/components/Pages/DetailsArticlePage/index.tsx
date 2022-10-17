@@ -14,6 +14,7 @@ import iconTele from "/public/images/icon-telegram.png"
 import iconTwitter from "/public/images/icon-twitter.png"
 import styles from "./detailsArticlePage.module.scss"
 import { useEffect, useRef, useState } from "react"
+import { formatOutline } from "../../../utils/ckeditor"
 
 const socials = [
   { icon: iconTele, link: "" },
@@ -81,7 +82,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
       }
 
       if (headings.length) {
-        headings = formatOutline(headings)
+        headings = formatOutline(headings, headingTags)
         setHeadings(headings)
       }
     }
@@ -102,41 +103,6 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     handleMatchOutlineWithScroll()
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [headings])
-
-  // Outline will show like
-  // mainTagName
-  //   subTagName
-  //   subTagName
-  // mainTagName
-  const formatOutline = (headings: Element[]) => {
-    const mainTagName = headings[0].tagName
-    const subTagName =
-      mainTagName === headingTags[0] ? headingTags[1] : headingTags[2]
-
-    const headingFormated: any[] = []
-    headings.forEach((heading) => {
-      if (heading.tagName === mainTagName) {
-        headingFormated.push({
-          content: getTextContent(heading),
-          subHeadings: [],
-          element: heading
-        })
-      } else if (heading.tagName === subTagName) {
-        headingFormated[headingFormated.length - 1].subHeadings.push({
-          content: getTextContent(heading),
-          element: heading
-        })
-      }
-    })
-
-    return headingFormated
-  }
-
-  const getTextContent = (currentElement: Element) => {
-    return currentElement.childElementCount
-      ? currentElement.children[0].textContent
-      : currentElement.textContent
-  }
 
   const scrollToView = (element: Element) => {
     element.scrollIntoView({
