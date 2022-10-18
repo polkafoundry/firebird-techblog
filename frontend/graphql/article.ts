@@ -151,3 +151,27 @@ export const GET_RELATED_ARTICLES = gql`
     }
   }
 `
+
+export const CREATE_POST = gql`
+  mutation createArticle(
+    $author_name: String!
+    $author_image: String!
+    $author_email: String!
+    $title: String!
+    $category: CategoryRelateToManyForCreateInput!
+    $content: String!
+  ) {
+    createArticle(
+      data: {
+        author_name: $author_name
+        author_image: $author_image
+        author_email: $author_email
+        title: $title
+        category: $category
+        content: $content
+      }
+    ) {
+      id
+    }
+  }
+`

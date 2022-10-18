@@ -1,12 +1,16 @@
+import { useMutation } from "@apollo/client"
 import clsx from "clsx"
 import moment from "moment"
 import Image from "next/image"
 import Link from "next/link"
 import { useState } from "react"
+import { toast } from "react-toastify"
+import { CREATE_POST } from "../../../graphql/article"
 import {
   contentTypes,
   defaultAuthor,
   EMAIL_PATTERN,
+  LETTER_ONLY_PATTERN,
   ModalPostTypes,
   socialShare
 } from "../../../utils/constants"
@@ -16,6 +20,7 @@ import AuthorImage from "../Card/AuthorImage"
 import CardThumbnail from "../Card/CardThumbnail"
 import CardType from "../Card/CardType"
 import Editor from "../Editor"
+import Spinner from "../Spinner"
 import {
   defaultErrorValues,
   defaultInputValues,
@@ -25,13 +30,20 @@ import {
 } from "./InitState"
 import styles from "./post.module.scss"
 import iconBack from "/public/images/icon-back.svg"
-import iconView from "/public/images/icon-view.svg"
 import iconLink from "/public/images/icon-link-gray.svg"
+import iconView from "/public/images/icon-view.svg"
 
 const inputStyles = clsx(
   "flex w-full h-[52px] px-5 justify-center bg-[#F7F8F9] rounded-lg border border-[#DEDEDE] text-sm",
   "sm:text-base"
 )
+
+const INPUT_FIELDS = {
+  NAME: "author_name",
+  EMAIL: "author_email",
+  TITLE: "title",
+  AVATAR: "author_image"
+}
 
 const PostArticleDialog = (props: DialogTypes) => {
   const { handleClose, onSubmit, open, handleChangPostType, modalType } = props
@@ -40,9 +52,39 @@ const PostArticleDialog = (props: DialogTypes) => {
   const [errorFormData, setErrorFormData] =
     useState<FormErrorDataTypes>(defaultErrorValues)
 
+  const [createPost, { loading: loadingCreatePost }] = useMutation(
+    CREATE_POST,
+    {
+      onError: (err) => {
+        toast.error(err.message)
+        console.log("err :>> ", err)
+      },
+      onCompleted: () => {
+        setFormData(defaultInputValues)
+        toast.success(
+          "Thanks for your submission! We will look into it and get back to you soon."
+        )
+        handleClose()
+      }
+    }
+  )
+
   const handleFormChange = (e: any) => {
     const fieldName = e.target.name
     const fieldValue = e.target.value
+
+    if (fieldName === INPUT_FIELDS.NAME) {
+      if (fieldValue.length > 60 || !LETTER_ONLY_PATTERN.test(fieldValue))
+        return
+    }
+    if (fieldName === INPUT_FIELDS.EMAIL) {
+      if (fieldValue.length > 60) return
+    }
+    if (fieldName === INPUT_FIELDS.TITLE) {
+      if (fieldValue.length > 160 || !LETTER_ONLY_PATTERN.test(fieldValue))
+        return
+    }
+
     setFormData((prevState) => ({
       ...prevState,
       [fieldName]: fieldValue
@@ -54,15 +96,15 @@ const PostArticleDialog = (props: DialogTypes) => {
     if (fieldValue.trim() === "") {
       setErrorFormData((prevState) => ({
         ...prevState,
-        [fieldName]: "This field is required!"
+        [fieldName]: "Field is required!"
       }))
       return
     }
-    if (fieldName === "author_email") {
+    if (fieldName === INPUT_FIELDS.EMAIL) {
       if (!EMAIL_PATTERN.test(fieldValue)) {
         setErrorFormData((prevState) => ({
           ...prevState,
-          [fieldName]: "Please enter email correctly!"
+          [fieldName]: "Invalid email address."
         }))
         return
       }
@@ -74,9 +116,9 @@ const PostArticleDialog = (props: DialogTypes) => {
   }
 
   const isValidDataInputs = () => {
-    updateErrorDataInput("author_name", formData.author_name)
-    updateErrorDataInput("author_email", formData.author_email)
-    updateErrorDataInput("title", formData.title)
+    updateErrorDataInput(INPUT_FIELDS.NAME, formData.author_name)
+    updateErrorDataInput(INPUT_FIELDS.EMAIL, formData.author_email)
+    updateErrorDataInput(INPUT_FIELDS.TITLE, formData.title)
 
     if (
       formData.author_name.trim() === "" ||
@@ -84,6 +126,15 @@ const PostArticleDialog = (props: DialogTypes) => {
       formData.title.trim() === "" ||
       !EMAIL_PATTERN.test(formData.author_email)
     ) {
+      return false
+    }
+
+    if (formData.categories.length === 0) {
+      toast.error("Please choose categories before submit!")
+      return false
+    }
+    if (formData.content.trim().length === 0) {
+      toast.error("Please enter content before submit!")
       return false
     }
 
@@ -96,14 +147,29 @@ const PostArticleDialog = (props: DialogTypes) => {
       ? categories.filter((item) => item !== value)
       : [...categories, value]
 
-    setFormData((prevState) => ({
-      ...prevState,
-      categories: newCategories
-    }))
+    if (newCategories.length <= 2) {
+      setFormData((prevState) => ({
+        ...prevState,
+        categories: newCategories
+      }))
+    }
   }
 
   const handleSubmit = () => {
-    if (isValidDataInputs()) console.log("handel Submit: ", formData)
+    if (isValidDataInputs() && !loadingCreatePost) {
+      createPost({
+        variables: {
+          author_name: formData.author_name,
+          author_image: formData.author_image,
+          author_email: formData.author_email,
+          title: formData.title,
+          category: {
+            connect: formData.categories.map((item) => ({ id: item }))
+          },
+          content: formData.content
+        }
+      })
+    }
   }
   const handleEditorChange = (content: any) => {
     setFormData((prevState) => ({
@@ -198,11 +264,12 @@ const PostArticleDialog = (props: DialogTypes) => {
           >
             Cancel
           </Button>
+
           <Button
             className="w-full justify-center h-[60px] bg-main text-white px-12"
             onClick={handleSubmit}
           >
-            Submit
+            {loadingCreatePost ? <Spinner /> : "Submit"}
           </Button>
         </div>
       </div>
@@ -220,15 +287,19 @@ const PostArticleDialog = (props: DialogTypes) => {
         <div
           className={clsx("grid grid-cols-1 gap-2", "xs:grid-cols-2 xs:gap-3")}
         >
-          {renderInputField("author_name", "Your name *")}
-          {renderInputField("author_email", "Your email address *")}
+          {renderInputField(INPUT_FIELDS.NAME, "Your name *")}
+          {renderInputField(INPUT_FIELDS.EMAIL, "Your email address *")}
         </div>
 
-        {renderInputField("title", "Your post title *")}
-        {renderInputField("author_image", "Your avatar image link", iconLink)}
+        {renderInputField(INPUT_FIELDS.TITLE, "Your post title *")}
+        {renderInputField(
+          INPUT_FIELDS.AVATAR,
+          "Your avatar image link",
+          iconLink
+        )}
 
         <span className={clsx("mt-3 font-semibold", "xs:mt-2")}>
-          Choose Categories
+          Choose Categories *
         </span>
         {renderCardCategorys()}
 

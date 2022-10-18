@@ -22,7 +22,7 @@ const archives = [
   { value: new Date(2022, 11, 1), label: "December 2022" }
 ]
 
-const PAGE_SIZE = 9
+const PAGE_SIZE = 12
 
 const ArticlesPage = () => {
   const [filter, setFilter] = useState<any>({
