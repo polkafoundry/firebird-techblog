@@ -3,7 +3,10 @@ import clsx from "clsx"
 import Image from "next/image"
 import imgSubBanner from "public/images/befitter-banner.png"
 import { useEffect, useState } from "react"
-import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
+import {
+  GET_TOP_LASTEST_ARTICLES,
+  SEARCH_ARTICLES
+} from "../../../graphql/article"
 import { getMinReadEstimate, getThumbnailDes } from "../../../utils/ckeditor"
 import {
   contentTypes,
@@ -31,19 +34,28 @@ function LandingPage() {
     search: "",
     type: ""
   })
-  const LIMIT_RESULTS = 4
+  const LIMIT_LASTEST_RESULTS = 4
+  const LIMIT_SEARCH = 4
 
-  const {
-    data: articlesData = [],
-    loading,
-    error,
-    refetch
-  } = useQuery(GET_TOP_LASTEST_ARTICLES, {
-    variables: {
-      category: {},
-      take: LIMIT_RESULTS
+  const { data: articlesData = [], refetch: refetchLastest } = useQuery(
+    GET_TOP_LASTEST_ARTICLES,
+    {
+      variables: {
+        category: {},
+        take: LIMIT_LASTEST_RESULTS
+      }
     }
-  })
+  )
+
+  const { data: searchData = [], refetch: refreshSearch } = useQuery(
+    SEARCH_ARTICLES,
+    {
+      variables: {
+        title: "",
+        take: LIMIT_SEARCH
+      }
+    }
+  )
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -59,15 +71,26 @@ function LandingPage() {
   const handleSelectType = (type: any) => {
     setContentType(type)
 
-    refetch({
+    refetchLastest({
       category:
         type !== CONTENT_TYPES.ALL ? { some: { id: { equals: type } } } : {},
-      take: LIMIT_RESULTS
+      take: LIMIT_LASTEST_RESULTS
     })
   }
 
   const handleSearch = (e: any) => {
-    setInputSearch(e.target.value)
+    const titleSearch = e.target.value
+    setInputSearch(titleSearch)
+
+    refreshSearch({
+      title: titleSearch,
+      take: LIMIT_SEARCH
+    })
+    // console.log("titleSearch", titleSearch)
+  }
+
+  const handleClearSearch = () => {
+    setInputSearch("")
   }
 
   const handleChangeEmail = (e: any) => {
@@ -148,7 +171,9 @@ function LandingPage() {
           <LastestPost
             inputSearch={inputSearch}
             handleSearch={handleSearch}
+            handleClearSearch={handleClearSearch}
             articles={formatData}
+            resultSearched={searchData?.articles}
           />
 
           {renderSubBanner()}

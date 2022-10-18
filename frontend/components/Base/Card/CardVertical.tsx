@@ -4,7 +4,8 @@ import Link from "next/link"
 import {
   defaultAuthor,
   defaultAvatar,
-  MAPPING_CONTENT_TYPE_TEXT
+  MAPPING_CONTENT_TYPE_TEXT,
+  URLS
 } from "../../../utils/constants"
 import { getContentTypeColor } from "../../../utils/getContentTypeColor"
 import styles from "./card.module.scss"
@@ -18,7 +19,7 @@ const CardVertical = (props: CardVerticalProps) => {
   const { hideDetail = false, insideBlogPage = false, cardData } = props
 
   return (
-    <Link href={`/articles/${cardData?.id}`}>
+    <Link href={`${URLS.DETAILS_ARTICLE}/${cardData?.id}`}>
       <div
         className={clsx(
           "bg-white w-full rounded-[20px] p-5 flex flex-col cursor-pointer",

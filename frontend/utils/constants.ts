@@ -55,7 +55,7 @@ export const MAPPING_CONTENT_TYPE_TEXT = {
 }
 
 export const URLS = {
-  DETAILS_ARTICLE: "/details-article"
+  DETAILS_ARTICLE: "/articles"
 }
 
 export type SocialItemTypes = {
@@ -167,4 +167,5 @@ export const socialShare = [
   { icon: iconLink, link: "" }
 ]
 
-export const EMAIL_PATTERN  = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
+export const EMAIL_PATTERN =
+  /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/

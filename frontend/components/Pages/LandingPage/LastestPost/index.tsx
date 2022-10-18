@@ -3,9 +3,66 @@ import Image from "next/image"
 import { CardActive, CardVertical } from "../../../Base/Card"
 
 import ButtonLink from "../../../Base/ButtonLink"
+import iconClose from "/public/images/icon-close-gray.svg"
+import iconSearch from "/public/images/icon-search.svg"
+import Link from "next/link"
+import { URLS } from "../../../../utils/constants"
 
 const LastestPost = (props: any) => {
-  const { inputSearch, handleSearch, articles } = props
+  const {
+    inputSearch,
+    handleSearch,
+    handleClearSearch,
+    resultSearched,
+    articles
+  } = props
+
+  console.log("resultSearched :>> ", resultSearched)
+  const renderSearchBox = () => {
+    return (
+      <div
+        className={clsx(
+          "flex px-5 py-[14px] bg-white w-full relative shadow-lg shadow-[#00000014]",
+          inputSearch ? "rounded-t-lg" : "rounded-lg",
+          "xs:max-w-xs"
+        )}
+      >
+        <div className="flex items-baseline w-full">
+          <input
+            type="text"
+            placeholder="Search article"
+            className="outline-none flex-1 mr-2"
+            value={inputSearch}
+            onChange={handleSearch}
+          />
+          {inputSearch && (
+            <div className="h-4 w-4 relative mr-2" onClick={handleClearSearch}>
+              <Image className="cursor-pointer" src={iconClose} alt="" />
+            </div>
+          )}
+          <Image src={iconSearch} width={16} height={16} alt="" />
+        </div>
+        {inputSearch && (
+          <ul className="absolute z-10 top-full left-0 px-5 pb-3 bg-white w-full shadow-lg shadow-[#00000014] rounded-b-lg">
+            {resultSearched?.length ? (
+              resultSearched.map((item: any) => (
+                <li
+                  key={item.id}
+                  className="py-2 text-base cursor-pointer hover:text-birdRed"
+                >
+                  <Link href={`${URLS.DETAILS_ARTICLE}/${item.id}`}>
+                    {item.title}
+                  </Link>
+                </li>
+              ))
+            ) : (
+              <li className="py-2 text-base">Not found ...</li>
+            )}
+          </ul>
+        )}
+      </div>
+    )
+  }
 
   return (
     <>
@@ -24,27 +81,7 @@ const LastestPost = (props: any) => {
         >
           Latest Post
         </span>
-        <div
-          className={clsx(
-            "flex items-center rounded-lg px-5 h-[52px] bg-white w-full",
-            "xs:max-w-xs"
-          )}
-        >
-          <input
-            type="text"
-            placeholder="Search article"
-            className="outline-none w-full"
-            value={inputSearch}
-            onChange={handleSearch}
-          />
-          <Image
-            className="cursor-pointer"
-            src="/images/icon-search.svg"
-            width={24}
-            height={24}
-            alt=""
-          />
-        </div>
+        {renderSearchBox()}
       </div>
 
       <div className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}>
