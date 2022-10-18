@@ -15,6 +15,11 @@ import iconTwitter from "/public/images/icon-twitter.png"
 import styles from "./detailsArticlePage.module.scss"
 import { useEffect, useRef, useState } from "react"
 import { formatOutline } from "../../../utils/ckeditor"
+import { CardVertical } from "../../Base/Card"
+import { GET_RELATED_ARTICLES } from "../../../graphql/article"
+import { useQuery } from "@apollo/client"
+import { formatCardData } from "../../../utils/format"
+import { useRouter } from "next/router"
 
 const socials = [
   { icon: iconTele, link: "" },
@@ -51,6 +56,18 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
   })
   const contentRef = useRef<HTMLHeadingElement>(null)
   const headingTags = ["H2", "H3", "H4"]
+  const router = useRouter()
+  const { id } = router.query
+
+  const { data: relatedData = [] } = useQuery(GET_RELATED_ARTICLES, {
+    variables: {
+      id: id,
+      category: {
+        some: { id: { in: articleDetail.category.map((cat: any) => cat.id) } }
+      },
+      take: 3
+    }
+  })
 
   const fakeTypes = () => {
     switch (articleDetail?.id) {
@@ -109,7 +126,6 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
       behavior: "smooth",
       block: "start"
     })
-    // window.scrollBy(0, -50)
   }
 
   const handleMatchOutlineWithScroll = () => {
@@ -245,7 +261,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
           />
         </div>
 
-        {/* <div className="mt-16">
+        <div className="mt-16">
           <h5
             className={clsx(
               "text-3xl font-birdMedium font-semibold",
@@ -256,17 +272,15 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
           </h5>
           <div
             className={clsx(
-              "flex flex-col items-center gap-5 mt-3",
+              "flex flex-col items-start gap-5 mt-3",
               "xs:flex-row xs:mt-5"
             )}
           >
-            {Array(3)
-              .fill(1)
-              .map((item, index) => (
-                <CardVertical key={index} />
-              ))}
+            {formatCardData(relatedData).map((item: any) => (
+              <CardVertical key={item.id} cardData={item} />
+            ))}
           </div>
-        </div> */}
+        </div>
       </div>
     </div>
   )

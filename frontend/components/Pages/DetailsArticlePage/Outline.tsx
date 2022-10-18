@@ -53,7 +53,7 @@ const Outline = (props: OutlineProps) => {
           </div>
         ))}
       </div>
-      {/* <div className="mt-5 text-white">
+      <div className="mt-5 text-white">
         <span className="font-semibold text-2xl block">
           Subscribe to receive our latest blog
         </span>
@@ -77,7 +77,7 @@ const Outline = (props: OutlineProps) => {
         >
           Subscribe Now
         </div>
-      </div> */}
+      </div>
     </div>
   )
 }

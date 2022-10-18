@@ -55,6 +55,10 @@ export async function getStaticProps({ params }: { params: { id: string } }) {
             hashtags
             content
             references
+            category {
+              id
+              name
+            }
           }
         }
       `,

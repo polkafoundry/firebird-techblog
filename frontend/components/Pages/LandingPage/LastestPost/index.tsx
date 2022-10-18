@@ -17,7 +17,6 @@ const LastestPost = (props: any) => {
     articles
   } = props
 
-  console.log("resultSearched :>> ", resultSearched)
   const renderSearchBox = () => {
     return (
       <div

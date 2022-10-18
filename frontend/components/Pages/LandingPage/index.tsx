@@ -86,7 +86,6 @@ function LandingPage() {
       title: titleSearch,
       take: LIMIT_SEARCH
     })
-    // console.log("titleSearch", titleSearch)
   }
 
   const handleClearSearch = () => {
