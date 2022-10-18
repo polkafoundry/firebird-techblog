@@ -188,11 +188,11 @@ function LandingPage() {
 
           {renderSubBanner()}
 
-          <ExclusiveContent
+          {/* <ExclusiveContent
             inputEmail={inputEmail}
             handleChangeEmail={handleChangeEmail}
             handleSubscribe={handleSubscribe}
-          />
+          /> */}
         </div>
       </div>
 

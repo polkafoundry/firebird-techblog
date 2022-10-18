@@ -4,7 +4,8 @@ import Link from "next/link"
 import {
   CONTENT_TYPES,
   defaultAuthor,
-  defaultAvatar
+  defaultAvatar,
+  EMAIL_PATTERN
 } from "../../../utils/constants"
 import CardType from "../../Base/Card/CardType"
 import Outline from "./Outline"
@@ -16,10 +17,14 @@ import styles from "./detailsArticlePage.module.scss"
 import { useEffect, useRef, useState } from "react"
 import { formatOutline } from "../../../utils/ckeditor"
 import { CardVertical } from "../../Base/Card"
-import { GET_RELATED_ARTICLES } from "../../../graphql/article"
-import { useQuery } from "@apollo/client"
+import {
+  CREATE_SUBSCRIBE,
+  GET_RELATED_ARTICLES
+} from "../../../graphql/article"
+import { useMutation, useQuery } from "@apollo/client"
 import { formatCardData } from "../../../utils/format"
 import { useRouter } from "next/router"
+import { toast } from "react-toastify"
 
 const socials = [
   { icon: iconTele, link: "" },
@@ -54,6 +59,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     isSubHeadingActive: false,
     mainHeadingIndex: 0
   })
+  const [inputEmail, setInputEmail] = useState<string>("")
   const contentRef = useRef<HTMLHeadingElement>(null)
   const headingTags = ["H2", "H3", "H4"]
   const router = useRouter()
@@ -69,21 +75,21 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     }
   })
 
-  const fakeTypes = () => {
-    switch (articleDetail?.id) {
-      case "2":
-        return [CONTENT_TYPES.TECHNOLOGY]
-      case "3":
-        return [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM]
-      case "4":
-        return [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.TECHNOLOGY]
-      case "5":
-        return [CONTENT_TYPES.ANALYTICS, CONTENT_TYPES.ECOSYSTEM]
-
-      default:
-        return [CONTENT_TYPES.TECHNOLOGY]
+  const [createSubscribe, { loading: loadingCreateSubscribe }] = useMutation(
+    CREATE_SUBSCRIBE,
+    {
+      onError: (err) => {
+        toast.error(err.message)
+        console.log("err :>> ", err)
+      },
+      onCompleted: () => {
+        toast.success(
+          "You have successfully subcribed to receivie Bird nest's latest blogs."
+        )
+        setInputEmail("")
+      }
     }
-  }
+  )
 
   useEffect(() => {
     const loadingOutline = () => {
@@ -165,6 +171,21 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
     return { isSubHeadingActive: false, mainHeadingIndex: 0 }
   }
 
+  const handleChangeEmail = (e: any) => {
+    const input = e.target.value
+    if (input.length >= 60) return
+
+    setInputEmail(e.target.value)
+  }
+
+  const handleSubscribe = () => {
+    if (!EMAIL_PATTERN.test(inputEmail)) {
+      toast.error("Invalid email address")
+    } else {
+      createSubscribe({ variables: { email: inputEmail } })
+    }
+  }
+
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
       <div
@@ -181,7 +202,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
           )}
         >
           <div className={clsx(styles.content, "flex-1")}>
-            <CardType cardTypes={articleDetail?.types || fakeTypes()} />
+            <CardType cardTypes={articleDetail?.types} />
             <h1
               className={clsx(
                 "text-3xl font-birdMedium font-semibold mt-3",
@@ -240,6 +261,15 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
                 dangerouslySetInnerHTML={{ __html: articleDetail.content }}
                 className="flex flex-col gap-3"
               ></div>
+              {articleDetail.hashtags && (
+                <ul className="flex flex-wrap text-birdBlue gap-4 mt-5 xs:mt-8">
+                  {articleDetail.hashtags.split(/\s+/).map((item: any) => (
+                    <li key={item} className="text-16px font-semibold">
+                      {item}
+                    </li>
+                  ))}
+                </ul>
+              )}
               {articleDetail.references && (
                 <div className="mt-[60px] flex flex-col">
                   <span className="text-3xl font-semibold">References</span>
@@ -258,6 +288,10 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
             headings={headings}
             headingActive={headingActive}
             handleClick={scrollToView}
+            inputEmail={inputEmail}
+            handleChangeEmail={handleChangeEmail}
+            handleSubscribe={handleSubscribe}
+            loading={loadingCreateSubscribe}
           />
         </div>
 

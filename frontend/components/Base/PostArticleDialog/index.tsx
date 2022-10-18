@@ -74,14 +74,14 @@ const PostArticleDialog = (props: DialogTypes) => {
     const fieldValue = e.target.value
 
     if (fieldName === INPUT_FIELDS.NAME) {
-      if (fieldValue.length > 60 || !LETTER_ONLY_PATTERN.test(fieldValue))
+      if (fieldValue.length >= 60 || !LETTER_ONLY_PATTERN.test(fieldValue))
         return
     }
     if (fieldName === INPUT_FIELDS.EMAIL) {
-      if (fieldValue.length > 60) return
+      if (fieldValue.length >= 60) return
     }
     if (fieldName === INPUT_FIELDS.TITLE) {
-      if (fieldValue.length > 160 || !LETTER_ONLY_PATTERN.test(fieldValue))
+      if (fieldValue.length >= 160 || !LETTER_ONLY_PATTERN.test(fieldValue))
         return
     }
 

@@ -1,14 +1,27 @@
 import clsx from "clsx"
 import React from "react"
+import Spinner from "../../Base/Spinner"
 
 type OutlineProps = {
   headings: any[]
   handleClick: any
   headingActive?: any
+  inputEmail: any
+  handleChangeEmail: (data: any) => void
+  handleSubscribe: (data: any) => void
+  loading: boolean
 }
 
 const Outline = (props: OutlineProps) => {
-  const { headings, handleClick, headingActive } = props
+  const {
+    headings,
+    handleClick,
+    headingActive,
+    inputEmail,
+    handleChangeEmail,
+    handleSubscribe,
+    loading
+  } = props
   return (
     <div
       className={clsx(
@@ -66,16 +79,16 @@ const Outline = (props: OutlineProps) => {
             type="text"
             className="w-full outline-none text-black"
             placeholder="Your email address"
-            // value={inputEmail}
-            // onChange={handleChangeEmail}
+            value={inputEmail}
+            onChange={handleChangeEmail}
           />
         </div>
 
         <div
           className="flex cursor-pointer h-[52px] mt-3 font-semibold bg-main rounded-lg justify-center items-center tracking-wider duration-500 hover:tracking-widest"
-          // onClick={handleSubscribe}
+          onClick={handleSubscribe}
         >
-          Subscribe Now
+          {loading ? <Spinner /> : "Subscribe Now"}
         </div>
       </div>
     </div>

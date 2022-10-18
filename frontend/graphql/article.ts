@@ -175,3 +175,10 @@ export const CREATE_POST = gql`
     }
   }
 `
+export const CREATE_SUBSCRIBE = gql`
+  mutation createSubscribe($email: String!) {
+    createSubscribe(data: { email: $email }) {
+      id
+    }
+  }
+`
