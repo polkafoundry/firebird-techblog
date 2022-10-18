@@ -7,10 +7,11 @@ type DropDownProps = {
   items?: any[]
   label?: any
   selectedItem?: any
+  onChange: (data: any) => void
 }
 
 const DropDown = (props: DropDownProps) => {
-  const { items = [], label, selectedItem } = props
+  const { items = [], label, selectedItem, onChange } = props
   return (
     <Menu as="div" className="relative inline-block text-left">
       <div>
@@ -36,23 +37,27 @@ const DropDown = (props: DropDownProps) => {
         leaveTo="transform opacity-0 scale-95"
       >
         <Menu.Items className="absolute right-0 left-0 z-10 mt-2 origin-top-right rounded-xl bg-white">
-          <div className="py-1">
-            {items.map((item) => (
-              <Menu.Item key={item.value}>
-                {({ active }) => (
-                  <a
-                    href="#"
-                    className={clsx(
-                      active ? "bg-gray-100 text-gray-900" : "text-gray-700",
-                      "block px-4 py-2 text-sm"
-                    )}
-                  >
-                    {item.label}
-                  </a>
-                )}
-              </Menu.Item>
-            ))}
-          </div>
+          <ul className="py-1">
+            {items
+              .filter((item) => item.value !== selectedItem?.value)
+              .map((item) => (
+                <Menu.Item key={item.value}>
+                  {({ active }) => (
+                    <li
+                      className={clsx(
+                        active ? "bg-gray-100 text-gray-900" : "text-gray-700",
+                        "block px-4 py-2 text-sm cursor-pointer hover:text-birdRed"
+                      )}
+                      onClick={() => {
+                        onChange(item.value)
+                      }}
+                    >
+                      {item.label}
+                    </li>
+                  )}
+                </Menu.Item>
+              ))}
+          </ul>
         </Menu.Items>
       </Transition>
     </Menu>

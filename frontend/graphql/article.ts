@@ -49,5 +49,12 @@ export const GET_TOP_LASTEST_ARTICLES = gql`
       content
       created_at
     }
+    count: articlesCount(
+      where: {
+        is_display: { equals: 1 }
+        category: $category
+        created_at: $created_at
+      }
+    )
   }
 `

@@ -39,8 +39,6 @@ const ArticlesPage = () => {
     }
   )
 
-  console.log("articlesData :>> ", articlesData)
-
   const handleSelectCategory = (value: any) => {
     setFilter((prevFilter: any) => ({
       ...prevFilter,
@@ -63,8 +61,7 @@ const ArticlesPage = () => {
       page: 1
     }))
     const endOfMonth = moment(value).endOf("month")
-    console.log("endOfMonth.toString() :>> ", value.toString())
-    console.log("endOfMonth.toString() :>> ", endOfMonth.toString())
+
     refetch({
       category:
         filter.category !== CONTENT_TYPES.ALL
@@ -95,9 +92,7 @@ const ArticlesPage = () => {
     })
   }
 
-  useEffect(() => {
-    console.log("filter :>> ", filter)
-  }, [filter])
+  console.log("articlesData", articlesData)
 
   const formatData = articlesData.articles
     ? articlesData.articles.map((article: any) => ({
@@ -138,8 +133,22 @@ const ArticlesPage = () => {
           )}
         >
           <div className={clsx("grid grid-cols-2 gap-3", "sm:hidden")}>
-            <DropDown items={contentTypes} label="Category" />
-            <DropDown items={archives} label="Archived" />
+            <DropDown
+              items={contentTypes}
+              selectedItem={contentTypes.find(
+                (item) => item.value === filter.category
+              )}
+              label="Category"
+              onChange={handleSelectCategory}
+            />
+            <DropDown
+              items={archives}
+              selectedItem={archives.find(
+                (item) => item.value === filter.archive
+              )}
+              label="Archived"
+              onChange={handleSelectArchive}
+            />
           </div>
 
           <div
@@ -198,7 +207,7 @@ const ArticlesPage = () => {
             <Pagination
               className="justify-center mt-10"
               currentPage={filter.page}
-              totalCount={105}
+              totalCount={articlesData?.count}
               pageSize={PAGE_SIZE}
               onPageChange={handleChangePage}
             />
