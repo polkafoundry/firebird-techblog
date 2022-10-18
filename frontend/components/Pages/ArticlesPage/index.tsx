@@ -92,8 +92,6 @@ const ArticlesPage = () => {
     })
   }
 
-  console.log("articlesData", articlesData)
-
   const formatData = articlesData.articles
     ? articlesData.articles.map((article: any) => ({
         id: article.id,

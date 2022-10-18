@@ -8,17 +8,7 @@ import CardType from "./CardType"
 import imgFake from "/public/images/default-thumbnail.png"
 
 type CardActiveProps = {
-  cardDetail?: CardDetailTypes
-}
-
-type CardDetailTypes = {
-  author_name: string
-  author_image: string
-  author_email: string
-  title: string
-  detail: string
-  categories: any
-  content: string
+  cardDetail?: any
 }
 
 const CardThumbnail = (props: CardActiveProps) => {
