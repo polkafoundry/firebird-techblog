@@ -47,17 +47,35 @@ export const lists = {
       },
       item: {
         create: ({ session, context, listKey, inputData, operation }) => {
-          if (inputData.title) inputData.alias = inputData.title.replace(/[^\w\s]/gi, '').trim().replace(/ +/g, '-').toLowerCase()
-          inputData.created_at = new Date()
           inputData.is_admin = !!session?.data
           inputData.status = !!session?.data ? Const.ARTICLE_STATUS.APPROVED : Const.ARTICLE_STATUS.PENDING
           if (session?.data) inputData.author_email = session.data.email
           return true
-        },
-        update: ({ session, context, listKey, inputData, operation }) => {
-          if (inputData.title) inputData.alias = inputData.title.replace(/[^\w\s]/gi, '').trim().replace(/ +/g, '-').toLowerCase()
-          return true
         }
+      }
+    },
+    hooks: {
+      validateInput: async ({ context, resolvedData, addValidationError }) => {
+        const { title } = resolvedData;
+        if (title) {
+          const alias = title.replace(/[^\w\s]/gi, '').trim().replace(/ +/g, '-').toLowerCase()
+          const article = await context.query.Article.findOne({
+            where: { alias },
+            query: 'id title'
+          })
+          resolvedData.alias = alias
+          // We call addValidationError to indicate an invalid value.
+          article && addValidationError('This title already exists');
+        }
+      },
+      resolveInput: async ({ context, operation, resolvedData, item }) => {
+        if (operation === 'create') {
+          resolvedData = {
+            ...resolvedData,
+            created_at: new Date()
+          }
+        }
+        return resolvedData
       }
     },
     fields: {
