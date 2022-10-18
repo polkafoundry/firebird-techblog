@@ -1,9 +1,8 @@
 import { useQuery } from "@apollo/client"
 import clsx from "clsx"
-import Image from "next/image"
-import imgSubBanner from "public/images/befitter-banner.png"
 import { useEffect, useState } from "react"
 import {
+  GET_BANNER,
   GET_TOP_LASTEST_ARTICLES,
   SEARCH_ARTICLES
 } from "../../../graphql/article"
@@ -56,6 +55,8 @@ function LandingPage() {
       }
     }
   )
+
+  const { data: bannerData = [] } = useQuery(GET_BANNER)
 
   useEffect(() => {
     const timer = setTimeout(() => {
@@ -118,9 +119,19 @@ function LandingPage() {
   //#region RENDER
 
   const renderSubBanner = () => {
+    if (!bannerData?.aMABanners?.length) return null
     return (
       <div className={clsx("relative w-full mt-10 cursor-pointer", "xs:mt-20")}>
-        <Image src={imgSubBanner} layout="responsive" alt="" />
+        <picture>
+          <img
+            src={bannerData.aMABanners[0].banner}
+            alt=""
+            style={{
+              objectFit: "cover",
+              borderRadius: 12
+            }}
+          />
+        </picture>
       </div>
     )
   }
