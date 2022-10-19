@@ -55,8 +55,8 @@ const WriterPage = () => {
               <CardWriter cardData={articles[0]} />
             </div>
             <div className="flex flex-col justify-between gap-5 md:w-[260px] 2md:w-[310px] xl:w-[330px] main:w-[360px]">
-              <CardVertical hideDetail cardData={articles[1]} />
-              <CardVertical hideDetail cardData={articles[2]} />
+              <CardVertical hideDetail cardData={articles[1]} hideAuthorImg />
+              <CardVertical hideDetail cardData={articles[2]} hideAuthorImg />
             </div>
           </div>
 

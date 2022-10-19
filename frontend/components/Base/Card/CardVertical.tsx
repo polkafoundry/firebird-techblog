@@ -90,10 +90,10 @@ const CardVertical = (props: CardVerticalProps) => {
         <div
           className={clsx(
             "mt-auto flex gap-2",
-            hideAuthorImg ? "pt-5 xs:pt-3 md:pt-5" : "pt-2"
+            !hideAuthorImg ? "pt-5 xs:pt-3 md:pt-5" : "pt-2"
           )}
         >
-          {hideAuthorImg && (
+          {!hideAuthorImg && (
             <Image
               src={cardData?.authorAvatar || defaultAvatar}
               width={44}
@@ -105,7 +105,7 @@ const CardVertical = (props: CardVerticalProps) => {
           <div
             className={clsx(
               "flex",
-              hideAuthorImg ? "flex-col gap-1" : "flex-row items-center gap-2"
+              !hideAuthorImg ? "flex-col gap-1" : "flex-row items-center gap-2"
             )}
           >
             <span className="text-sm font-semibold">
