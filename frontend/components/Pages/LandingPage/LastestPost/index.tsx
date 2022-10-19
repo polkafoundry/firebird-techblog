@@ -14,7 +14,9 @@ const LastestPost = (props: any) => {
     handleSearch,
     handleClearSearch,
     resultSearched,
-    articles
+    articles,
+    loading,
+    loadingSearch
   } = props
 
   const renderSearchBox = () => {
@@ -43,18 +45,19 @@ const LastestPost = (props: any) => {
         </div>
         {inputSearch && (
           <ul className="absolute z-10 top-full left-0 px-5 pb-3 bg-white w-full shadow-lg shadow-[#00000014] rounded-b-lg">
-            {resultSearched?.length ? (
-              resultSearched.map((item: any) => (
-                <li
-                  key={item.id}
-                  className="py-2 text-base cursor-pointer hover:text-birdRed"
-                >
-                  <Link href={`${URLS.DETAILS_ARTICLE}/${item.id}`}>
-                    {item.title}
-                  </Link>
-                </li>
-              ))
-            ) : (
+            {resultSearched?.length
+              ? resultSearched.map((item: any) => (
+                  <li
+                    key={item.id}
+                    className="py-2 text-base cursor-pointer hover:text-birdRed"
+                  >
+                    <Link href={`${URLS.DETAILS_ARTICLE}/${item.id}`}>
+                      {item.title}
+                    </Link>
+                  </li>
+                ))
+              : null}
+            {!resultSearched?.length && !loadingSearch && (
               <li className="py-2 text-base">Not found ...</li>
             )}
           </ul>
@@ -82,8 +85,7 @@ const LastestPost = (props: any) => {
         </span>
         {renderSearchBox()}
       </div>
-
-      {articles.length > 0 ? (
+      {articles.length > 0 && (
         <>
           <div
             className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}
@@ -127,9 +129,8 @@ const LastestPost = (props: any) => {
             </ButtonLink>
           </div>
         </>
-      ) : (
-        <CardNotFound />
       )}
+      {articles.length <= 0 && !loading && <CardNotFound />}
     </>
   )
 }

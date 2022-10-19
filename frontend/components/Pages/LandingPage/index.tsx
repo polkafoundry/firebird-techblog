@@ -28,25 +28,27 @@ function LandingPage() {
   const LIMIT_LASTEST_RESULTS = 4
   const LIMIT_SEARCH = 4
 
-  const { data: articlesData = [], refetch: refetchLastest } = useQuery(
-    GET_TOP_LASTEST_ARTICLES,
-    {
-      variables: {
-        category: {},
-        take: LIMIT_LASTEST_RESULTS
-      }
+  const {
+    data: articlesData = [],
+    loading: loadingArticles,
+    refetch: refetchLastest
+  } = useQuery(GET_TOP_LASTEST_ARTICLES, {
+    variables: {
+      category: {},
+      take: LIMIT_LASTEST_RESULTS
     }
-  )
+  })
 
-  const { data: searchData = [], refetch: refreshSearch } = useQuery(
-    SEARCH_ARTICLES,
-    {
-      variables: {
-        title: "",
-        take: LIMIT_SEARCH
-      }
+  const {
+    data: searchData = [],
+    loading: loadingSearch,
+    refetch: refreshSearch
+  } = useQuery(SEARCH_ARTICLES, {
+    variables: {
+      title: "",
+      take: LIMIT_SEARCH
     }
-  )
+  })
 
   const { data: bannerData = [] } = useQuery(GET_BANNER)
 
@@ -165,6 +167,8 @@ function LandingPage() {
             handleClearSearch={handleClearSearch}
             articles={formatData}
             resultSearched={searchData?.articles}
+            loading={loadingArticles}
+            loadingSearch={loadingSearch}
           />
 
           {renderSubBanner()}

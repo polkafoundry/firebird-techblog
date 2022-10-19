@@ -25,12 +25,13 @@ const ArticlesPage = () => {
     page: 1
   })
 
-  const { data: articlesData = [], refetch } = useQuery(
-    GET_TOP_LASTEST_ARTICLES,
-    {
-      variables: { category: {}, take: PAGE_SIZE, skip: 0, created_at: {} }
-    }
-  )
+  const {
+    data: articlesData = [],
+    loading: loadingArticles,
+    refetch
+  } = useQuery(GET_TOP_LASTEST_ARTICLES, {
+    variables: { category: {}, take: PAGE_SIZE, skip: 0, created_at: {} }
+  })
 
   const archives = getAllMonthFromBefore()
 
@@ -207,9 +208,8 @@ const ArticlesPage = () => {
                   onPageChange={handleChangePage}
                 />
               </>
-            ) : (
-              <CardNotFound />
-            )}
+            ) : null}
+            {!formatData.length && !loadingArticles && <CardNotFound />}
           </div>
         </div>
       </div>
