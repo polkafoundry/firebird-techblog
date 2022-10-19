@@ -2,7 +2,7 @@ import moment from "moment"
 import { getMinReadEstimate, getThumbnailDes } from "./ckeditor"
 import { defaultAvatar } from "./constants"
 
-export const formatTime = (time: Date) => moment(time).format("ll")
+export const formatTime = (time: Date) => moment(time).format("MMM Do")
 
 export const formatCardData = (articlesData: any) =>
   articlesData.articles

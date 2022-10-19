@@ -14,9 +14,15 @@ type CardVerticalProps = {
   cardData?: any
   hideDetail?: boolean
   insideBlogPage?: boolean
+  hideAuthorImg?: boolean
 }
 const CardVertical = (props: CardVerticalProps) => {
-  const { hideDetail = false, insideBlogPage = false, cardData } = props
+  const {
+    hideDetail = false,
+    insideBlogPage = false,
+    cardData,
+    hideAuthorImg = false
+  } = props
 
   return (
     <Link href={`${URLS.DETAILS_ARTICLE}/${cardData?.id}`}>
@@ -81,15 +87,27 @@ const CardVertical = (props: CardVerticalProps) => {
             {cardData?.detail}
           </div>
         )}
-        <div className={clsx("pt-5 mt-auto flex gap-2", "xs:pt-3", "md:pt-5")}>
-          <Image
-            src={cardData?.authorAvatar || defaultAvatar}
-            width={44}
-            height={44}
-            alt=""
-            className="rounded-full"
-          />
-          <div className="flex flex-col gap-1">
+        <div
+          className={clsx(
+            "mt-auto flex gap-2",
+            hideAuthorImg ? "pt-5 xs:pt-3 md:pt-5" : "pt-2"
+          )}
+        >
+          {hideAuthorImg && (
+            <Image
+              src={cardData?.authorAvatar || defaultAvatar}
+              width={44}
+              height={44}
+              alt=""
+              className="rounded-full"
+            />
+          )}
+          <div
+            className={clsx(
+              "flex",
+              hideAuthorImg ? "flex-col gap-1" : "flex-row items-center gap-2"
+            )}
+          >
             <span className="text-sm font-semibold">
               {cardData?.authorName || defaultAuthor}
             </span>

@@ -25,7 +25,6 @@ const WriterPage = () => {
   )
 
   const articles = formatCardData(articlesData)
-  // console.log("articlesData", articlesData)
 
   const renderBirdWriter = () => {
     return (
@@ -55,7 +54,7 @@ const WriterPage = () => {
             <div className="flex-1 w-full">
               <CardWriter cardData={articles[0]} />
             </div>
-            <div className="flex flex-col justify-between gap-5 md:w-[290px] lg:w-[300px] xl:w-[320px] main:w-[360px]">
+            <div className="flex flex-col justify-between gap-5 md:w-[260px] 2md:w-[310px] xl:w-[330px] main:w-[360px]">
               <CardVertical hideDetail cardData={articles[1]} />
               <CardVertical hideDetail cardData={articles[2]} />
             </div>
@@ -206,6 +205,7 @@ const WriterPage = () => {
         className={clsx(
           "w-full max-w-[1440px] mx-auto px-5 pt-5 pb-10",
           "xs:px-10 xs:pb-20",
+          "md:px-[60px]",
           "lg:px-[160px]"
         )}
       >

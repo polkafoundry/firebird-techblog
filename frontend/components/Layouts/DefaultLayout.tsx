@@ -10,9 +10,10 @@ type LayoutProps = {
   title?: string
   image?: string
   description?: string
+  isWriterPage?: boolean
 }
 const DefaultLayout = (props: LayoutProps) => {
-  const { children, description, image, title } = props
+  const { children, description, image, title, isWriterPage } = props
   const {
     description: defaultDescription,
     image: defaultImage,
@@ -44,7 +45,7 @@ const DefaultLayout = (props: LayoutProps) => {
         <meta name="twitter:image" content={image || defaultImage} />
       </Head>
 
-      <HeaderDefaultLayout />
+      <HeaderDefaultLayout isWriterPage />
       <MainDefaultLayout>{children}</MainDefaultLayout>
       <FooterDefaultLayout />
     </>

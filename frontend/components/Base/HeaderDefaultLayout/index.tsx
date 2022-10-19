@@ -14,7 +14,8 @@ import iconClose from "/public/images/icon-close.svg"
 import iconMenu from "/public/images/icon-menu-black.svg"
 import logo from "/public/images/logo-text.svg"
 
-const HeaderDefaultLayout = () => {
+const HeaderDefaultLayout = (props: any) => {
+  const { isWriterPage } = props
   const { asPath } = useRouter()
   const [open, setOpen] = useState<boolean>(false)
 
@@ -71,8 +72,8 @@ const HeaderDefaultLayout = () => {
       <nav
         className={clsx(
           "absolute -translate-x-1/2 left-1/2 h-20 w-full flex items-center justify-between max-w-screen-main px-[120px] text-black overflow-hidden",
-          "md:px-[120px]",
-          "xs:px-[60px]",
+          isWriterPage ? "lg:px-[120px]" : "md:px-[120px]",
+          isWriterPage ? "xs:px-[50px]" : "xs:px-[60px]",
           "pl-5 pr-6"
         )}
       >

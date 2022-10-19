@@ -4,7 +4,7 @@ import WriterPage from "../../components/Pages/WriterPage"
 
 const Writer = () => {
   return (
-    <DefaultLayout title="The Firebird Blog">
+    <DefaultLayout title="The Firebird Blog" isWriterPage>
       <WriterPage />
     </DefaultLayout>
   )
