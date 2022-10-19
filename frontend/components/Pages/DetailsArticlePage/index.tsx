@@ -26,6 +26,7 @@ import { useMutation, useQuery } from "@apollo/client"
 import { formatCardData } from "../../../utils/format"
 import { useRouter } from "next/router"
 import { toast } from "react-toastify"
+import { FacebookShareButton } from "react-share"
 
 // const socials = [
 //   { icon: iconTele, link: "" },
@@ -186,7 +187,11 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
       createSubscribe({ variables: { email: inputEmail } })
     }
   }
-  console.log("articleDetail?.types :>> ", articleDetail)
+
+  const handleCopyLink = () => {
+    navigator.clipboard.writeText(window.location.href)
+    toast.success("Copy link successfully!")
+  }
 
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
@@ -245,17 +250,26 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
                 <span className="text-xs font-bold text-birdGray uppercase tracking-wider">
                   Share
                 </span>
-                {socialShare.map((item, index) => (
-                  <Link href={item.link} key={index}>
-                    <div
-                      className={clsx(
-                        "h-8 w-8 flex items-center justify-center rounded-full cursor-pointer",
-                        index === 2 && "bg-birdRed"
-                      )}
-                    >
-                      <Image src={item.icon} alt="" />
-                    </div>
-                  </Link>
+                {socialShare.map((item: any, index) => (
+                  <div
+                    key={index}
+                    className={clsx(
+                      "h-8 w-8 flex items-center justify-center rounded-full cursor-pointer",
+                      index === 2 && "bg-birdRed"
+                    )}
+                  >
+                    {index !== 3 ? (
+                      <item.component
+                        url={window.location.href}
+                        quote="testquote"
+                        className="flex"
+                      >
+                        <Image src={item.icon} alt="" />
+                      </item.component>
+                    ) : (
+                      <Image src={item.icon} alt="" onClick={handleCopyLink} />
+                    )}
+                  </div>
                 ))}
               </div>
             </div>

@@ -1,3 +1,8 @@
+import {
+  FacebookShareButton,
+  TelegramShareButton,
+  TwitterShareButton
+} from "react-share"
 import { HTMLAttributeAnchorTarget } from "react"
 
 import iconAnnouncement from "/public/images/socials/announcement.svg"
@@ -161,9 +166,9 @@ export enum ModalPostTypes {
 }
 
 export const socialShare = [
-  { icon: iconTeleBlack, link: "" },
-  { icon: iconTwitterBlack, link: "" },
-  { icon: iconFb, link: "" },
+  { icon: iconTeleBlack, link: "", component: TelegramShareButton },
+  { icon: iconTwitterBlack, link: "", component: TwitterShareButton },
+  { icon: iconFb, link: "", component: FacebookShareButton },
   { icon: iconLink, link: "" }
 ]
 

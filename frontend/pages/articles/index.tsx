@@ -23,8 +23,6 @@ export async function getStaticProps() {
   }
 }
 const Articles = () => {
-  // const { response } = useFetch(``)
-
   useEffect(() => {
     const getData = async () => {
       const res = await client.query({
@@ -37,7 +35,6 @@ const Articles = () => {
           }
         `
       })
-      console.log(res)
     }
     getData()
   }, [])

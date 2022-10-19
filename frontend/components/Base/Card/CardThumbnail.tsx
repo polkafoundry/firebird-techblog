@@ -1,6 +1,7 @@
 import clsx from "clsx"
 import moment from "moment"
 import Image from "next/image"
+import { getThumbnailDes } from "../../../utils/ckeditor"
 import { defaultAuthor } from "../../../utils/constants"
 import AuthorImage from "./AuthorImage"
 import styles from "./card.module.scss"
@@ -13,11 +14,12 @@ type CardActiveProps = {
 
 const CardThumbnail = (props: CardActiveProps) => {
   const { cardDetail } = props
+  console.log("cardDetail :>> ", cardDetail)
 
   return (
     <div
       className={clsx(
-        "bg-white w-full rounded-[20px] p-7 flex flex-col cursor-pointer",
+        "bg-white w-full rounded-[20px] p-7 flex flex-col",
         "sm:flex-row sm:py-5 sm:px-4",
         "md:p-7"
       )}
@@ -49,9 +51,7 @@ const CardThumbnail = (props: CardActiveProps) => {
             "sm:text-sm md:mt-3"
           )}
         >
-          {cardDetail?.detail}
-          {/* {`Firebird has officially been released recently and it promises to open up new opportunities for gaming and metaverse blockchain projects in the future. Why do we say that? In this article, let’s explore the reasons why Firebird is a potential platform for VCs and gaming projects to invest in.`} */}
-          {/* {getThumbnailDes(cardDetail?.content || "")} */}
+          {getThumbnailDes(cardDetail?.content)}
         </div>
         <div className={clsx("mt-2 flex gap-2", "sm:mt-auto")}>
           <AuthorImage image={cardDetail?.author_image} />

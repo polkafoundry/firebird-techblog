@@ -416,16 +416,15 @@ const PostArticleDialog = (props: DialogTypes) => {
                       Share
                     </span>
                     {socialShare.map((item, index) => (
-                      <Link href={item.link} key={index}>
-                        <div
-                          className={clsx(
-                            "h-8 w-8 flex items-center justify-center rounded-full cursor-pointer",
-                            index === 2 && "bg-birdRed"
-                          )}
-                        >
-                          <Image src={item.icon} alt="" />
-                        </div>
-                      </Link>
+                      <div
+                        key={index}
+                        className={clsx(
+                          "h-8 w-8 flex items-center justify-center rounded-full",
+                          index === 2 && "bg-birdRed"
+                        )}
+                      >
+                        <Image src={item.icon} alt="" />
+                      </div>
                     ))}
                   </div>
                 </div>
@@ -449,7 +448,6 @@ const PostArticleDialog = (props: DialogTypes) => {
             <CardThumbnail cardDetail={formData} />
           </div>
         )}
-        {/* <div className="h-8"></div> */}
       </div>
     )
   }
