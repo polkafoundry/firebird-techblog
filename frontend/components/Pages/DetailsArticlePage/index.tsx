@@ -66,6 +66,10 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
   const headingTags = ["H2", "H3", "H4"]
   const router = useRouter()
   const { id } = router.query
+  const currentHref =
+    typeof window !== "undefined" && window.location.href
+      ? window.location.href
+      : ""
 
   const { data: relatedData = [] } = useQuery(GET_RELATED_ARTICLES, {
     variables: {
@@ -189,7 +193,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
   }
 
   const handleCopyLink = () => {
-    navigator.clipboard.writeText(window.location.href)
+    navigator.clipboard.writeText(currentHref)
     toast.success("Copy link successfully!")
   }
 
@@ -260,8 +264,8 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
                   >
                     {index !== 3 ? (
                       <item.component
-                        url={window.location.href}
-                        quote="testquote"
+                        url={currentHref}
+                        quote={articleDetail?.title}
                         className="flex"
                       >
                         <Image src={item.icon} alt="" />

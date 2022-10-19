@@ -18,3 +18,28 @@ export const formatCardData = (articlesData: any) =>
         timeToRead: getMinReadEstimate(article.content || "")
       }))
     : []
+
+export const getAllMonthFromBefore = () => {
+  const startMonth = 9
+  const startYear = 2022
+  const currentMonth = moment().month()
+  const currentYear = moment().year()
+
+  let result = []
+  // loop each year from start to current
+  // if year inside loop = startYear => start with startMonth, otherwise month 0
+  // if year inside loop = currentYear => start with currentMonth, otherwise month 11
+
+  for (let year = startYear; year <= currentYear; year++) {
+    const startMonthAvailable = year === startYear ? startMonth : 0
+    const endMonthAvailable = year === currentYear ? currentMonth : 11
+    for (let month = startMonthAvailable; month <= endMonthAvailable; month++) {
+      const curMonth = new Date(year, month, 1)
+      result.push({
+        value: curMonth,
+        label: moment(curMonth).format("MMMM YYYY")
+      })
+    }
+  }
+  return result
+}

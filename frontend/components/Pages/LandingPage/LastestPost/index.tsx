@@ -1,12 +1,12 @@
 import clsx from "clsx"
 import Image from "next/image"
 import { CardActive, CardVertical } from "../../../Base/Card"
-
-import ButtonLink from "../../../Base/ButtonLink"
-import iconClose from "/public/images/icon-close-gray.svg"
-import iconSearch from "/public/images/icon-search.svg"
 import Link from "next/link"
 import { URLS } from "../../../../utils/constants"
+import ButtonLink from "../../../Base/ButtonLink"
+import CardNotFound from "../../../Base/Card/NotFound"
+import iconClose from "/public/images/icon-close-gray.svg"
+import iconSearch from "/public/images/icon-search.svg"
 
 const LastestPost = (props: any) => {
   const {
@@ -83,40 +83,53 @@ const LastestPost = (props: any) => {
         {renderSearchBox()}
       </div>
 
-      <div className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}>
-        <CardActive cardData={articles[0]} />
-      </div>
-
-      <div
-        className={clsx(
-          "flex flex-col items-baseline gap-5 mt-5",
-          "xs:flex-row xs:items-stretch xs:mt-[26px] xs:gap-[14px] xs:grid xs:grid-cols-2",
-          "md:mt-5 md:gap-5 md:grid-cols-3 "
-        )}
-      >
-        <div className="flex md:hidden">
-          <CardVertical cardData={articles[0]} />
-        </div>
-        {articles.slice(1).map((item: any, index: number) => (
-          <div className="flex" key={index}>
-            <CardVertical cardData={item} />
+      {articles.length > 0 ? (
+        <>
+          <div
+            className={clsx("hidden w-full mt-3", "md:mt-5 md:flex", "md:mt-3")}
+          >
+            <CardActive cardData={articles[0]} />
           </div>
-        ))}
-      </div>
 
-      <div className={clsx("flex justify-center mt-5", "xs:mt-8", "md:mt-10")}>
-        <ButtonLink className="px-7 gap-3 bg-black text-white" href="articles">
-          <>
-            View more articles
-            <Image
-              src={"/images/icon-open.svg"}
-              width={24}
-              height={24}
-              alt=""
-            />
-          </>
-        </ButtonLink>
-      </div>
+          <div
+            className={clsx(
+              "flex flex-col items-baseline gap-5 mt-5",
+              "xs:flex-row xs:items-stretch xs:mt-[26px] xs:gap-[14px] xs:grid xs:grid-cols-2",
+              "md:mt-5 md:gap-5 md:grid-cols-3 "
+            )}
+          >
+            <div className="flex md:hidden">
+              <CardVertical cardData={articles[0]} />
+            </div>
+            {articles.slice(1).map((item: any, index: number) => (
+              <div className="flex" key={index}>
+                <CardVertical cardData={item} />
+              </div>
+            ))}
+          </div>
+
+          <div
+            className={clsx("flex justify-center mt-5", "xs:mt-8", "md:mt-10")}
+          >
+            <ButtonLink
+              className="px-7 gap-3 bg-black text-white"
+              href="articles"
+            >
+              <>
+                View more articles
+                <Image
+                  src={"/images/icon-open.svg"}
+                  width={24}
+                  height={24}
+                  alt=""
+                />
+              </>
+            </ButtonLink>
+          </div>
+        </>
+      ) : (
+        <CardNotFound />
+      )}
     </>
   )
 }

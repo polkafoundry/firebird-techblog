@@ -1,7 +1,7 @@
 import { useQuery } from "@apollo/client"
 import clsx from "clsx"
 import moment from "moment"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
 import { getMinReadEstimate, getThumbnailDes } from "../../../utils/ckeditor"
 import {
@@ -9,18 +9,11 @@ import {
   CONTENT_TYPES,
   defaultAvatar
 } from "../../../utils/constants"
-import { formatTime } from "../../../utils/format"
+import { formatTime, getAllMonthFromBefore } from "../../../utils/format"
 import { CardVertical } from "../../Base/Card"
+import CardNotFound from "../../Base/Card/NotFound"
 import DropDown from "../../Base/DropDown"
 import Pagination from "../../Base/Pagination"
-
-const archives = [
-  { value: new Date(2022, 7, 1), label: "August 2022" },
-  { value: new Date(2022, 8, 1), label: "September 2022" },
-  { value: new Date(2022, 9, 1), label: "October 2022" },
-  { value: new Date(2022, 10, 1), label: "November 2022" },
-  { value: new Date(2022, 11, 1), label: "December 2022" }
-]
 
 const PAGE_SIZE = 12
 
@@ -38,6 +31,8 @@ const ArticlesPage = () => {
       variables: { category: {}, take: PAGE_SIZE, skip: 0, created_at: {} }
     }
   )
+
+  const archives = getAllMonthFromBefore()
 
   const handleSelectCategory = (value: any) => {
     setFilter((prevFilter: any) => ({
@@ -191,24 +186,30 @@ const ArticlesPage = () => {
           </div>
 
           <div className="flex-1">
-            <div
-              className={clsx(
-                "grid grid-cols-1 gap-5 items-start",
-                "xs:grid-cols-2 xs:items-stretch",
-                "lg:grid-cols-3"
-              )}
-            >
-              {formatData.map((item: any, index: number) => (
-                <CardVertical key={index} cardData={item} insideBlogPage />
-              ))}
-            </div>
-            <Pagination
-              className="justify-center mt-10"
-              currentPage={filter.page}
-              totalCount={articlesData?.count}
-              pageSize={PAGE_SIZE}
-              onPageChange={handleChangePage}
-            />
+            {formatData.length ? (
+              <>
+                <div
+                  className={clsx(
+                    "grid grid-cols-1 gap-5 items-start",
+                    "xs:grid-cols-2 xs:items-stretch",
+                    "lg:grid-cols-3"
+                  )}
+                >
+                  {formatData.map((item: any, index: number) => (
+                    <CardVertical key={index} cardData={item} insideBlogPage />
+                  ))}
+                </div>
+                <Pagination
+                  className="justify-center mt-10"
+                  currentPage={filter.page}
+                  totalCount={articlesData?.count}
+                  pageSize={PAGE_SIZE}
+                  onPageChange={handleChangePage}
+                />
+              </>
+            ) : (
+              <CardNotFound />
+            )}
           </div>
         </div>
       </div>

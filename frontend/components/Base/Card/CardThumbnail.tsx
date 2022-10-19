@@ -14,7 +14,6 @@ type CardActiveProps = {
 
 const CardThumbnail = (props: CardActiveProps) => {
   const { cardDetail } = props
-  console.log("cardDetail :>> ", cardDetail)
 
   return (
     <div
