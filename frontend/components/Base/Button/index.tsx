@@ -22,9 +22,11 @@ const Button = (props: ButtonProps) => {
       className={clsx(
         buttonStyles.button,
         !disabled && buttonStyles.hoverAnimated,
+        disabled && "pointer-events-none",
         className
       )}
-      onClick={!disabled ? onClick : () => {}}
+      // onClick={!disabled ? onClick : () => {}}
+      onClick={onClick}
     >
       {children}
     </div>

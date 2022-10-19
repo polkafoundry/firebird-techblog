@@ -1,13 +1,14 @@
 import { useQuery } from "@apollo/client"
 import clsx from "clsx"
 import Image from "next/image"
-import React from "react"
+import React, { useState } from "react"
 import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
 import { formatCardData } from "../../../utils/format"
 import Button from "../../Base/Button"
 import ButtonLink from "../../Base/ButtonLink"
 import { CardVertical } from "../../Base/Card"
 import CardWriter from "../../Base/Card/CardWriter"
+import PostArticleDialog from "../../Base/PostArticleDialog"
 
 const WriterPage = () => {
   //#region RENDER
@@ -25,6 +26,15 @@ const WriterPage = () => {
   )
 
   const articles = formatCardData(articlesData)
+
+  const [openModalPost, setOpenModalPost] = useState<boolean>(false)
+
+  const handleOpenPostArticle = () => {
+    setOpenModalPost(true)
+  }
+  const handleClosePostArticle = () => {
+    setOpenModalPost(false)
+  }
 
   const renderBirdWriter = () => {
     return (
@@ -148,7 +158,10 @@ const WriterPage = () => {
               community and get attractive rewards from the Firebird team.
             </span>
             <div className="flex justify-center xs:justify-start">
-              <Button className="mt-5 gap-2 px-7 border-[2.5px] border-black text-16px xs:text-18px xs:mt-3 md:mt-5">
+              <Button
+                className="mt-5 gap-2 px-7 border-[2.5px] border-black text-16px xs:text-18px xs:mt-3 md:mt-5"
+                onClick={handleOpenPostArticle}
+              >
                 <>
                   <span>Post an article</span>
                   <Image
@@ -213,6 +226,10 @@ const WriterPage = () => {
 
         {renderBecomeContributor()}
       </div>
+      <PostArticleDialog
+        handleClose={handleClosePostArticle}
+        open={openModalPost}
+      />
     </div>
   )
 }

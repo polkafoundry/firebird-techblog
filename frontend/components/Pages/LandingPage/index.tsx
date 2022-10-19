@@ -1,6 +1,6 @@
 import { useQuery } from "@apollo/client"
 import clsx from "clsx"
-import { useEffect, useState } from "react"
+import { useState } from "react"
 import {
   GET_BANNER,
   GET_TOP_LASTEST_ARTICLES,
@@ -18,21 +18,13 @@ import FirebirdWriter from "./FirebirdWriter"
 import styles from "./landing.module.scss"
 import LastestPost from "./LastestPost"
 
-type FilterTypes = {
-  search: string
-  type: typeof contentTypes[number]["value"]
-}
-
 function LandingPage() {
   const [contentType, setContentType] = useState<
     typeof contentTypes[number]["value"]
   >(CONTENT_TYPES.ALL)
   const [inputSearch, setInputSearch] = useState<string>("")
   const [inputEmail, setInputEmail] = useState<string>("")
-  const [filter, setFilter] = useState<FilterTypes>({
-    search: "",
-    type: ""
-  })
+
   const LIMIT_LASTEST_RESULTS = 4
   const LIMIT_SEARCH = 4
 
@@ -58,17 +50,6 @@ function LandingPage() {
 
   const { data: bannerData = [] } = useQuery(GET_BANNER)
 
-  useEffect(() => {
-    const timer = setTimeout(() => {
-      setFilter((prevFilter: FilterTypes) => ({
-        ...prevFilter,
-        search: inputSearch.trim(),
-        type: contentType
-      }))
-    }, 400)
-    return () => clearTimeout(timer)
-  }, [inputSearch, contentType])
-
   const handleSelectType = (type: any) => {
     setContentType(type)
 
@@ -84,7 +65,7 @@ function LandingPage() {
     setInputSearch(titleSearch)
 
     refreshSearch({
-      title: titleSearch,
+      title: titleSearch.trim(),
       take: LIMIT_SEARCH
     })
   }
