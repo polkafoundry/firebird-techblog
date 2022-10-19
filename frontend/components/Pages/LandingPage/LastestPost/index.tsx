@@ -89,8 +89,8 @@ const LastestPost = (props: any) => {
 
       <div
         className={clsx(
-          "flex flex-col items-center gap-5 mt-5",
-          "xs:flex-row xs:items-start xs:mt-[26px] xs:gap-[14px] xs:grid xs:grid-cols-2",
+          "flex flex-col items-baseline gap-5 mt-5",
+          "xs:flex-row xs:items-stretch xs:mt-[26px] xs:gap-[14px] xs:grid xs:grid-cols-2",
           "md:mt-5 md:gap-5 md:grid-cols-3 "
         )}
       >

@@ -81,7 +81,7 @@ const CardVertical = (props: CardVerticalProps) => {
             {cardData?.detail}
           </div>
         )}
-        <div className={clsx("mt-5 flex gap-2", "xs:mt-3", "md:mt-5")}>
+        <div className={clsx("pt-5 mt-auto flex gap-2", "xs:pt-3", "md:pt-5")}>
           <Image
             src={cardData?.authorAvatar || defaultAvatar}
             width={44}

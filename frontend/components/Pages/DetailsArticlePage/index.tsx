@@ -307,7 +307,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
           <div
             className={clsx(
               "flex flex-col items-start gap-5 mt-3",
-              "xs:flex-row xs:mt-5"
+              "xs:flex-row xs:mt-5 xs:items-stretch"
             )}
           >
             {formatCardData(relatedData).map((item: any) => (

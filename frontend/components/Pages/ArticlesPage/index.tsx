@@ -194,7 +194,7 @@ const ArticlesPage = () => {
             <div
               className={clsx(
                 "grid grid-cols-1 gap-5 items-start",
-                "xs:grid-cols-2",
+                "xs:grid-cols-2 xs:items-stretch",
                 "lg:grid-cols-3"
               )}
             >
