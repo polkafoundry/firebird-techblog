@@ -152,6 +152,8 @@ const PostArticleDialog = (props: DialogTypes) => {
         ...prevState,
         categories: newCategories
       }))
+    } else {
+      toast.error("You can only select less than two categories!")
     }
   }
 

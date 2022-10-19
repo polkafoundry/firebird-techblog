@@ -5,7 +5,8 @@ import {
   CONTENT_TYPES,
   defaultAuthor,
   defaultAvatar,
-  EMAIL_PATTERN
+  EMAIL_PATTERN,
+  socialShare
 } from "../../../utils/constants"
 import CardType from "../../Base/Card/CardType"
 import Outline from "./Outline"
@@ -26,12 +27,12 @@ import { formatCardData } from "../../../utils/format"
 import { useRouter } from "next/router"
 import { toast } from "react-toastify"
 
-const socials = [
-  { icon: iconTele, link: "" },
-  { icon: iconTwitter, link: "" },
-  { icon: iconFb, link: "" },
-  { icon: iconLink, link: "" }
-]
+// const socials = [
+//   { icon: iconTele, link: "" },
+//   { icon: iconTwitter, link: "" },
+//   { icon: iconFb, link: "" },
+//   { icon: iconLink, link: "" }
+// ]
 
 type DetailArticleProps = {
   articleDetail: any
@@ -185,6 +186,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
       createSubscribe({ variables: { email: inputEmail } })
     }
   }
+  console.log("articleDetail?.types :>> ", articleDetail)
 
   return (
     <div className="flex flex-col w-full pt-20 bg-[#F7F7F8]">
@@ -202,7 +204,9 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
           )}
         >
           <div className={clsx(styles.content, "flex-1")}>
-            <CardType cardTypes={articleDetail?.types} />
+            <CardType
+              cardTypes={articleDetail?.category.map((item: any) => item.id)}
+            />
             <h1
               className={clsx(
                 "text-3xl font-birdMedium font-semibold mt-3",
@@ -237,11 +241,11 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
                   </span>
                 </div>
               </div>
-              {/* <div className="flex items-center gap-2 bg-white rounded-full py-2.5 px-[30px]">
+              <div className="flex items-center gap-2 bg-white rounded-full py-2.5 px-[30px]">
                 <span className="text-xs font-bold text-birdGray uppercase tracking-wider">
                   Share
                 </span>
-                {socials.map((item, index) => (
+                {socialShare.map((item, index) => (
                   <Link href={item.link} key={index}>
                     <div
                       className={clsx(
@@ -253,7 +257,7 @@ const DetailsArticlePage = (props: DetailArticleProps) => {
                     </div>
                   </Link>
                 ))}
-              </div> */}
+              </div>
             </div>
             <div className={clsx("mt-5", "xs:mt-8")}>
               <div
