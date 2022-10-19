@@ -1,6 +1,9 @@
+import { useQuery } from "@apollo/client"
 import clsx from "clsx"
 import Image from "next/image"
 import React from "react"
+import { GET_TOP_LASTEST_ARTICLES } from "../../../graphql/article"
+import { formatCardData } from "../../../utils/format"
 import Button from "../../Base/Button"
 import ButtonLink from "../../Base/ButtonLink"
 import { CardVertical } from "../../Base/Card"
@@ -8,6 +11,21 @@ import CardWriter from "../../Base/Card/CardWriter"
 
 const WriterPage = () => {
   //#region RENDER
+
+  const LIMIT_LASTEST_RESULTS = 6
+
+  const { data: articlesData = [], refetch: refetchLastest } = useQuery(
+    GET_TOP_LASTEST_ARTICLES,
+    {
+      variables: {
+        category: {},
+        take: LIMIT_LASTEST_RESULTS
+      }
+    }
+  )
+
+  const articles = formatCardData(articlesData)
+  // console.log("articlesData", articlesData)
 
   const renderBirdWriter = () => {
     return (
@@ -32,22 +50,28 @@ const WriterPage = () => {
           perspectives.
         </span>
 
-        {/* <div className="flex flex-col gap-5">
+        <div className=" flex-col gap-5 hidden md:flex">
           <div className="flex gap-5 mt-8">
             <div className="flex-1 w-full">
-              <CardWriter />
+              <CardWriter cardData={articles[0]} />
             </div>
-            <div className="flex flex-col gap-5">
-              <CardVertical hideDetail />
-              <CardVertical hideDetail />
+            <div className="flex flex-col justify-between gap-5 md:w-[290px] lg:w-[300px] xl:w-[320px] main:w-[360px]">
+              <CardVertical hideDetail cardData={articles[1]} />
+              <CardVertical hideDetail cardData={articles[2]} />
             </div>
           </div>
 
-          <div className="grid grid-cols-3 gap-5">
-            <CardVertical />
-            <CardVertical />
-            <CardVertical />
+          <div className="flex flex-col m-auto xs:grid xs:grid-cols-2 md:grid-cols-3 gap-5">
+            {articles.slice(3).map((article: any) => (
+              <CardVertical key={article.id} cardData={article} />
+            ))}
           </div>
+        </div>
+
+        <div className="flex flex-col justify-center xs:grid xs:grid-cols-2 md:hidden gap-5 mt-8">
+          {articles.map((article: any) => (
+            <CardVertical key={article.id} cardData={article} />
+          ))}
         </div>
 
         <div className="flex justify-center mt-10">
@@ -65,7 +89,7 @@ const WriterPage = () => {
               />
             </>
           </ButtonLink>
-        </div> */}
+        </div>
       </div>
     )
   }
