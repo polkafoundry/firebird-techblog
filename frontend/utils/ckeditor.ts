@@ -9,28 +9,22 @@ export const formatOutline = (headings: Element[], headingTags: any) => {
     mainTagName === headingTags[0] ? headingTags[1] : headingTags[2]
 
   const headingFormated: any[] = []
-  headings.forEach((heading) => {
+  headings.forEach((heading: any) => {
     if (heading.tagName === mainTagName) {
       headingFormated.push({
-        content: getTextContent(heading),
+        content: heading.innerText,
         subHeadings: [],
         element: heading
       })
     } else if (heading.tagName === subTagName) {
       headingFormated[headingFormated.length - 1].subHeadings.push({
-        content: getTextContent(heading),
+        content: heading.innerText,
         element: heading
       })
     }
   })
 
   return headingFormated
-}
-
-const getTextContent = (currentElement: Element) => {
-  return currentElement.childElementCount
-    ? currentElement.children[0].textContent
-    : currentElement.textContent
 }
 
 export const getThumbnailDes = (htmlString: string) => {
