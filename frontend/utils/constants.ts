@@ -69,6 +69,7 @@ export type SocialItemTypes = {
   label: string
   username: string
   url: string
+  disabled: boolean
 }
 export const socialsData: Array<SocialItemTypes> = [
   {
@@ -76,42 +77,48 @@ export const socialsData: Array<SocialItemTypes> = [
     imgHover: iconTwitterHover,
     label: "Official Twitter",
     url: "https://twitter.com/Firebirdchain",
-    username: "@Firebirdchain"
+    username: "@Firebirdchain",
+    disabled: false
   },
   {
     img: iconGithub,
     imgHover: iconGithubHover,
     label: "Github",
     url: "https://github.com/firebird",
-    username: "@Firebird"
+    username: "@Firebird",
+    disabled: true
   },
   {
     img: iconMedium,
     imgHover: iconMediumHover,
     label: "Medium",
     url: "https://medium.com/firebird",
-    username: "@Firebird"
+    username: "@Firebirdchain",
+    disabled: false
   },
   {
     img: iconReddit,
     imgHover: iconRedditHover,
     label: "Reddit",
     url: "https://www.reddit.com/r/firebird/",
-    username: "r/firebird"
+    username: "r/firebird",
+    disabled: true
   },
   {
     img: iconAnnouncement,
     imgHover: iconAnnouncementHover,
     label: "Annoucement Channel",
     url: "https://t.me/FirebirdANN",
-    username: "@FirebirdANN"
+    username: "@FirebirdANN",
+    disabled: false
   },
   {
     img: iconTelegram,
     imgHover: iconTelegramHover,
     label: "Telegram Group",
     url: "https://t.me/Firebird_en",
-    username: "@Firebird_en"
+    username: "@Firebird_en",
+    disabled: false
   }
 ]
 

@@ -90,7 +90,14 @@ const HeaderLandingLayout = () => {
         <div className={clsx("hidden gap-5", "md:flex")}>
           {headerRoutes.map((item: RouteTypes, index: number) => (
             <Link key={index} href={item.uri}>
-              <a target={item.target}>{item.label}</a>
+              <a
+                target={item.target}
+                className={clsx("", {
+                  "text-main font-semibold": asPath === item.uri
+                })}
+              >
+                {item.label}
+              </a>
             </Link>
           ))}
         </div>

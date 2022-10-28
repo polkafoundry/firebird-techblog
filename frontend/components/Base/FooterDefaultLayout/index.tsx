@@ -69,7 +69,14 @@ const FooterDefaultLayout = () => {
             <div className="flex gap-3 mt-3">
               {socialsData.map((item: SocialItemTypes, index: number) => (
                 <Tippy key={index} content={item.label} placement="bottom">
-                  <a href={item.url} target="_blank" rel="noreferrer">
+                  <a
+                    href={item.url}
+                    target="_blank"
+                    rel="noreferrer"
+                    className={clsx({
+                      "pointer-events-none": item.disabled
+                    })}
+                  >
                     <Image src={item.img} alt="" width={28} height={28} />
                   </a>
                 </Tippy>
