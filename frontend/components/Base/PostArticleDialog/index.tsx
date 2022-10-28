@@ -143,7 +143,7 @@ const PostArticleDialog = (props: DialogTypes) => {
       <form
         action="submit"
         className={clsx(
-          "flex flex-col gap-2 mt-8 h-full px-5",
+          "flex flex-col gap-2 mt-8 h-auto px-5",
           "xs:gap-3 xs:px-10",
           "lg:px-[150px]"
         )}
